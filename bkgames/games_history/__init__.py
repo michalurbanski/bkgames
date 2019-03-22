@@ -1,1 +1,2 @@
 from bkgames.games_history.games_history import GamesHistory
+from bkgames.games_history.games_history_operations import GamesHistoryOperations
