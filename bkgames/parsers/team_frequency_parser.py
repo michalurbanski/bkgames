@@ -3,8 +3,11 @@ import re
 
 class TeamFrequencyParser:
     
-    @staticmethod
-    def Parse(line):
+    def __init__(self, season_start_year):
+        self.season_start_year = season_start_year
+        # TODO: implement using this variable 
+
+    def parse(self, line):
         """
         Expected format is day.month (without year)
         Example: DONE - Nba game 16.10 bos at phi -> bos?
