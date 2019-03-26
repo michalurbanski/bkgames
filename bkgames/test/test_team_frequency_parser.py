@@ -14,7 +14,6 @@ class TestTeamFrequencyParser(unittest.TestCase):
         self.assertTrue(parsing_status)
         self.assertEqual(result["home_team"], "phi")
         self.assertEqual(result["away_team"], "bos")
-        # TODO: to be set somewhere in config for which year application should run
         self.assertEqual(result["date"], datetime(2018, 10, 16))
 
     def test_parse_line_with_standings_returns_teams_and_date_of_the_game(self):
@@ -32,6 +31,3 @@ class TestTeamFrequencyParser(unittest.TestCase):
 
         self.assertFalse(parsing_status)
         self.assertEqual(result["not_parsed"], input)
-
-
-    # TODO: add more examples of lines (like the one with results, and check if it works OK)
