@@ -17,6 +17,9 @@ class TestReader(unittest.TestCase):
             pass
 
     def test_read_lines_from_file_returns_correct_number_of_teams(self):
-        reader = Reader()
-        teams_with_games = reader.Read() #TODO: fix
-        self.assertEqual(4, len(teams_with_games))
+        reader = Reader("input.txt")
+        teams_with_games = reader.read()
+        self.assertEqual(2, len(teams_with_games))
+        
+        first_item = teams_with_games[0]
+        self.assertTrue("bos" in first_item)
