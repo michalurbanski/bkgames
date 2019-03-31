@@ -4,15 +4,40 @@ from datetime import datetime
 
 class TestGamesHistory(unittest.TestCase):
 
-    def test_get_games_frequency_by_team_returns_list_of_teams(self):
+    def test_add_game_results_in_two_teams_having_the_same_game_date(self):
         games_history = GamesHistory()
+        home_team = "bos"
+        away_team = "tor"
+        date = datetime(2018, 10, 13)
+        
+        game_dictionary = self.construct_game_dictionary(home_team, away_team, date)
+        games_history.add_game(**game_dictionary)
         teams_frequency = games_history.get_teams_frequency()
-        self.assertGreater(len(teams_frequency), 0)
+        self.assertEqual(len(teams_frequency), 2)
+
+        first_team_game_date = teams_frequency[home_team]
+        second_team_game_date = teams_frequency[away_team]
+        self.assertEqual(first_team_game_date, second_team_game_date)
+
+    def test_add_game_to_existing_team_should_have_two_game_dates(self):
+        pass # TODO: implement - two teams, then in method for getting team it needs to be read from dictionary if exists
+
+    @staticmethod
+    def construct_game_dictionary(home_team, away_team, date):
+        return {
+                "home_team": home_team,
+                "away_team": away_team,
+                "date" : date
+            }
 
     def test_single_team_frequency_has_expected_information(self):
         games_history = GamesHistory()
+        games_history.add_game("bos", "tor", datetime(2018, 10, 13))
         teams_frequency = games_history.get_teams_frequency()
         
+        # At least one entry exists
+        self.assertGreater(len(teams_frequency), 0, msg = "At least one team must exist")
+
         # Expected properties:
         # - key: Name of the team
         # - value: list of values:
@@ -39,6 +64,7 @@ class TestGamesHistory(unittest.TestCase):
     
     def test_teams_to_watch_next_returns_next_to_watch_as_last_on_the_list(self):
         games_history = GamesHistory()
+        games_history.add_game("bos", "tor", datetime(2018, 10, 13))
         teams_frequency = games_history.get_teams_frequency()
         teams_to_watch = games_history.get_teams_to_watch(teams_frequency)
 
@@ -55,7 +81,6 @@ class TestGamesHistory(unittest.TestCase):
         rank = [item[3] for item in teams_to_watch]
         self.assertEqual(rank, sorted(rank, reverse = True))
 
-        
 
 
     # TODO: probably moved to a different class where operations on collections will be implemented
