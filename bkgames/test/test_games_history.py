@@ -10,7 +10,7 @@ class TestGamesHistory(unittest.TestCase):
         away_team = "tor"
         date = datetime(2018, 10, 13)
         
-        game_dictionary = self.construct_game_dictionary(home_team, away_team, date)
+        game_dictionary = self._construct_game_dictionary(home_team, away_team, date)
         games_history.add_game(**game_dictionary)
         teams_frequency = games_history.get_teams_frequency()
         self.assertEqual(len(teams_frequency), 2)
@@ -20,10 +20,27 @@ class TestGamesHistory(unittest.TestCase):
         self.assertEqual(first_team_game_date, second_team_game_date)
 
     def test_add_game_to_existing_team_should_have_two_game_dates(self):
-        pass # TODO: implement - two teams, then in method for getting team it needs to be read from dictionary if exists
+        # First game
+        games_history = GamesHistory()
+        home_team = "bos"
+        away_team = "tor"
+        date = datetime(2018, 10, 13)
+        game_dictionary = self._construct_game_dictionary(home_team, away_team, date)
+        games_history.add_game(**game_dictionary)
+
+        # Add second game for the home_team
+        away_team = "phx"
+        date = datetime(2018, 10, 15)
+        game_dictionary = self._construct_game_dictionary(home_team, away_team, date)
+        games_history.add_game(**game_dictionary)
+        teams_frequency = games_history.get_teams_frequency()
+        
+        self.assertEqual(len(teams_frequency), 3) # There are 3 teams overall
+        self.assertEqual(len(teams_frequency[home_team]), 2) # home team has two game dates
+
 
     @staticmethod
-    def construct_game_dictionary(home_team, away_team, date):
+    def _construct_game_dictionary(home_team, away_team, date):
         return {
                 "home_team": home_team,
                 "away_team": away_team,

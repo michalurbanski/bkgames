@@ -8,17 +8,32 @@ class GamesHistory:
         self._teams = {}
 
     def add_game(self, home_team, away_team, date):
-        team = TeamModel(home_team)
-        team.add_game(date)
+        team = self._add_game_to_team(home_team, date)
+        team2 = self._add_game_to_team(away_team, date)
 
-        team2 = TeamModel(away_team)
-        team2.add_game(date)
         self._teams[team.team_code] = team
         self._teams[team2.team_code] = team2
+
+    def _add_game_to_team(self, team, date):
+        existing_team = self._teams.get(team, None)
+        if existing_team is None:
+            existing_team = TeamModel(team)
+        
+        existing_team.add_game(date)
+        return existing_team
 
     def get_teams_frequency(self):
         """
         Converts team_model to dictionary that is expected by other logic.
+
+        Returns: dict()
+
+        Example:
+        results = { 
+            "first_team": [datetime(2019, 3, 22), datetime(2019, 5, 5)],
+            "second_team": [datetime(2019, 3, 2)],
+            "third_team": [datetime(2019, 3, 5)]
+        }
         """
         # NOTE: It's possible to use model all the way instead of dictionary - to be considered
         results = {}
@@ -29,15 +44,12 @@ class GamesHistory:
         return results
 
 
-        # results = { 
-        #     "first_team": [datetime(2019, 3, 22), datetime(2019, 5, 5)],
-        #     "second_team": [datetime(2019, 3, 2)],
-        #     "third_team": [datetime(2019, 3, 5)]
-        # }
-        # return results
-
     # TODO: consider where to move this method, like a new WatchStatistics class or so
     def get_teams_to_watch(self, teams_frequency):
+        """
+        Displays teams to watch.
+        Team watched the longest time ago is the last in the collection.
+        """
         if teams_frequency is None:
             raise TypeError
 
