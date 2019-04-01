@@ -4,7 +4,7 @@ from bkgames.games_history import GamesHistory
 from pprint import pprint as pp
 from bkgames.printers import TeamsToWatchPrinter
 
-print("Printing oldest games at the bottom...")
+print("Printing the oldest games at the bottom...")
 
 file_reader = Reader("data.dat")
 file_content = file_reader.read()
