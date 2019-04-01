@@ -2,13 +2,14 @@ from bkgames.reader import Reader
 from bkgames.parsers import TeamFrequencyParser
 from bkgames.games_history import GamesHistory
 from pprint import pprint as pp
+from bkgames.printers import TeamsToWatchPrinter
 
-print("Starting...")
+print("Printing oldest games at the bottom...")
 
 file_reader = Reader("data.dat")
 file_content = file_reader.read()
 
-parser = TeamFrequencyParser(2018)
+parser = TeamFrequencyParser(2018) # TODO: move to config file
 games_history = GamesHistory()
 not_parsed = []
 
@@ -20,8 +21,10 @@ for line in file_content:
         not_parsed.append(data)
     
 teams_frequency = games_history.get_teams_frequency()
-result = games_history.get_teams_to_watch(teams_frequency)
-pp(result)
+results = games_history.get_teams_to_watch(teams_frequency)
+
+printer = TeamsToWatchPrinter(results)
+printer.print_teams_to_watch()
 
 
 
