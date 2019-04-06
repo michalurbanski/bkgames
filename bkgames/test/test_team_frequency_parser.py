@@ -25,9 +25,10 @@ class TestTeamFrequencyParser(unittest.TestCase):
         self.assertEqual(result["away_team"], "cha")
         self.assertEqual(result["date"], datetime(2018, 12, 12))
 
-    def test_parse_incorrect_data_returns_failed_status_and_not_parsed_line(self):
+    def test_parse_lack_of_date_in_line_returns_failed_status_and_not_parsed_line(self):
         input = "Line with incorrect data"
         parsing_status, result = self.parser.parse(input)
 
         self.assertFalse(parsing_status)
         self.assertEqual(result["not_parsed"], input)
+        self.assertIs(type(result["error"]), ValueError)
