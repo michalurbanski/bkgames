@@ -9,12 +9,21 @@ class TestTeamFrequencyParser(unittest.TestCase):
 
     def test_parse_line_returns_teams_and_date_of_the_game(self):
         input = "DONE - Nba game 16.10 phi at bos -> bos?"
-        parsing_status, result = self.parser.parse(input)
+        parsing_status, result = self.parser.parse(input) 
         
         self.assertTrue(parsing_status)
         self.assertEqual(result["home_team"], "phi")
         self.assertEqual(result["away_team"], "bos")
         self.assertEqual(result["date"], datetime(2018, 10, 16))
+
+    def test_parse_line_with_single_digit_date_returns_team_and_date_of_the_game(self):
+        input = "DONE - Nba game 1.11 sac at atl -> atl"
+        parsing_status, result = self.parser.parse(input)
+        
+        self.assertTrue(parsing_status)
+        self.assertEqual(result["home_team"], "sac")
+        self.assertEqual(result["away_team"], "atl")
+        self.assertEqual(result["date"], datetime(2018, 11, 1))
 
     def test_parse_line_with_standings_returns_teams_and_date_of_the_game(self):
         input = "DONE - Nba game 12.12 det at cha -> cha (cha 14:13; det 13:13) "

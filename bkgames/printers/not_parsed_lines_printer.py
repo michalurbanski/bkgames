@@ -11,4 +11,5 @@ class NotParsedLinesPrinter:
         print("There are {} not parsed lines".format(len(self._not_parsed_lines)))
     
     def _print_not_parsed_lines(self):
-        print(self._not_parsed_lines)
+        if self._not_parsed_lines:
+            print(self._not_parsed_lines)
