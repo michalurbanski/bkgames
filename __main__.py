@@ -2,7 +2,7 @@ from bkgames.reader import Reader
 from bkgames.parsers import TeamFrequencyParser
 from bkgames.games_history import GamesHistory
 from pprint import pprint as pp
-from bkgames.printers import TeamsToWatchPrinter
+from bkgames.printers import *
 from bkgames.reader.file_parser import FileParser
 
 print("Printing the oldest games at the bottom...")
@@ -22,5 +22,7 @@ results = games_history.get_teams_to_watch(teams_frequency)
 printer = TeamsToWatchPrinter(results)
 printer.print_teams_to_watch()
 
+not_parsed_lines_printer = NotParsedLinesPrinter(file_parser.not_parsed_lines)
+not_parsed_lines_printer.print_not_parsed_lines()
 
 print("Program finished.")
