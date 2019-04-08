@@ -7,7 +7,7 @@ class GamesHistory:
     def __init__(self):
         self._teams = {}
 
-    def add_game(self, home_team, away_team, date):
+    def add_game(self, home_team, away_team, date, **kwargs):
         team = self._add_game_to_team(home_team, date)
         team2 = self._add_game_to_team(away_team, date)
 

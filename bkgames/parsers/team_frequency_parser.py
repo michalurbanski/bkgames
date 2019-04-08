@@ -42,12 +42,11 @@ class TeamFrequencyParser:
         return (True, {
                 "home_team": remaining_list[0], #[1] is 'at' word that is not needed
                 "away_team": remaining_list[2],
-                "date": date
+                "date": date,
+                "line": line
                 })
 
     @classmethod
     def _get_game_year(cls, month):
         return cls.season_start_year if int(month) >= cls.SEASON_START_MONTH else (cls.season_start_year + 1)
         
-
-
