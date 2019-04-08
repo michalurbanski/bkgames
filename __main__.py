@@ -1,5 +1,7 @@
 from bkgames.reader import Reader
+from bkgames.reader import Configuration
 from bkgames.parsers import TeamFrequencyParser
+from bkgames.parsers import ValidTeamParser
 from bkgames.games_history import GamesHistory
 from pprint import pprint as pp
 from bkgames.printers import *
@@ -12,8 +14,11 @@ file_content = file_reader.read()
 
 games_history = GamesHistory() # get rid of this initialization
 
+config = Configuration("config.json")
+
 # TODO: move TeamFrequencyParser argument to config file
-file_parser = FileParser(file_content, TeamFrequencyParser(2018), games_history)
+file_parser = FileParser(file_content, 
+    TeamFrequencyParser(2018), ValidTeamParser(config.allowed_teams), games_history)
 file_parser.run()
 teams_frequency = file_parser.results
 
