@@ -10,10 +10,7 @@ from bkgames.reader.file_parser import FileParser
 print("Printing the oldest games at the bottom...")
 
 config = Configuration("config.json")
-
-input_file = Reader("data.dat")
-file_content = input_file.read()
-
+file_content = Reader("data.dat").read()
 games_history = GamesHistory() # get rid of this initialization
 
 file_parser = FileParser(file_content, 
