@@ -9,16 +9,16 @@ from bkgames.reader.file_parser import FileParser
 
 print("Printing the oldest games at the bottom...")
 
+config = Configuration("config.json")
+
 input_file = Reader("data.dat")
 file_content = input_file.read()
 
 games_history = GamesHistory() # get rid of this initialization
 
-config = Configuration("config.json")
-
-# TODO: move TeamFrequencyParser argument to config file
 file_parser = FileParser(file_content, 
-    TeamFrequencyParser(2018), ValidTeamParser(config.allowed_teams), games_history)
+    TeamFrequencyParser(config.season_year), ValidTeamParser(config.allowed_teams), 
+    games_history)
 file_parser.run()
 teams_frequency = file_parser.results
 
