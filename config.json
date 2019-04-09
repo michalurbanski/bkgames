@@ -1,4 +1,9 @@
 {
     "season_year": 2018,
-    "allowed_teams": ["okc", "hou"]
+    "allowed_teams": ["bos", "bkn", "nyk", "phi", "tor", 
+        "chi", "cle", "det", "ind", "mil", 
+        "atl", "cha", "mia", "orl", "was", 
+        "dal", "hou", "mem", "nop", "sas",
+        "den", "min", "por", "okc", "uth",
+        "gsw", "lac", "lal", "phx", "sac"]
 }
