@@ -9,8 +9,8 @@ from bkgames.reader.file_parser import FileParser
 
 print("Printing the oldest games at the bottom...")
 
-file_reader = Reader("data.dat")
-file_content = file_reader.read()
+input_file = Reader("data.dat")
+file_content = input_file.read()
 
 games_history = GamesHistory() # get rid of this initialization
 
