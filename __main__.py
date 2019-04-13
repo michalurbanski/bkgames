@@ -1,30 +1,26 @@
-from bkgames.reader import Reader
-from bkgames.reader import Configuration
-from bkgames.parsers import TeamFrequencyParser
-from bkgames.parsers import ValidTeamParser
-from bkgames.games_history import GamesHistory
-from pprint import pprint as pp
-from bkgames.printers import *
-from bkgames.reader.file_parser import FileParser
+import bkgames.reader as reader
+import bkgames.parsers as parsers
+import bkgames.printers as printers
+import bkgames.games_history as games_history
 
 print("Printing the oldest games at the bottom...")
 
-config = Configuration("config.json")
-file_content = Reader("data.dat").read()
-games_history = GamesHistory() # get rid of this initialization
+config = reader.Configuration("config.json")
+file_content = reader.Reader("data.dat").read()
+games_history = games_history.GamesHistory() # get rid of this initialization
 
-file_parser = FileParser(file_content, 
-    TeamFrequencyParser(config.season_year), ValidTeamParser(config.allowed_teams), 
+file_parser = reader.FileParser(file_content, 
+    parsers.TeamFrequencyParser(config.season_year), parsers.ValidTeamParser(config.allowed_teams), 
     games_history)
 file_parser.run()
 teams_frequency = file_parser.results
 
 results = games_history.get_teams_to_watch(teams_frequency)
 
-printer = TeamsToWatchPrinter(results)
+printer = printers.TeamsToWatchPrinter(results)
 printer.print_teams_to_watch()
 
-not_parsed_lines_printer = NotParsedLinesPrinter(file_parser.not_parsed_lines)
+not_parsed_lines_printer = printers.NotParsedLinesPrinter(file_parser.not_parsed_lines)
 not_parsed_lines_printer.print_not_parsed_lines()
 
 print("Program finished.")
