@@ -1,5 +1,5 @@
 import unittest
-from bkgames.games_history import GamesHistory
+from bkgames.gameshistory import GamesHistory
 from datetime import datetime
 
 class TestGamesHistory(unittest.TestCase):

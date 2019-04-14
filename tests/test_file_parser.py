@@ -1,11 +1,9 @@
 import unittest
 from unittest.mock import Mock
 import datetime
-from bkgames.reader.file_parser import FileParser
-from bkgames.reader.configuration import Configuration
-from bkgames.parsers.team_frequency_parser import TeamFrequencyParser
-from bkgames.parsers.valid_team_parser import ValidTeamParser
-from bkgames.games_history.games_history import GamesHistory
+from bkgames.reader import Configuration, FileParser
+from bkgames.parsers import TeamFrequencyParser, ValidTeamParser
+from bkgames.gameshistory import GamesHistory
 
 class TestFileParser(unittest.TestCase):
     

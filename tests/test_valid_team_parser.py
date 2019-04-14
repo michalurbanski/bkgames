@@ -1,6 +1,6 @@
 import unittest
 import datetime
-from bkgames.parsers.valid_team_parser import ValidTeamParser
+from bkgames.parsers import ValidTeamParser
 
 class TestValidTeamParser(unittest.TestCase):
 

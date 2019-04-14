@@ -1,8 +1,6 @@
 import unittest
 from unittest.mock import MagicMock
-#from .context import configuration
 from bkgames.reader.configuration import Configuration
-#from bkgames.reader.configuration import Configuration
 
 class TestConfiguration(unittest.TestCase):
     
@@ -17,6 +15,7 @@ class TestConfiguration(unittest.TestCase):
     def test_config_can_be_called_twice(self):
         configuration = Configuration("config.json")
         season_year = configuration.season_year
+
         configuration._read_json_file = MagicMock()        
         
         season_year = configuration.season_year

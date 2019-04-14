@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime
-from bkgames.parsers import *
+from bkgames.parsers import TeamFrequencyParser
 
 class TestTeamFrequencyParser(unittest.TestCase):
     
