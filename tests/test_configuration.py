@@ -1,6 +1,8 @@
 import unittest
 from unittest.mock import MagicMock
+#from .context import configuration
 from bkgames.reader.configuration import Configuration
+#from bkgames.reader.configuration import Configuration
 
 class TestConfiguration(unittest.TestCase):
     
