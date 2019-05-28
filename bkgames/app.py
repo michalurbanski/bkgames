@@ -11,7 +11,7 @@ def run():
     file_content = reader.Reader("data.dat").read()
     games_history = gameshistory.GamesHistory() # get rid of this initialization
 
-    file_parser = reader.FileParser(file_content, 
+    file_parser = parsers.FileParser(file_content, 
         parsers.TeamFrequencyParser(config.season_year), parsers.ValidTeamParser(config.allowed_teams), 
         games_history)
     file_parser.run()

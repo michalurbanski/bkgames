@@ -6,7 +6,7 @@ class TeamFrequencyParser:
     
     SEASON_START_MONTH = 9
 
-    #TODO: year value should be take from config
+    #TODO: year value should be taken from config
     def __init__(self, season_start_year):
         TeamFrequencyParser.season_start_year = season_start_year
 

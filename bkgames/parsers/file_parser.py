@@ -9,6 +9,9 @@ class FileParser:
         self._not_parsed_lines = []
 
     def run(self):
+        """ Goes through each line and parses it according to specified rules,
+        or adds to not parsed lines """
+
         # TODO: fix this method
         for line in self._lines:
             parsing_status, data = self._lines_parser.parse(line)
@@ -21,6 +24,7 @@ class FileParser:
             else:
                 self._not_parsed_lines.append(data)
     
+    # TODO: Does this method fit here?
     @property
     def results(self):
         return self._games_history.get_teams_frequency()

@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import Mock
 import datetime
-from bkgames.reader import Configuration, FileParser
-from bkgames.parsers import TeamFrequencyParser, ValidTeamParser
+from bkgames.reader import Configuration
+from bkgames.parsers import TeamFrequencyParser, ValidTeamParser, FileParser
 from bkgames.gameshistory import GamesHistory
 
 class TestFileParser(unittest.TestCase):

@@ -1,2 +1,3 @@
 from bkgames.parsers.team_frequency_parser import TeamFrequencyParser
 from bkgames.parsers.valid_team_parser import ValidTeamParser
+from bkgames.parsers.file_parser import FileParser
