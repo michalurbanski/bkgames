@@ -4,12 +4,10 @@ import re
 import traceback
 
 class TeamFrequencyParser:
-    
-    SEASON_START_MONTH = 9
 
-    #TODO: year value should be taken from config
-    def __init__(self, season_start_year):
+    def __init__(self, season_start_year, season_start_month):
         TeamFrequencyParser.season_start_year = season_start_year
+        TeamFrequencyParser.season_start_month = season_start_month
 
     def parse(self, line):
         """
@@ -31,7 +29,7 @@ class TeamFrequencyParser:
             month = split[1]
             game_year = game_helper.calculate_game_year(
                     TeamFrequencyParser.season_start_year, 
-                    TeamFrequencyParser.SEASON_START_MONTH, 
+                    TeamFrequencyParser.season_start_month, 
                     month
                 )
             date = datetime(game_year, int(month), int(day))

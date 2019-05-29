@@ -8,7 +8,7 @@ from bkgames.gameshistory import GamesHistory
 class TestFileParser(unittest.TestCase):
     
     def setUp(self):
-        self.line_parser = TeamFrequencyParser(2018)
+        self.line_parser = TeamFrequencyParser(2018, 9)
         self.teams_parser = ValidTeamParser(["hou", "lal", "nyk", "mil"]) # contains list of teams from examples used in this file
         self.games_history_results = GamesHistory()
 

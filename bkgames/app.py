@@ -12,7 +12,8 @@ def run():
     games_history = gameshistory.GamesHistory() # get rid of this initialization
 
     file_parser = parsers.FileParser(file_content, 
-        parsers.TeamFrequencyParser(config.season_year), parsers.ValidTeamParser(config.allowed_teams), 
+        parsers.TeamFrequencyParser(config.season_year, config.season_start_month), 
+        parsers.ValidTeamParser(config.allowed_teams), 
         games_history)
     file_parser.run()
     teams_frequency = file_parser.results

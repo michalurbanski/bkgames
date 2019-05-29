@@ -5,7 +5,7 @@ from bkgames.parsers import TeamFrequencyParser
 class TestTeamFrequencyParser(unittest.TestCase):
     
     def setUp(self):
-        self.parser = TeamFrequencyParser(2018)
+        self.parser = TeamFrequencyParser(2018, 9)
 
     def test_parse_line_returns_teams_and_date_of_the_game(self):
         input = "DONE - Nba game 16.10 phi at bos -> bos?"
