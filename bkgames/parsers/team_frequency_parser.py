@@ -1,4 +1,5 @@
 from datetime import datetime
+from bkgames.helpers import game_helper
 import re
 import traceback
 
@@ -28,7 +29,12 @@ class TeamFrequencyParser:
 
             day = split[0]
             month = split[1]
-            date = datetime(TeamFrequencyParser._get_game_year(month), int(month), int(day))
+            game_year = game_helper.calculate_game_year(
+                    TeamFrequencyParser.season_start_year, 
+                    TeamFrequencyParser.SEASON_START_MONTH, 
+                    month
+                )
+            date = datetime(game_year, int(month), int(day))
 
             # Get what's after the date
             skip_after = day + "." + month
@@ -45,8 +51,4 @@ class TeamFrequencyParser:
                 "date": date,
                 "line": line
                 })
-
-    @classmethod
-    def _get_game_year(cls, month):
-        return cls.season_start_year if int(month) >= cls.SEASON_START_MONTH else (cls.season_start_year + 1)
         
