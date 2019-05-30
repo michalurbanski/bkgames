@@ -1,7 +1,7 @@
-import bkgames.reader as reader
-import bkgames.parsers as parsers
-import bkgames.printers as printers
-import bkgames.gameshistory as gameshistory
+from bkgames import reader
+from bkgames import parsers
+from bkgames import printers
+from bkgames import gameshistory
 
 def run():
 
