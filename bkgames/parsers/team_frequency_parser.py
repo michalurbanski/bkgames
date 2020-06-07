@@ -30,7 +30,7 @@ class TeamFrequencyParser:
             game_year = game_helper.calculate_game_year(
                     TeamFrequencyParser.season_start_year, 
                     TeamFrequencyParser.season_start_month, 
-                    month
+                    int(month)
                 )
             date = datetime(game_year, int(month), int(day))
 

@@ -1,7 +1,7 @@
 """ Helpers - simple functions helpful for the program """
 
 # TODO: it's used only here - so it can be moved to proper class as a static method
-def calculate_game_year(season_start_year, season_start_month, month):
+def calculate_game_year(season_start_year: int, season_start_month: int, month: int) -> int:
     """ Based on available data, calculates year in which games was played.
 
     Year information is missing in current input data - only month and day
@@ -16,13 +16,13 @@ def calculate_game_year(season_start_year, season_start_month, month):
             (in current implementation - from config file)
         season_start_month (int): Month starting from which games should be
             processed
-        month (string): Month when game was played
+        month (int): Month when game was played
 
     Returns:
         int: Year in which game was played
     """
 
-    if int(month) >= season_start_month:
+    if month >= season_start_month:
         return season_start_year
 
     return season_start_year + 1
