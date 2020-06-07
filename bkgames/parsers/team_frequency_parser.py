@@ -6,8 +6,8 @@ import traceback
 class TeamFrequencyParser:
 
     def __init__(self, season_start_year, season_start_month):
-        TeamFrequencyParser.season_start_year = season_start_year
-        TeamFrequencyParser.season_start_month = season_start_month
+        self._season_start_year = season_start_year
+        self._season_start_month = season_start_month
 
     def parse(self, line):
         """
@@ -28,14 +28,14 @@ class TeamFrequencyParser:
             day = split[0]
             month = split[1]
             game_year = game_helper.calculate_game_year(
-                    TeamFrequencyParser.season_start_year, 
-                    TeamFrequencyParser.season_start_month, 
+                    self._season_start_year, 
+                    self._season_start_month, 
                     int(month)
                 )
             date = datetime(game_year, int(month), int(day))
 
             # Get what's after the date
-            skip_after = day + "." + month
+            skip_after = f"{day}.{month}"
             end_pos = re.search(skip_after, line).end()
             split = re.split(r"\s", line[end_pos:])
             remaining_list = list(filter(None, split)) # Clean empty strings
