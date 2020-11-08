@@ -1,12 +1,13 @@
 from bkgames.reader.team_model import TeamModel
 from bkgames.gameshistory.games_history_operations import GamesHistoryOperations
 
+
 class GamesHistory:
 
     def __init__(self):
         self._teams = {}
 
-    def add_game(self, home_team, away_team, date, **kwargs): # pylint: disable=unused-argument
+    def add_game(self, home_team, away_team, date, **kwargs):  # pylint: disable=unused-argument
         team = self._add_game_to_team(home_team, date)
         team2 = self._add_game_to_team(away_team, date)
 
@@ -39,8 +40,8 @@ class GamesHistory:
             results[key] = team.games
         return results
 
-
     # TODO: consider where to move this method, like a new WatchStatistics class or so
+
     def get_teams_to_watch(self, teams_frequency):
         """
         Displays teams to watch.
@@ -52,10 +53,13 @@ class GamesHistory:
         if not teams_frequency:
             raise ValueError("List cannot be empty")
 
-        ordered_by_games_played = GamesHistoryOperations.order_by_games_played(teams_frequency)
-        ordered_by_most_recent = GamesHistoryOperations.order_by_most_recent_games(teams_frequency)
+        ordered_by_games_played = GamesHistoryOperations.order_by_games_played(
+            teams_frequency)
+        ordered_by_most_recent = GamesHistoryOperations.order_by_most_recent_games(
+            teams_frequency)
 
-        oldest_games_dict = {item[0]: item[1] for item in ordered_by_most_recent}
+        oldest_games_dict = {item[0]: item[1]
+                             for item in ordered_by_most_recent}
         result = [(item[0], item[1], item[2], oldest_games_dict.get(item[0], None))
                   for item in ordered_by_games_played]
 
