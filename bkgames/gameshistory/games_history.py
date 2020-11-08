@@ -28,10 +28,12 @@ class GamesHistory:
         Returns: dict()
 
         Example:
+
         results = {
             "first_team": [datetime(2019, 3, 22), datetime(2019, 5, 5)],
             "second_team": [datetime(2019, 3, 2)],
             "third_team": [datetime(2019, 3, 5)]
+
         }
         """
         # NOTE: It's possible to use model all the way instead of dictionary - to be considered
