@@ -9,6 +9,7 @@ def run():
     print("Printing the oldest games at the bottom...")
 
     config = reader.Configuration("config.json")
+    # TODO: read the latest file with data, unless specified as cmdline param
     file_content = reader.Reader("s2020.dat").read()
     games_history = gameshistory.GamesHistory()  # get rid of this initialization
 
