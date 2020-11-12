@@ -3,3 +3,5 @@ __pycache__/
 *.dat
 **/*.pyc
 /build
+.coverage
+/htmlcov
