@@ -21,7 +21,7 @@ class GamesHistory:
         existing_team.add_game(date)
         return existing_team
 
-    def get_teams_frequency(self):
+    def _get_teams_frequency(self):
         """
         Converts team_model to dictionary that is expected by other logic.
 
@@ -40,25 +40,27 @@ class GamesHistory:
         results = {}
         for key, team in self._teams.items():
             results[key] = team.games
-        return results
+        self._teams_frequency = results
 
     # TODO: consider where to move this method, like a new WatchStatistics class or so
 
-    def get_teams_to_watch(self, teams_frequency):
+    def get_teams_to_watch(self):
         """
         Gets teams to watch, based on historic results.
         Team watched the longest time ago is the last in this collection.
         """
-        if teams_frequency is None:
+        self._get_teams_frequency()
+
+        if self._teams_frequency is None:
             raise TypeError
 
-        if not teams_frequency:
+        if not self._teams_frequency:
             raise ValueError("List cannot be empty")
 
         ordered_by_games_played = GamesHistoryOperations.order_by_games_played(
-            teams_frequency)
+            self._teams_frequency)
         ordered_by_most_recent = GamesHistoryOperations.order_by_most_recent_games(
-            teams_frequency)
+            self._teams_frequency)
 
         oldest_games_dict = {item[0]: item[1]
                              for item in ordered_by_most_recent}

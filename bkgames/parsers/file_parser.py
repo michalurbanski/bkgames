@@ -1,6 +1,6 @@
 class FileParser:
     """ Goes through each line of input file and performs operation on it """
-    
+
     def __init__(self, lines, lines_parser, teams_parser, games_history):
         self._lines = lines
         self._lines_parser = lines_parser
@@ -23,13 +23,12 @@ class FileParser:
                     self._not_parsed_lines.append(data)
             else:
                 self._not_parsed_lines.append(data)
-    
+
     # TODO: Does this method fit here?
     @property
     def results(self):
-        return self._games_history.get_teams_frequency()
+        return self._games_history.get_teams_to_watch()
 
     @property
     def not_parsed_lines(self):
         return self._not_parsed_lines
-

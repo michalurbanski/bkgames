@@ -20,9 +20,7 @@ def run():
         parsers.ValidTeamParser(config.allowed_teams),
         games_history)
     file_parser.run()
-    teams_frequency = file_parser.results
-
-    results = games_history.get_teams_to_watch(teams_frequency)
+    results = file_parser.results
 
     printer = printers.TeamsToWatchPrinter(results)
     printer.print_teams_to_watch()
