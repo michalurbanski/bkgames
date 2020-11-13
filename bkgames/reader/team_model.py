@@ -21,5 +21,3 @@ class TeamModel:
     @team_code.setter
     def team_code(self, value):
         self._team_code = value
-
-

@@ -1,4 +1,4 @@
-from bkgames.reader.team_model import TeamModel
+from bkgames.reader import TeamModel
 from bkgames.gameshistory.games_history_operations import GamesHistoryOperations
 
 
@@ -46,8 +46,8 @@ class GamesHistory:
 
     def get_teams_to_watch(self, teams_frequency):
         """
-        Displays teams to watch.
-        Team watched the longest time ago is the last in the collection.
+        Gets teams to watch, based on historic results.
+        Team watched the longest time ago is the last in this collection.
         """
         if teams_frequency is None:
             raise TypeError
