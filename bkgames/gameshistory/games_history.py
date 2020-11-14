@@ -48,6 +48,11 @@ class GamesHistory:
         """
         Gets teams to watch, based on historic results.
         Team watched the longest time ago is the last in this collection.
+
+        Returns:
+            (list): List of tuples
+                (team_code, number of games, list of all dates, latest date)
+                # TODO: confirm if this is valid
         """
         self._get_teams_frequency()
 
