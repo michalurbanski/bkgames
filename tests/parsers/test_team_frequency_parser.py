@@ -2,15 +2,16 @@ import unittest
 from datetime import datetime
 from bkgames.parsers import TeamFrequencyParser
 
+
 class TestTeamFrequencyParser(unittest.TestCase):
-    
+
     def setUp(self):
         self.parser = TeamFrequencyParser(2018, 9)
 
     def test_parse_line_returns_teams_and_date_of_the_game(self):
         input = "DONE - Nba game 16.10 phi at bos -> bos?"
-        parsing_status, result = self.parser.parse(input) 
-        
+        parsing_status, result = self.parser.parse(input)
+
         self.assertTrue(parsing_status)
         self.assertEqual(result["home_team"], "phi")
         self.assertEqual(result["away_team"], "bos")
@@ -20,13 +21,12 @@ class TestTeamFrequencyParser(unittest.TestCase):
     def test_parse_line_with_single_digit_date_returns_team_and_date_of_the_game(self):
         input = "DONE - Nba game 1.11 sac at atl -> atl"
         parsing_status, result = self.parser.parse(input)
-        
+
         self.assertTrue(parsing_status)
         self.assertEqual(result["home_team"], "sac")
         self.assertEqual(result["away_team"], "atl")
         self.assertEqual(result["date"], datetime(2018, 11, 1))
         self.assertEqual(result["line"], input)
-
 
     def test_parse_line_with_standings_returns_teams_and_date_of_the_game(self):
         input = "DONE - Nba game 12.12 det at cha -> cha (cha 14:13; det 13:13) "
@@ -38,7 +38,6 @@ class TestTeamFrequencyParser(unittest.TestCase):
         self.assertEqual(result["date"], datetime(2018, 12, 12))
         self.assertEqual(result["line"], input)
 
-
     def test_parse_lack_of_date_in_line_returns_failed_status_and_not_parsed_line(self):
         input = "Line with incorrect data"
         parsing_status, result = self.parser.parse(input)
@@ -46,3 +45,29 @@ class TestTeamFrequencyParser(unittest.TestCase):
         self.assertFalse(parsing_status)
         self.assertEqual(result["not_parsed"], input)
         self.assertIs(type(result["error"]), ValueError)
+
+    def test_month_later_than_start_month_should_return_season_start_year(self):
+        month = 8
+        season_start_month = 7
+        season_start_year = 2018
+
+        calculated_year = self.parser.calculate_game_year(
+            season_start_year,
+            season_start_month,
+            month
+        )
+
+        self.assertEqual(calculated_year, season_start_year)
+
+    def test_month_earlier_than_start_month_should_return_year_after_start_year(self):
+        month = 3
+        season_start_month = 7
+        season_start_year = 2018
+
+        calculated_year = self.parser.calculate_game_year(
+            season_start_year,
+            season_start_month,
+            month
+        )
+
+        self.assertEqual(calculated_year, season_start_year + 1)
