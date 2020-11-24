@@ -28,7 +28,7 @@ class GamesHistoryOperations:
         Returns list of tuples ("team_name", date_of_the_most_recent_game)
         Results are sorted by the most recent game played among all the teams
 
-        In input (read from file) games are in chronogical order, so it's sufficient
+        In input (read from file) games are in chronological order, so it's sufficient
         to take the first element of games collection.
         """
 

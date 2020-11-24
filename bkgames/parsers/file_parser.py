@@ -24,7 +24,7 @@ class FileParser:
             else:
                 self._not_parsed_lines.append(data)
 
-    # TODO: Does this method fit here?
+    # TODO: Does this method fit here? It's pretty nasty dependency
     @property
     def results(self):
         return self._games_history.get_teams_to_watch()

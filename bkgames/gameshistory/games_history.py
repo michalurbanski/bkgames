@@ -7,6 +7,7 @@ class GamesHistory:
     def __init__(self):
         self._teams = {}
 
+    # TODO: why kwargs is needed here?
     def add_game(self, home_team, away_team, date, **kwargs):  # pylint: disable=unused-argument
         team = self._add_game_to_team(home_team, date)
         team2 = self._add_game_to_team(away_team, date)
@@ -43,7 +44,6 @@ class GamesHistory:
         self._teams_frequency = results
 
     # TODO: consider where to move this method, like a new WatchStatistics class or so
-
     def get_teams_to_watch(self):
         """
         Gets teams to watch, based on historic results.
@@ -57,10 +57,10 @@ class GamesHistory:
         self._get_teams_frequency()
 
         if self._teams_frequency is None:
-            raise TypeError
+            raise TypeError("Teams frequency is not defined")
 
         if not self._teams_frequency:
-            raise ValueError("List cannot be empty")
+            raise ValueError("List with teams frequency cannot be empty")
 
         ordered_by_games_played = GamesHistoryOperations.order_by_games_played(
             self._teams_frequency)

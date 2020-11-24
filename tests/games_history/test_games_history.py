@@ -80,17 +80,6 @@ class TestGamesHistory(unittest.TestCase):
         self.assertIsInstance(dates_list, list)
         self.assertIsInstance(last_game_date, datetime)
 
-    # TODO: think about better tests
-    # def test_teams_to_watch_next_lack_of_list_throws_exception(self):
-    #     games_history = GamesHistory()
-
-    #     self.assertRaises(TypeError, games_history.get_teams_to_watch, None)
-
-    # def test_teams_to_watch_next_empty_games_list_throws_exception(self):
-    #     games_history = GamesHistory()
-
-    #     self.assertRaises(ValueError, games_history.get_teams_to_watch, list())
-
     def test_teams_to_watch_next_returns_next_to_watch_as_last_on_the_list(self):
         games_history = GamesHistory()
         games_history.add_game("bos", "tor", datetime(2018, 10, 13))
@@ -110,6 +99,10 @@ class TestGamesHistory(unittest.TestCase):
         rank = [item[3] for item in teams_to_watch]
         self.assertEqual(rank, sorted(rank, reverse=True))
 
+    def test_get_teams_to_watch_getting_games_where_none_added_throws_exception(self):
+        games_history = GamesHistory()
+        self.assertRaises(ValueError, games_history.get_teams_to_watch)
+
     @staticmethod
     def _find_team_results_in_teams_to_watch(teams_to_watch, team_name):
         return [result for result in teams_to_watch if result[0] == team_name][0]
@@ -121,7 +114,3 @@ class TestGamesHistory(unittest.TestCase):
             "away_team": away_team,
             "date": date
         }
-
-    # TODO: probably moved to a different class where operations on collections will be implemented
-    # def test_get_longest_time_passed_since_watching_team(self):
-    #     pass
