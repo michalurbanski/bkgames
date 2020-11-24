@@ -1,0 +1,4 @@
+[run]
+omit =
+    # ingore all test cases in tests/
+    tests/*
