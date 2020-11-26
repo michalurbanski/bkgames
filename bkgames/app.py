@@ -20,7 +20,12 @@ def run():
         parsers.ValidTeamParser(config.allowed_teams),
         games_history)
     file_parser.run()
-    results = file_parser.results
+    parsed_lines = file_parser.parsed_lines
+
+    for line in parsed_lines:
+        games_history.add_game(**line)
+
+    results = games_history.get_teams_to_watch()
 
     printer = printers.TeamsToWatchPrinter(results)
     printer.print_teams_to_watch()
