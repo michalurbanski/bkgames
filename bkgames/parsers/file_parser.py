@@ -1,13 +1,12 @@
 class FileParser:
     """ Goes through each line of input file and performs operation on it """
 
-    def __init__(self, lines, lines_parser, teams_parser, games_history):
+    def __init__(self, lines, lines_parser, teams_parser):
         # There's not a lot of lines to be processed, so we can just read
         # them into memory.
         self._lines = lines
         self._lines_parser = lines_parser
         self._teams_parser = teams_parser
-        self._games_history = games_history  # TODO: remove
         self._not_parsed_lines = []
         self._parsed_lines = []
 

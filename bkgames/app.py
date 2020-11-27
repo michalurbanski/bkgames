@@ -11,20 +11,20 @@ def run():
     config = reader.Configuration("config.json")
     # TODO: read the latest file with data, unless specified as cmdline param
     file_content = reader.Reader("s2020.dat").read()
-    games_history = gameshistory.GamesHistory()  # get rid of this initialization
 
     file_parser = parsers.FileParser(
         file_content,
         parsers.TeamFrequencyParser(
             config.season_year, config.season_start_month),
-        parsers.ValidTeamParser(config.allowed_teams),
-        games_history)
+        parsers.ValidTeamParser(config.allowed_teams))
     file_parser.run()
     parsed_lines = file_parser.parsed_lines
 
-    for line in parsed_lines:
-        games_history.add_game(**line)
+    games_history = _get_games_history(parsed_lines)
 
+    # TODO: get_teams_to_watch might use only history data,
+    # but it may also rely on the future data.
+    # It's appropriate to put it in a different class and abstract it.
     results = games_history.get_teams_to_watch()
 
     printer = printers.TeamsToWatchPrinter(results)
@@ -35,3 +35,10 @@ def run():
     not_parsed_lines_printer.print_not_parsed_lines()
 
     print("Program finished.")
+
+
+def _get_games_history(lines):
+    history = gameshistory.GamesHistory()
+    for line in lines:
+        history.add_game(**line)
+    return history

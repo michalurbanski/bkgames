@@ -12,7 +12,6 @@ class TestFileParser(unittest.TestCase):
         self.line_parser = TeamFrequencyParser(2018, 9)
         # contains list of teams from examples used in this file
         self.teams_parser = ValidTeamParser(["hou", "lal", "nyk", "mil"])
-        self.games_history_results = GamesHistory()
 
     def test_parsed_file_has_parsed_lines_collection(self):
         lines = [
@@ -20,16 +19,14 @@ class TestFileParser(unittest.TestCase):
             'DONE - Nba game 22.10 nyk at mil -> mil'
         ]
 
-        file_parser = FileParser(
-            lines, self.line_parser, self.teams_parser, self.games_history_results)
+        file_parser = FileParser(lines, self.line_parser, self.teams_parser)
         file_parser.run()
         self.assertEqual(len(file_parser.parsed_lines), 2)
 
     def test_parsed_file_has_not_parsed_lines(self):
         lines = ['1', '2']
 
-        file_parser = FileParser(
-            lines, self.line_parser, self.teams_parser, self.games_history_results)
+        file_parser = FileParser(lines, self.line_parser, self.teams_parser)
         file_parser.run()
         self.assertEqual(len(file_parser.not_parsed_lines), 2)
 
@@ -39,8 +36,7 @@ class TestFileParser(unittest.TestCase):
             '1'
         ]
 
-        file_parser = FileParser(
-            lines, self.line_parser, self.teams_parser, self.games_history_results)
+        file_parser = FileParser(lines, self.line_parser, self.teams_parser)
         file_parser.run()
         self.assertEqual(len(file_parser.parsed_lines), 1)
         self.assertEqual(len(file_parser.not_parsed_lines), 1)
