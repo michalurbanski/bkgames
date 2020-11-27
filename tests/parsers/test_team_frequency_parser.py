@@ -51,7 +51,7 @@ class TestTeamFrequencyParser(unittest.TestCase):
         season_start_month = 7
         season_start_year = 2018
 
-        calculated_year = self.parser.calculate_game_year(
+        calculated_year = self.parser._calculate_game_year(
             season_start_year,
             season_start_month,
             month
@@ -64,7 +64,7 @@ class TestTeamFrequencyParser(unittest.TestCase):
         season_start_month = 7
         season_start_year = 2018
 
-        calculated_year = self.parser.calculate_game_year(
+        calculated_year = self.parser._calculate_game_year(
             season_start_year,
             season_start_month,
             month

@@ -28,7 +28,7 @@ class TeamFrequencyParser:
             day = split[0]
             month = split[1]
             # NOTE: if games are in order, then this can be calculated only once
-            game_year = self.calculate_game_year(
+            game_year = self._calculate_game_year(
                 self._season_start_year,
                 self._season_start_month,
                 int(month)
@@ -53,7 +53,7 @@ class TeamFrequencyParser:
                 })
 
     @staticmethod
-    def calculate_game_year(season_start_year: int, season_start_month: int, month: int) -> int:
+    def _calculate_game_year(season_start_year: int, season_start_month: int, month: int) -> int:
         """ Based on available data, calculates year in which games was played.
 
         Year information is missing in current input data - only month and day
