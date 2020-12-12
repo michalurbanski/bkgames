@@ -1,8 +1,9 @@
 import unittest
 import datetime
-from bkgames.parsers import ValidTeamParser
+from bkgames.parsers import TeamsValidator
 
-class TestValidTeamParser(unittest.TestCase):
+
+class TestTeamsValidator(unittest.TestCase):
 
     def test_valid_team_maintains_parsing_result(self):
         previous_parsing_result = {
@@ -12,10 +13,10 @@ class TestValidTeamParser(unittest.TestCase):
             "line": "This is input line, content not relevant here"
         }
 
-        valid_teams = ["okc", "hou"] # read from file
-        valid_team_parser = ValidTeamParser(valid_teams)
-        result, data = valid_team_parser.parse(previous_parsing_result)
-        
+        valid_teams = ["okc", "hou"]  # read from file
+        valid_team_parser = TeamsValidator(valid_teams)
+        result, data = valid_team_parser.validate(previous_parsing_result)
+
         self.assertTrue(result)
         self.assertEqual(data, previous_parsing_result)
 
@@ -27,10 +28,11 @@ class TestValidTeamParser(unittest.TestCase):
             "line": "This is input line, content not relevant here"
         }
         valid_teams = ["okc", "hou"]
-        valid_team_parser = ValidTeamParser(valid_teams)
-        result, data = valid_team_parser.parse(previous_parsing_result)
-        
+        valid_team_parser = TeamsValidator(valid_teams)
+        result, data = valid_team_parser.validate(previous_parsing_result)
+
         self.assertFalse(result)
-        self.assertIsNotNone(data["not_parsed"]) 
+        self.assertIsNotNone(data["not_parsed"])
         self.assertIsNotNone(data["error"])
-        self.assertRaises(KeyError, lambda: data["traceback"]) # It's validation based on list, so no traceback expected
+        # It's validation based on list, so no traceback expected
+        self.assertRaises(KeyError, lambda: data["traceback"])

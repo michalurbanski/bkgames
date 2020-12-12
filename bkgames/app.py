@@ -16,7 +16,7 @@ def run():
         file_content,
         parsers.TeamFrequencyParser(
             config.season_year, config.season_start_month),
-        parsers.ValidTeamParser(config.allowed_teams))
+        parsers.TeamsValidator(config.allowed_teams))
     file_parser.run()
     parsed_lines = file_parser.parsed_lines
 
