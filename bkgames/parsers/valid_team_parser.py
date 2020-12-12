@@ -1,3 +1,4 @@
+# TODO: actually it's not parser but validator - change this class
 class ValidTeamParser:
     """ Checks if team code is valid, based on configuration list """
 

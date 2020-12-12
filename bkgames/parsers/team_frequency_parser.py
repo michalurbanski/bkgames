@@ -5,7 +5,7 @@ import traceback
 
 class TeamFrequencyParser:
 
-    def __init__(self, season_start_year, season_start_month):
+    def __init__(self, season_start_year: int, season_start_month: int):
         self._season_start_year = season_start_year
         self._season_start_month = season_start_month
 
@@ -22,11 +22,9 @@ class TeamFrequencyParser:
                 raise ValueError("Line does not have correct data")
 
             # date_search is expected to be 'day.month'
-            found_date = date_search[0]  # first occurrence of date
-            split = found_date.split(".")
+            found_date = date_search[0]  # first occurrence of a date
+            (day, month) = found_date.split(".")
 
-            day = split[0]
-            month = split[1]
             # NOTE: if games are in order, then this can be calculated only once
             game_year = self._calculate_game_year(
                 self._season_start_year,
@@ -45,7 +43,7 @@ class TeamFrequencyParser:
             return (False, {"not_parsed": line, "error": e, "traceback": tb})
 
         return (True, {
-                # [1] is 'at' word that is not needed
+                # remaining_list[1] is 'at' word that can be skipped
                 "home_team": remaining_list[0],
                 "away_team": remaining_list[2],
                 "date": date,
