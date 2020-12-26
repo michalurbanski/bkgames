@@ -18,11 +18,13 @@ class NotYetPlayedEnhancer:
         """
 
         allowed_teams = self._config.allowed_teams
-        teams_that_played = [item[0] for item in input]
-        missing_teams = self._find_difference(allowed_teams, teams_that_played)
+        if (len(allowed_teams) != len(input)):
+            teams_that_played = [item[0] for item in input]
+            missing_teams = self._find_difference(
+                allowed_teams, teams_that_played)
 
-        for team in missing_teams:
-            input.append((team, 0, [], None))
+            for team in missing_teams:
+                input.append((team, 0, [], None))
 
         return input
 
