@@ -2,11 +2,13 @@ from bkgames import reader
 from bkgames import parsers
 from bkgames import printers
 from bkgames import gameshistory
+from bkgames.dataenhancers import NotYetPlayedEnhancer
 
 
 def run():
     print("Printing the oldest games at the bottom...")
 
+    # TODO: it's confusing that configuration comes from reader - move to a separate package
     config = reader.Configuration("config.json")
     file_content = reader.Reader().read()
 
@@ -23,7 +25,11 @@ def run():
     # TODO: get_teams_to_watch might use only history data,
     # but it may also rely on the future data.
     # It's appropriate to put it in a different class and abstract it.
+    # Right now only historic data is fetched here.
     results = games_history.get_teams_to_watch()
+
+    not_yet_played_enhancer = NotYetPlayedEnhancer(config)
+    results = not_yet_played_enhancer.enhance_data(results)
 
     printer = printers.TeamsToWatchPrinter(results)
     printer.print_teams_to_watch()

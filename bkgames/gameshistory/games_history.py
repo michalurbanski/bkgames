@@ -1,5 +1,7 @@
 from bkgames.reader import TeamModel
 from bkgames.gameshistory.games_history_operations import GamesHistoryOperations
+from typing import List, Tuple
+from datetime import datetime
 
 
 class GamesHistory:
@@ -44,7 +46,7 @@ class GamesHistory:
         self._teams_frequency = results
 
     # TODO: consider where to move this method, like a new WatchStatistics class or so
-    def get_teams_to_watch(self):
+    def get_teams_to_watch(self) -> List[Tuple[str, int, List[datetime], datetime]]:
         """
         Gets teams to watch, based on historic results.
         Team watched the longest time ago is the last in this collection.
