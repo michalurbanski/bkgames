@@ -1,0 +1,1 @@
+from bkgames.configuration.configuration import Configuration

@@ -1,6 +1,6 @@
 from typing import List, Tuple
 from datetime import datetime
-from bkgames.reader.configuration import Configuration
+from bkgames.configuration import Configuration
 
 
 class NotYetPlayedEnhancer:

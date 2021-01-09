@@ -1,3 +1,4 @@
+from bkgames import configuration
 from bkgames import reader
 from bkgames import parsers
 from bkgames import printers
@@ -8,8 +9,7 @@ from bkgames.dataenhancers import NotYetPlayedEnhancer
 def run():
     print("Printing the oldest games at the bottom...")
 
-    # TODO: it's confusing that configuration comes from reader - move to a separate package
-    config = reader.Configuration("config.json")
+    config = configuration.Configuration("config.json")
     file_content = reader.Reader().read()
 
     file_parser = parsers.FileParser(
