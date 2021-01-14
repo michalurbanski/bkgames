@@ -44,5 +44,6 @@ def run():
 def _get_games_history(lines):
     history = gameshistory.GamesHistory()
     for line in lines:
+        # unpack to the list of arguments expected by the function
         history.add_game(**line)
     return history

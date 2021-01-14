@@ -9,7 +9,9 @@ class GamesHistory:
     def __init__(self):
         self._teams = {}
 
-    # TODO: why kwargs is needed here?
+    # Note: **kwargs is used here because object that is passed has a 'line' key
+    # that is not used by this method, but this key used in a different logic,
+    # so it cannot be removed from the passed object.
     def add_game(self, home_team, away_team, date, **kwargs):  # pylint: disable=unused-argument
         team = self._add_game_to_team(home_team, date)
         team2 = self._add_game_to_team(away_team, date)
