@@ -18,20 +18,21 @@ def run():
             config.season_year, config.season_start_month),
         parsers.TeamsValidator(config.allowed_teams))
     file_parser.run()
-    parsed_lines = file_parser.parsed_lines
 
-    games_history = _get_games_history(parsed_lines)
+    games = file_parser.parsed_lines
+    games_history = _build_games_history(games)
 
     # TODO: get_teams_to_watch might use only history data,
-    # but it may also rely on the future data.
+    # but it may also rely on the future data (if desired).
+    # GamesPlanner would be a good name for this class.
     # It's appropriate to put it in a different class and abstract it.
     # Right now only historic data is fetched here.
-    results = games_history.get_teams_to_watch()
+    teams_to_watch = games_history.get_teams_to_watch()
 
     not_yet_played_enhancer = NotYetPlayedEnhancer(config)
-    results = not_yet_played_enhancer.enhance_data(results)
+    teams_to_watch = not_yet_played_enhancer.enhance_data(teams_to_watch)
 
-    printer = printers.TeamsToWatchPrinter(results)
+    printer = printers.TeamsToWatchPrinter(teams_to_watch)
     printer.print_teams_to_watch()
 
     not_parsed_lines_printer = printers.NotParsedLinesPrinter(
@@ -41,9 +42,9 @@ def run():
     print("Program finished.")
 
 
-def _get_games_history(lines):
+def _build_games_history(lines):
     history = gameshistory.GamesHistory()
     for line in lines:
-        # unpack to the list of arguments expected by the function
+        # Unpack object keys to the list of arguments expected by the function
         history.add_game(**line)
     return history
