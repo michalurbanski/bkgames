@@ -1,37 +1,14 @@
-from bkgames.reader import TeamModel
-from bkgames.gameshistory.games_history_operations import GamesHistoryOperations
-from typing import List, Tuple, Dict
+from bkgames.gameshistory import GamesHistoryOperations
+from typing import Dict, List, Tuple
 from datetime import datetime
+from bkgames.reader import TeamModel
 
 
-class GamesHistory:
+class PastOnlyPlanner:
+    """ Finds games to watch only based on the past data """
 
-    def __init__(self):
-        self._teams = {}
-
-    def build_games_history(self, games: List[dict]) -> Dict[str, TeamModel]:
-        for game in games:
-            self._add_game(**game)
-
-        return self._teams
-
-    # Note: **kwargs is used here because object that is passed has a 'line' key
-    # that is not used by this method, but this key used in a different logic,
-    # so it cannot be removed from the passed object.
-
-    def _add_game(self, home_team, away_team, date, **kwargs):  # pylint: disable=unused-argument
-        team = self._add_game_to_team(home_team, date)
-        team2 = self._add_game_to_team(away_team, date)
-
-        self._teams[team.team_code] = team
-        self._teams[team2.team_code] = team2
-
-    def _add_game_to_team(self, team, date):
-        existing_team = self._teams.get(team, None)
-        if existing_team is None:
-            existing_team = TeamModel(team)
-        existing_team.add_game(date)
-        return existing_team
+    def __init__(self, teams: Dict[str, TeamModel]):
+        self._teams = teams
 
     def _get_teams_frequency(self):
         """
@@ -54,7 +31,6 @@ class GamesHistory:
             results[key] = team.games
         self._teams_frequency = results
 
-    # TODO: consider where to move this method, like a new WatchStatistics class or so
     def get_teams_to_watch(self) -> List[Tuple[str, int, List[datetime], datetime]]:
         """
         Gets teams to watch, based on historic results.
