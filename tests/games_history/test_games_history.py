@@ -13,7 +13,7 @@ class TestGamesHistory(unittest.TestCase):
         away_team = "tor"
         date = datetime(2018, 10, 13)
 
-        game_dictionary = self._construct_game_dictionary(
+        game_dictionary = self._make_game(
             home_team, away_team, date)
         games = list()
         games.append(game_dictionary)
@@ -43,7 +43,7 @@ class TestGamesHistory(unittest.TestCase):
         home_team = "bos"
         away_team = "tor"
         date = datetime(2018, 10, 13)
-        game_dictionary = self._construct_game_dictionary(
+        game_dictionary = self._make_game(
             home_team, away_team, date)
         games = list()
         games.append(game_dictionary)
@@ -51,7 +51,7 @@ class TestGamesHistory(unittest.TestCase):
         # Add second game for the same home_team
         away_team = "phx"
         date = datetime(2018, 10, 15)
-        game_dictionary = self._construct_game_dictionary(
+        game_dictionary = self._make_game(
             home_team, away_team, date)
         games.append(game_dictionary)
 
@@ -144,7 +144,7 @@ class TestGamesHistory(unittest.TestCase):
     #     return [result for result in teams_to_watch if result[0] == team_name][0]
 
     @ staticmethod
-    def _construct_game_dictionary(home_team, away_team, date):
+    def _make_game(home_team, away_team, date):
         return {
             "home_team": home_team,
             "away_team": away_team,
