@@ -10,6 +10,9 @@ class GamesHistory:
         self._teams = {}
 
     def build_games_history(self, games: List[dict]) -> Dict[str, TeamModel]:
+        """
+        Converts list of games to dictionary with teams.
+        """
         for game in games:
             self._add_game(**game)
 
