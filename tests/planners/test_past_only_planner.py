@@ -26,7 +26,7 @@ class TestPastOnlyPlanner(unittest.TestCase):
         games.append(self._make_game(phx, bos, second_game_date))
 
         games_history = GamesHistory()
-        teams = games_history.build_games_history(games)
+        teams = games_history.build_teams_history(games)
         games_planner = PastOnlyPlanner(teams)
         teams_to_watch = games_planner.get_teams_to_watch()
 
@@ -36,7 +36,7 @@ class TestPastOnlyPlanner(unittest.TestCase):
     def test_empty_list_of_games_throws_error(self):
         games = list()
         games_history = GamesHistory()
-        teams = games_history.build_games_history(games)
+        teams = games_history.build_teams_history(games)
 
         games_planner = PastOnlyPlanner(teams)
 

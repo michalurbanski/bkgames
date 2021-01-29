@@ -16,7 +16,7 @@ class TestGamesHistory(unittest.TestCase):
         games = list()
         games.append(game_dictionary)
 
-        teams = games_history.build_games_history(games)
+        teams = games_history.build_teams_history(games)
         self.assertEqual(len(teams), 2)
         self.assertEqual(teams[home_team].games[0], teams[away_team].games[0])
 
@@ -38,7 +38,7 @@ class TestGamesHistory(unittest.TestCase):
             home_team, away_team, date)
         games.append(game_dictionary)
 
-        teams = games_history.build_games_history(games)
+        teams = games_history.build_teams_history(games)
         self.assertEqual(len(teams), 3)
 
         self.assertEqual(len(teams[home_team].games),

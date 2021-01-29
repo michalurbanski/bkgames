@@ -22,12 +22,10 @@ def run():
 
     games = file_parser.parsed_lines
 
-    # TODO What should be done here is to convert games to teams
-    # Each game is played by two teams
     games_history = gameshistory.GamesHistory()
-    teams = games_history.build_games_history(games)
+    teams_history = games_history.build_teams_history(games)
 
-    games_planner = planners.PastOnlyPlanner(teams)
+    games_planner = planners.PastOnlyPlanner(teams_history)
     teams_to_watch = games_planner.get_teams_to_watch()
 
     not_yet_played_enhancer = NotYetPlayedEnhancer(config)

@@ -9,7 +9,7 @@ class GamesHistory:
     def __init__(self):
         self._teams = {}
 
-    def build_games_history(self, games: List[dict]) -> Dict[str, TeamModel]:
+    def build_teams_history(self, games: List[dict]) -> Dict[str, TeamModel]:
         """
         Converts list of games to dictionary with teams.
         """

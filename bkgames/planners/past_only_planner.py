@@ -5,31 +5,10 @@ from bkgames.reader import TeamModel
 
 
 class PastOnlyPlanner:
-    """ Finds games to watch only based on the past data """
+    """ Finds teams to watch, based only on past games."""
 
-    def __init__(self, teams: Dict[str, TeamModel]):
-        self._teams = teams
-
-    def _get_teams_frequency(self):
-        """
-        Converts team_model to dictionary that is expected by other logic.
-
-        Returns: dict()
-
-        Example:
-
-        results = {
-            "first_team": [datetime(2019, 3, 22), datetime(2019, 5, 5)],
-            "second_team": [datetime(2019, 3, 2)],
-            "third_team": [datetime(2019, 3, 5)]
-
-        }
-        """
-        # NOTE: It's possible to use model all the way instead of dictionary - to be considered
-        results = {}
-        for key, team in self._teams.items():
-            results[key] = team.games
-        self._teams_frequency = results
+    def __init__(self, teams_history: Dict[str, TeamModel]):
+        self._teams_history = teams_history
 
     def get_teams_to_watch(self) -> List[Tuple[str, int, List[datetime], datetime]]:
         """
@@ -60,3 +39,24 @@ class PastOnlyPlanner:
                   for item in ordered_by_games_played]
 
         return sorted(result, key=lambda x: (x[1], x[3]), reverse=True)
+
+    def _get_teams_frequency(self):
+        """
+        Converts team_model to dictionary that is expected by other logic.
+
+        Returns: dict()
+
+        Example:
+
+        results = {
+            "first_team": [datetime(2019, 3, 22), datetime(2019, 5, 5)],
+            "second_team": [datetime(2019, 3, 2)],
+            "third_team": [datetime(2019, 3, 5)]
+
+        }
+        """
+        # NOTE: It's possible to use model all the way instead of dictionary - to be considered
+        results = {}
+        for name, team_data in self._teams_history.items():
+            results[name] = team_data.games
+        self._teams_frequency = results
