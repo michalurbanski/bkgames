@@ -1,6 +1,6 @@
 import unittest
 import datetime
-from bkgames.parsers import TeamsValidator
+from bkgames.validators import TeamsValidator
 
 
 class TestTeamsValidator(unittest.TestCase):

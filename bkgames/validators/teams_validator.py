@@ -1,8 +1,11 @@
+from typing import List
+
+
 class TeamsValidator:
     """ Checks if team code is valid, based on configuration list """
 
-    def __init__(self, valid_team_codes: list):
-        """ valid_teams - array of valid team codes """
+    def __init__(self, valid_team_codes: List[str]):
+        """ valid_team_codes - List of valid team codes """
         self._valid_team_codes = valid_team_codes
 
     def validate(self, previous_parsing_result: dict) -> (bool, dict):

@@ -1,6 +1,7 @@
 from bkgames import configuration
 from bkgames import reader
 from bkgames import parsers
+from bkgames import validators
 from bkgames import printers
 from bkgames import gameshistory
 from bkgames import planners
@@ -17,7 +18,7 @@ def run():
         file_content,
         parsers.TeamFrequencyParser(
             config.season_year, config.season_start_month),
-        parsers.TeamsValidator(config.allowed_teams))
+        validators.TeamsValidator(config.allowed_teams))
     file_parser.run()
 
     games = file_parser.parsed_lines

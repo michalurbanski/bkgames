@@ -1,6 +1,7 @@
 import unittest
 import datetime
-from bkgames.parsers import TeamFrequencyParser, TeamsValidator, FileParser
+from bkgames.parsers import TeamFrequencyParser, FileParser
+from bkgames.validators import TeamsValidator
 from bkgames.gameshistory import GamesHistory
 
 
