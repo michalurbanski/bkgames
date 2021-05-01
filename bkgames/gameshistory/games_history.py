@@ -14,6 +14,7 @@ class GamesHistory:
         Converts list of games to dictionary with teams.
         """
         for game in games:
+            # unpacking is used here (tries to match passed object properties to function parameters)
             self._add_game(**game)
 
         return self._teams
