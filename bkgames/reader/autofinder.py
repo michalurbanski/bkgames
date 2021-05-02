@@ -1,9 +1,10 @@
 import os
 from os import listdir
 from os.path import isfile
+from bkgames.reader.file_finder import FileFinder
 
 
-class Autofinder:
+class Autofinder(FileFinder):
     """Autofinder automatically searches for an input file."""
 
     def __init__(self, folder_path: str):

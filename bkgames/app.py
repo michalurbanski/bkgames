@@ -12,7 +12,7 @@ def run():
     print("Printing the oldest games at the bottom...")
 
     config = configuration.Configuration("config.json")
-    file_content = reader.Reader().read()
+    file_content = reader.Reader.create_default_reader().read()
 
     file_parser = parsers.FileParser(
         file_content,

@@ -52,3 +52,6 @@ class TestReader(unittest.TestCase):
         reader.read()
 
         self.assertFalse(reader._autofinder.find_input_file.called)
+
+    def test_no_autofinder_and_no_input_filename_provided_throws_error(self):
+        self.fail("to be implemented to increase the coverage")
