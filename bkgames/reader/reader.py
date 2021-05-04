@@ -13,6 +13,7 @@ class Reader:
         Parameters:
             file_finder (FileFinder): One of the finders that specify how
                 to search for an input file.
+                Note: Use FileFinderFactory to create this object.
         """
         self._file_finder = file_finder
 
