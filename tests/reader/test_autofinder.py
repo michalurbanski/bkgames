@@ -1,12 +1,11 @@
 import unittest
-import os
-import uuid
 from bkgames.reader import Autofinder
 from tests.data_creator import DataCreator
 
 
 class TestAutofinder(unittest.TestCase):
 
+    # Example:
     # def setUp(self):
     #     self.folder_name = str(uuid.uuid1())
     #     self.file_path = os.path.join(self.folder_name, "input.txt")
@@ -38,22 +37,10 @@ class TestAutofinder(unittest.TestCase):
         finally:
             creator.cleanup()
 
-    def test_when_valid_folder_path_and_not_empty_returns_the_newest_file(self):
-        self.skipTest(
-            "Possibility of creating multiple files to be implemented in data creator")
-        # finder = Autofinder(self.folder_name)
-        # file_path = finder.find_input_file()
-
-        # # TODO: instead of in setUp, create only here, but use a new class for it
-        # # use builder pattern for it?? to decide whether folder should have files or not
-        # # Something like DataCreator.createFolder().withData().build()
-
-        # self.assertEqual(file_path, self.file_path)
-
     def test_when_folder_has_no_file_reports_error(self):
         creator = DataCreator()
         try:
-            creator.create_folder().execute()
+            creator.create_folder().execute()  # Only folder, no file
 
             finder = Autofinder(creator.folder_name)
 
