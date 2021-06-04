@@ -1,5 +1,6 @@
 from bkgames.reader.file_finder import FileFinder
 from bkgames.reader.file_finder_factory import FileFinderFactory
+from typing import List
 
 
 class Reader:
@@ -25,9 +26,12 @@ class Reader:
     def create_default_reader(cls):
         return cls(FileFinderFactory.create_file_finder())
 
-    def read(self) -> list:
+    def read(self) -> List[str]:
         """
         First simple implementation reads all lines at once to the list.
+
+        Number of lines to be read is small, so there's no need to provide
+        more sophisticated mechanism and all can be just read into memory.
 
         Returns:
             list(str): List of lines from the input file.

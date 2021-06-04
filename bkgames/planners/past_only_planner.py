@@ -10,6 +10,7 @@ class PastOnlyPlanner:
     def __init__(self, teams_history: Dict[str, TeamModel]):
         self._teams_history = teams_history
 
+    # TODO: return result might be a class
     def get_teams_to_watch(self) -> List[Tuple[str, int, List[datetime], datetime]]:
         """
         Gets teams to watch, based on historic results.
@@ -40,6 +41,7 @@ class PastOnlyPlanner:
 
         return sorted(result, key=lambda x: (x[1], x[3]), reverse=True)
 
+    # TODO: change this method name or refactor it to return something
     def _get_teams_frequency(self):
         """
         Converts team_model to dictionary that is expected by other logic.
