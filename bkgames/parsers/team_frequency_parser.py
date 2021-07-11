@@ -1,6 +1,7 @@
 from datetime import datetime
 import re
 import traceback
+from typing import Tuple
 
 
 class TeamFrequencyParser:
@@ -9,7 +10,7 @@ class TeamFrequencyParser:
         self._season_start_year = season_start_year
         self._season_start_month = season_start_month
 
-    def parse(self, line: str) -> (bool, dict):
+    def parse(self, line: str) -> Tuple[bool, dict]:
         """
         Expected format is day.month (without year); day and/or month can be 1 or 2 digits.
         Example: DONE - Nba game 16.10 bos at phi -> bos?
