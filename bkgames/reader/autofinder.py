@@ -12,7 +12,6 @@ class Autofinder(FileFinder):
 
     def find_input_file(self) -> str:
         if Autofinder._does_folder_path_exist(self._folder_path):
-
             only_files: list = [
                 f
                 for f in listdir(self._folder_path)
@@ -20,7 +19,10 @@ class Autofinder(FileFinder):
             ]
 
             if not only_files:
-                raise Exception("Autofinder: No file with input data can be found")
+                error = "Autofinder: No file with input data can be found.\n"
+                error += f"Ensure that '{self._folder_path}' folder has file with data."
+
+                raise Exception(error)
 
             # Files have naming convention based on year, like:
             # s2021.dat
@@ -33,7 +35,7 @@ class Autofinder(FileFinder):
         else:
             error = "Autofinder: Provided path does not exist.\n"
             error += f"Ensure that '{self._folder_path}' folder exists and has data."
-            
+
             raise ValueError(error)
 
     @staticmethod
