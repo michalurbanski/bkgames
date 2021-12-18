@@ -5,7 +5,9 @@ from bkgames.reader.filename_finder import FilenameFinder
 
 class FileFinderFactory:
     @classmethod
-    def create_file_finder(cls, filename: str = None, autofind: bool = True) -> FileFinder:
+    def create_file_finder(
+        cls, filename: str = None, autofind: bool = True
+    ) -> FileFinder:
         """
         Parameters:
             filename (str): Path to file with data - either absolute path, or if
@@ -18,10 +20,11 @@ class FileFinderFactory:
         """
         if not autofind and filename is None:
             raise ValueError(
-                "You must provide a filename or autofind must be set to 'true'")
+                "You must provide a filename or autofind must be set to 'true'"
+            )
 
         # Filename checked at first - if user provides filename explicitly
-        # it means they're decided not to use autofinder.
+        # it means they decided not to use autofinder.
         if filename:
             return FilenameFinder(filename)
 

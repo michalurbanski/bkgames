@@ -10,6 +10,12 @@ To run the application execute:
 python bkgames.py
 ```
 
+or
+
+```
+python -m bkgames
+```
+
 TODO: packages installation (requirements.txt)
 
 # Unit tests

@@ -27,6 +27,8 @@ class Configuration:
         return self._config["season_start_month"]
 
     def _load(self) -> None:
+        # When config object is filled it means that data has been already read
+        # from the config file.
         if self._config:
             return
         self._read_json_file()
