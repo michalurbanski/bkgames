@@ -3,7 +3,7 @@ class TeamModel:
     Represents team that have dates when it played
     """
 
-    def __init__(self, team_code):
+    def __init__(self, team_code: str):
         self.team_code = team_code
         self._games_dates = []
 

@@ -4,7 +4,7 @@ from typing import List
 
 
 class FileParser:
-    """ Goes through each line of input file and performs operation on it """
+    """Goes through each line of input file and performs operation on it"""
 
     def __init__(self, lines: List[str], lines_parser, teams_validator):
         self._lines = lines
@@ -14,9 +14,9 @@ class FileParser:
         self._parsed_lines = []
 
     def run(self) -> None:
-        """ Goes through each line and parses it according to specified rules,
-        or adds to not parsed lines """
-
+        """Goes through each line and parses it according to specified rules,
+        or adds to not parsed lines.
+        """
         for line in self._lines:
             parsing_status, data = self._lines_parser.parse(line)
             if parsing_status:
@@ -30,8 +30,13 @@ class FileParser:
 
     @property
     def parsed_lines(self) -> List[dict]:
+        """Each dictionary entry has the following keys:
+
+        Returns:
+            List of the following dictionaries (home_team, away_team, data, line)
+        """
         return self._parsed_lines
 
-    @ property
+    @property
     def not_parsed_lines(self) -> List[dict]:
         return self._not_parsed_lines

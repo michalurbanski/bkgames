@@ -16,9 +16,9 @@ def run():
 
     file_parser = parsers.FileParser(
         file_content,
-        parsers.TeamFrequencyParser(
-            config.season_year, config.season_start_month),
-        validators.TeamsValidator(config.allowed_teams))
+        parsers.TeamFrequencyParser(config.season_year, config.season_start_month),
+        validators.TeamsValidator(config.allowed_teams),
+    )
     file_parser.run()
 
     games = file_parser.parsed_lines
@@ -36,7 +36,8 @@ def run():
     printer.print_teams_to_watch()
 
     not_parsed_lines_printer = printers.NotParsedLinesPrinter(
-        file_parser.not_parsed_lines)
+        file_parser.not_parsed_lines
+    )
     not_parsed_lines_printer.print_not_parsed_lines()
 
     print("Program finished.")
