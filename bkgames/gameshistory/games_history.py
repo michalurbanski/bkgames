@@ -1,20 +1,24 @@
 from bkgames.reader import TeamModel
-from bkgames.gameshistory.games_history_operations import GamesHistoryOperations
-from typing import List, Tuple, Dict
+from typing import List, Dict
 from datetime import datetime
 
 
 class GamesHistory:
-
     def __init__(self):
         self._teams = {}
 
     def build_teams_history(self, games: List[dict]) -> Dict[str, TeamModel]:
         """
-        Converts list of games to dictionary with teams.
+        Converts list of parsed lines to a dictionary with teams.
+
+        Returns:
+            Dictionary -> (team_code, TeamModel)
         """
         for game in games:
-            # unpacking is used here (tries to match passed object properties to function parameters)
+            # Dictionary item created as a result of parsing input file
+            # is unpacked here.
+            # Unpacking tries to match passed object properties as function
+            # parameters.
             self._add_game(**game)
 
         return self._teams
@@ -23,7 +27,9 @@ class GamesHistory:
     # that is not used by this method, but this key used in a different logic,
     # so it cannot be removed from the passed object.
 
-    def _add_game(self, home_team, away_team, date, **kwargs):  # pylint: disable=unused-argument
+    def _add_game(
+        self, home_team: str, away_team: str, date: datetime, **kwargs
+    ):  # pylint: disable=unused-argument
         team = self._add_game_to_team(home_team, date)
         team2 = self._add_game_to_team(away_team, date)
 
