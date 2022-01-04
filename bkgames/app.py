@@ -21,10 +21,12 @@ def run():
     )
     file_parser.run()
 
-    games = file_parser.parsed_lines
+    parsed_lines = file_parser.parsed_lines
 
     games_history = gameshistory.GamesHistory()
-    teams_history = games_history.build_teams_history(games)
+    teams_history = games_history.build_teams_history(parsed_lines)
+    print(teams_history)
+    exit(1)
 
     games_planner = planners.PastOnlyPlanner(teams_history)
     teams_to_watch = games_planner.get_teams_to_watch()
