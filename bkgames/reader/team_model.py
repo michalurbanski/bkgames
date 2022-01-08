@@ -19,6 +19,10 @@ class TeamModel:
         return self._games_dates
 
     @property
+    def number_of_games_played(self) -> int:
+        return len(self.games)
+
+    @property
     def team_code(self) -> str:
         return self._team_code
 

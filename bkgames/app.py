@@ -25,17 +25,15 @@ def run():
 
     games_history = gameshistory.GamesHistory()
     teams_history = games_history.build_teams_history(parsed_lines)
-    print(teams_history)
-    exit(1)
 
-    games_planner = planners.PastOnlyPlanner(teams_history)
-    teams_to_watch = games_planner.get_teams_to_watch()
+    games_planner = planners.PastOnlyPlanner()
+    teams_to_watch = games_planner.get_teams_to_watch(teams_history)
 
-    not_yet_played_enhancer = NotYetPlayedEnhancer(config)
-    teams_to_watch = not_yet_played_enhancer.enhance_data(teams_to_watch)
+    not_yet_played_enhancer = NotYetPlayedEnhancer()
+    teams_to_watch = not_yet_played_enhancer.enhance_data(teams_to_watch, config)
 
-    printer = printers.TeamsToWatchPrinter(teams_to_watch)
-    printer.print_teams_to_watch()
+    printer = printers.TeamsToWatchPrinter()
+    printer.print_teams_to_watch(teams_to_watch)
 
     not_parsed_lines_printer = printers.NotParsedLinesPrinter(
         file_parser.not_parsed_lines
