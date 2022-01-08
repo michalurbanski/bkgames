@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import List
 
 
 class TeamModel:
@@ -14,15 +15,15 @@ class TeamModel:
         self._games_dates.append(game_date)
 
     @property
-    def games(self):
+    def games(self) -> List[datetime]:
         return self._games_dates
 
     @property
-    def team_code(self):
+    def team_code(self) -> str:
         return self._team_code
 
     @team_code.setter
-    def team_code(self, value):
+    def team_code(self, value: str):
         self._team_code = value
 
     def __repr__(self):
