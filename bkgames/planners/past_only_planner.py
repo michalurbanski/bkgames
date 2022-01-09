@@ -30,7 +30,11 @@ class PastOnlyPlanner:
         # To easier sort by the most recent games, it's convenient to sort those
         # games at first.
 
-        copied_teams = deepcopy(teams_history)  # to not change input collection
+        if teams_history is None or len(teams_history) == 0:
+            raise ValueError("Empty collection of games")
+
+        # Copy in order not to change input collection.
+        copied_teams = deepcopy(teams_history)
 
         for team in copied_teams:
             team.games.sort()

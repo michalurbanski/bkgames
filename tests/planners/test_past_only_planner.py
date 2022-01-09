@@ -7,13 +7,13 @@ from bkgames.planners.past_only_planner import PastOnlyPlanner
 class TestPastOnlyPlanner(unittest.TestCase):
     def test_most_games_team_at_the_top_least_games_and_oldest_at_the_bottom(self):
         """
-            input:
-            bos, atl, 2020-01-05
-            bos, phx, 2020-01-10
+        input:
+        bos, atl, 2020-01-05
+        bos, phx, 2020-01-10
 
-            should give the following outcome:
-            bos -> at the top
-            atl -> at the bottom
+        should give the following outcome:
+        bos -> at the top
+        atl -> at the bottom
         """
         bos = "bos"
         atl = "atl"
@@ -27,25 +27,21 @@ class TestPastOnlyPlanner(unittest.TestCase):
 
         games_history = GamesHistory()
         teams = games_history.build_teams_history(games)
-        games_planner = PastOnlyPlanner(teams)
-        teams_to_watch = games_planner.get_teams_to_watch()
+        games_planner = PastOnlyPlanner()
+        teams_to_watch = games_planner.get_teams_to_watch(teams)
 
-        self.assertEqual(teams_to_watch[0][0], bos)
-        self.assertEqual(teams_to_watch[-1][0], atl)
+        self.assertEqual(teams_to_watch[0].team_code, bos)
+        self.assertEqual(teams_to_watch[-1].team_code, atl)
 
     def test_empty_list_of_games_throws_error(self):
         games = list()
         games_history = GamesHistory()
         teams = games_history.build_teams_history(games)
 
-        games_planner = PastOnlyPlanner(teams)
+        games_planner = PastOnlyPlanner()
 
-        self.assertRaises(ValueError, games_planner.get_teams_to_watch)
+        self.assertRaises(ValueError, games_planner.get_teams_to_watch, teams)
 
     @staticmethod
     def _make_game(home_team, away_team, date):
-        return {
-            "home_team": home_team,
-            "away_team": away_team,
-            "date": date
-        }
+        return {"home_team": home_team, "away_team": away_team, "date": date}
