@@ -5,7 +5,7 @@ from bkgames.decorators.singleton import singleton
 
 @singleton
 class Configuration:
-    """ Reads configuration values from config file """
+    """Reads configuration values from config file"""
 
     def __init__(self, filename: str):
         self._filename = filename
@@ -26,6 +26,11 @@ class Configuration:
         self._load()
         return self._config["season_start_month"]
 
+    @property
+    def skipped_teams(self) -> List[str]:
+        self._load()
+        return self._config["skipped_teams"]
+
     def _load(self) -> None:
         # When config object is filled it means that data has been already read
         # from the config file.
@@ -34,5 +39,5 @@ class Configuration:
         self._read_json_file()
 
     def _read_json_file(self) -> None:
-        with open(self._filename, 'r') as f:
+        with open(self._filename, "r") as f:
             self._config = json.load(f)

@@ -5,7 +5,7 @@ from bkgames import validators
 from bkgames import printers
 from bkgames import gameshistory
 from bkgames import planners
-from bkgames.dataenhancers import NotYetPlayedEnhancer
+from bkgames.dataenhancers import NotYetPlayedEnhancer, SkipTeamsEnhancer
 
 
 def run():
@@ -31,6 +31,9 @@ def run():
 
     not_yet_played_enhancer = NotYetPlayedEnhancer()
     teams_to_watch = not_yet_played_enhancer.enhance_data(teams_to_watch, config)
+
+    skip_teams_enhancer = SkipTeamsEnhancer()
+    teams_to_watch = skip_teams_enhancer.enhance_data(teams_to_watch, config)
 
     printer = printers.TeamsToWatchPrinter()
     printer.print_teams_to_watch(teams_to_watch)
