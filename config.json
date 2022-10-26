@@ -7,5 +7,5 @@
         "dal", "hou", "mem", "nop", "sas",
         "den", "min", "por", "okc", "uta",
         "gsw", "lac", "lal", "phx", "sac"],
-    "skipped_teams": ["okc", "hou"]
+    "skipped_teams": []
 }
