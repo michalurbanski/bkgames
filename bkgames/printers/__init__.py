@@ -1,2 +1,2 @@
-from bkgames.printers.teams_to_watch_printer import TeamsToWatchPrinter
-from bkgames.printers.not_parsed_lines_printer import NotParsedLinesPrinter
+from .teams_to_watch_printer import TeamsToWatchPrinter
+from .not_parsed_lines_printer import NotParsedLinesPrinter

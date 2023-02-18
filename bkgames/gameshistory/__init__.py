@@ -1,1 +1,1 @@
-from bkgames.gameshistory.games_history import GamesHistory
+from .games_history import GamesHistory

@@ -1,1 +1,1 @@
-from bkgames.validators.teams_validator import TeamsValidator
+from .teams_validator import TeamsValidator

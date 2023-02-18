@@ -16,7 +16,8 @@ def run():
 
     file_parser = parsers.FileParser(
         file_content,
-        parsers.TeamFrequencyParser(config.season_year, config.season_start_month),
+        parsers.TeamFrequencyParser(
+            config.season_year, config.season_start_month),
         validators.TeamsValidator(config.allowed_teams),
     )
     file_parser.run()
@@ -30,7 +31,8 @@ def run():
     teams_to_watch = games_planner.get_teams_to_watch(teams_history)
 
     not_yet_played_enhancer = NotYetPlayedEnhancer()
-    teams_to_watch = not_yet_played_enhancer.enhance_data(teams_to_watch, config)
+    teams_to_watch = not_yet_played_enhancer.enhance_data(
+        teams_to_watch, config)
 
     skip_teams_enhancer = SkipTeamsEnhancer()
     teams_to_watch = skip_teams_enhancer.enhance_data(teams_to_watch, config)

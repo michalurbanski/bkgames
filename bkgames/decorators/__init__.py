@@ -1,2 +1,1 @@
-""" Contains decorators. """
-from bkgames.decorators.singleton import singleton
+from .singleton import singleton

@@ -1,1 +1,1 @@
-from bkgames.configuration.configuration import Configuration
+from .configuration import Configuration

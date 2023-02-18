@@ -1,1 +1,1 @@
-from bkgames.planners.past_only_planner import PastOnlyPlanner
+from .past_only_planner import PastOnlyPlanner

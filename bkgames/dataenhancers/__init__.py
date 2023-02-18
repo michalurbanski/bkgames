@@ -1,2 +1,2 @@
-from bkgames.dataenhancers.not_yet_played_enhancer import NotYetPlayedEnhancer
-from bkgames.dataenhancers.skip_teams_enhancer import SkipTeamsEnhancer
+from .not_yet_played_enhancer import NotYetPlayedEnhancer
+from .skip_teams_enhancer import SkipTeamsEnhancer
