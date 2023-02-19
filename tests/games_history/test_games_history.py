@@ -38,7 +38,8 @@ class TestGamesHistory(unittest.TestCase):
         self.assertEqual(len(teams), 3)
 
         # 'next' finds first occurrence
-        selected_team = next(team for team in teams if team.team_code == home_team)
+        selected_team = next(
+            team for team in teams if team.team_code == home_team)
 
         self.assertEqual(
             len(selected_team.games), 2, "Home team should have 2 game dates"

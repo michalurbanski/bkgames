@@ -1,6 +1,8 @@
 from bkgames.reader.file_finder import FileFinder
 from bkgames.reader.autofinder import Autofinder
 from bkgames.reader.filename_finder import FilenameFinder
+from bkgames.root_path import ROOT_PATH
+import os
 
 
 class FileFinderFactory:
@@ -28,4 +30,4 @@ class FileFinderFactory:
         if filename:
             return FilenameFinder(filename)
 
-        return Autofinder("data")
+        return Autofinder(os.path.join(ROOT_PATH, "data"))

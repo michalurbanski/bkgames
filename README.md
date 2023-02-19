@@ -4,13 +4,7 @@ Application helps in indentification of teams to watch.
 
 # How to use?
 
-To run the application execute:
-
-```
-python bkgames.py
-```
-
-or
+To run the application, navigate to the ```'src'``` folder and execute:
 
 ```
 python -m bkgames
@@ -20,7 +14,7 @@ TODO: packages installation (requirements.txt)
 
 # Unit tests
 
-To run unit tests execute:
+To run unit tests, in the root folder, execute:
 
 ```
 python -m unittest

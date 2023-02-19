@@ -1,4 +1,4 @@
-from bkgames import configuration
+from .configuration import Configuration
 from bkgames import reader
 from bkgames import parsers
 from bkgames import validators
@@ -6,12 +6,15 @@ from bkgames import printers
 from bkgames import gameshistory
 from bkgames import planners
 from bkgames.dataenhancers import NotYetPlayedEnhancer, SkipTeamsEnhancer
+from bkgames.root_path import ROOT_PATH
+import os
 
 
 def run():
     print("Printing the oldest games at the bottom...")
 
-    config = configuration.Configuration("config.json")
+    config = Configuration(
+        os.path.join(ROOT_PATH, "config.json"))
     file_content = reader.Reader.create_default_reader().read()
 
     file_parser = parsers.FileParser(
