@@ -6,7 +6,7 @@ from bkgames import printers
 from bkgames import gameshistory
 from bkgames import planners
 from bkgames.dataenhancers import NotYetPlayedEnhancer, SkipTeamsEnhancer
-from bkgames.root_path import ROOT_PATH
+from bkgames.root_path import ROOT_PATH  # TODO: fix this in all places
 import os
 
 
