@@ -1,6 +1,6 @@
 import json
 from typing import List
-from bkgames.decorators.singleton import singleton
+from bkgames.decorators import singleton
 
 
 @singleton
