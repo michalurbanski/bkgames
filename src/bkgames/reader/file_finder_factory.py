@@ -30,4 +30,5 @@ class FileFinderFactory:
         if filename:
             return FilenameFinder(filename)
 
+        # TODO: consider if autofinder is actually needed.
         return Autofinder(os.path.join(ROOT_PATH, "data"))
