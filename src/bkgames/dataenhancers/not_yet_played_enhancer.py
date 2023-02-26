@@ -15,7 +15,8 @@ class NotYetPlayedEnhancer:
         allowed_teams = config.allowed_teams
         if len(allowed_teams) != len(input):
             teams_that_played = [team.team_code for team in input]
-            missing_teams = self._find_difference(allowed_teams, teams_that_played)
+            missing_teams = self._find_difference(
+                allowed_teams, teams_that_played)
 
             for team in missing_teams:
                 input.append(TeamModel(team))
