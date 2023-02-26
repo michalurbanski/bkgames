@@ -26,7 +26,7 @@ class FileFinderFactory:
             )
 
         # Filename checked at first - if user provides filename explicitly
-        # it means they decided not to use autofinder.
+        # it means they decided not to use the autofinder.
         if filename:
             return FilenameFinder(filename)
 

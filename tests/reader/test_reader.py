@@ -36,5 +36,6 @@ class TestReader(unittest.TestCase):
         first_item = teams_with_games[0]
         self.assertTrue("bos" in first_item)
 
-    def test_when_finder_is_none_then_reader_raise_error(self):
-        self.assertRaises(ValueError, lambda: Reader(None).read())
+    def test_when_finder_is_not_provided_then_autofinder_is_used(self):
+        reader = Reader()
+        self.assertIsNotNone(reader._file_finder)  # Not the best way to check.

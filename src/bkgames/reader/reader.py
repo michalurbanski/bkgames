@@ -9,29 +9,21 @@ class Reader:
     Input files are expected to be placed in the 'data' folder.
     """
 
-    def __init__(self, file_finder: FileFinder):
+    def __init__(self, file_finder: FileFinder = None):
         """
         Parameters:
             file_finder (FileFinder): One of the finders that specify how
                 to search for an input file.
                 Note: Use FileFinderFactory to create this object.
         """
-        self._file_finder = file_finder
-
-        if self._file_finder is None:
-            raise ValueError(
-                "You must specify how you want to find the file by providing a file_finder")
-
-    @classmethod
-    def create_default_reader(cls):
-        return cls(FileFinderFactory.create_file_finder())
+        self._file_finder = file_finder or FileFinderFactory.create_file_finder()
 
     def read(self) -> List[str]:
         """
-        First simple implementation reads all lines at once to the list.
+        First, simple, implementation reads all lines at once to the list.
 
-        Number of lines to be read is small, so there's no need to provide
-        more sophisticated mechanism and all can be just read into memory.
+        Number of lines to be read is small. There's no need to provide 
+        more sophisticated mechanism. All data can be read into memory.
 
         Returns:
             list(str): List of lines from the input file.

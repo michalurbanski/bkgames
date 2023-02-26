@@ -15,7 +15,8 @@ def run():
 
     config = Configuration(
         os.path.join(ROOT_PATH, "config.json"))
-    file_content = Reader.create_default_reader().read()
+
+    file_content = Reader().read()
 
     file_parser = FileParser(
         file_content,
