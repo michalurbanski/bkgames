@@ -1,7 +1,7 @@
 import unittest
-from bkgames.reader import FileFinderFactory
-from bkgames.reader.autofinder import Autofinder
-from bkgames.reader.filename_finder import FilenameFinder
+from bkgames.readers import FileFinderFactory
+from bkgames.readers.autofinder import Autofinder
+from bkgames.readers.filename_finder import FilenameFinder
 
 
 class TestFileFinderFactory(unittest.TestCase):

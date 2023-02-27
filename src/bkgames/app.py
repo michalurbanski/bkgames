@@ -1,5 +1,5 @@
 from .configuration import Configuration
-from .reader import Reader
+from .readers import FileReader
 from .parsers import FileParser, TeamFrequencyParser
 from .validators import TeamsValidator
 from .printers import TeamsToWatchPrinter, NotParsedLinesPrinter
@@ -16,10 +16,10 @@ def run():
     config = Configuration(
         os.path.join(ROOT_PATH, "config.json"))
 
-    file_content = Reader().read()
+    lines = FileReader().read()
 
     file_parser = FileParser(
-        file_content,
+        lines,
         TeamFrequencyParser(
             config.season_year, config.season_start_month),
         TeamsValidator(config.allowed_teams),

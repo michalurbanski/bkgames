@@ -1,7 +1,7 @@
 import os
 from os import listdir
 from os.path import isfile
-from bkgames.reader.file_finder import FileFinder
+from bkgames.readers.file_finder import FileFinder
 
 
 class Autofinder(FileFinder):

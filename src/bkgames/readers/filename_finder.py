@@ -1,4 +1,4 @@
-from bkgames.reader.file_finder import FileFinder
+from bkgames.readers.file_finder import FileFinder
 import os
 
 

@@ -1,6 +1,7 @@
 import unittest
-from bkgames.reader import TeamModel
+from bkgames.readers import TeamModel
 import datetime
+
 
 class TestTeamModel(unittest.TestCase):
 

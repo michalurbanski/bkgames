@@ -1,6 +1,6 @@
-from bkgames.reader.file_finder import FileFinder
-from bkgames.reader.autofinder import Autofinder
-from bkgames.reader.filename_finder import FilenameFinder
+from bkgames.readers.file_finder import FileFinder
+from bkgames.readers.autofinder import Autofinder
+from bkgames.readers.filename_finder import FilenameFinder
 from bkgames.root_path import ROOT_PATH
 import os
 

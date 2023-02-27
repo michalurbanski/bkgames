@@ -1,6 +1,6 @@
 from typing import List
 from bkgames.configuration import Configuration
-from bkgames.reader import TeamModel
+from bkgames.readers import TeamModel
 
 
 class NotYetPlayedEnhancer:

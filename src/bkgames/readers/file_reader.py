@@ -1,9 +1,9 @@
-from bkgames.reader.file_finder import FileFinder
-from bkgames.reader.file_finder_factory import FileFinderFactory
+from bkgames.readers.file_finder import FileFinder
+from bkgames.readers.file_finder_factory import FileFinderFactory
 from typing import List
 
 
-class Reader:
+class FileReader:
     """
     Responsible for reading lines from input file.
     Input files are expected to be placed in the 'data' folder.

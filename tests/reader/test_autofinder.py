@@ -1,5 +1,5 @@
 import unittest
-from bkgames.reader import Autofinder
+from bkgames.readers import Autofinder
 from tests.data_creator import DataCreator
 
 
