@@ -1,11 +1,11 @@
 from typing import List
-from bkgames.configuration import Configuration
+from bkgames.configuration import Config
 from bkgames.readers import TeamModel
 
 
 class NotYetPlayedEnhancer:
     def enhance_data(
-        self, input: List[TeamModel], config: Configuration
+        self, input: List[TeamModel], config: Config
     ) -> List[TeamModel]:
         """
         When team has not played yet, it's not in the results (input to this function).

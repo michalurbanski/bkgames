@@ -1,4 +1,4 @@
-from .configuration import Configuration
+from .configuration import ConfigFileReader, Config
 from .readers import FileReader
 from .parsers import FileParser, TeamFrequencyParser
 from .validators import TeamsValidator
@@ -13,8 +13,10 @@ import os
 def run():
     print("Printing the least recently played teams at the bottom...")
 
-    config = Configuration(
-        os.path.join(ROOT_PATH, "config.json"))
+    config_file_path = os.path.join(ROOT_PATH, "config.json")
+    config = Config()
+    config_reader = ConfigFileReader(config_file_path)
+    config_reader.read(config)
 
     lines = FileReader().read()
 
