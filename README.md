@@ -1,6 +1,6 @@
 # bkgames
 
-Application helps in indentification of teams to watch.
+Application identifies the least recently watched teams.
 
 # How to use?
 
@@ -11,6 +11,16 @@ python -m bkgames
 ```
 
 TODO: packages installation (requirements.txt)
+
+# How to install
+
+__Note__: this functionality is in progress, which means that you can install app as a package, but it won't work correctly yet.
+
+```
+python setup.py sdist
+cd dist
+pip install <package_name>
+```
 
 # Unit tests
 
