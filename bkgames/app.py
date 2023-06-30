@@ -1,17 +1,19 @@
-from .configuration import ConfigFileReader, Config
-from .readers import FileReader
-from .parsers import FileParser, TeamFrequencyParser
-from .validators import TeamsValidator
-from .printers import TeamsToWatchPrinter, NotParsedLinesPrinter
-from .gameshistory import GamesHistory
-from .planners import PastOnlyPlanner
-from .dataenhancers import NotYetPlayedEnhancer, SkipTeamsEnhancer
-from .root_path import ROOT_PATH  # TODO: fix this in all places
+# (info) With implicit packages it would work like this
+# from bkgames.configuration.config_file_reader import Config
+from bkgames.configuration import ConfigFileReader, Config
+from bkgames.readers import FileReader
+from bkgames.parsers import FileParser, TeamFrequencyParser
+from bkgames.validators import TeamsValidator
+from bkgames.printers import TeamsToWatchPrinter, NotParsedLinesPrinter
+from bkgames.gameshistory import GamesHistory
+from bkgames.planners import PastOnlyPlanner
+from bkgames.dataenhancers import NotYetPlayedEnhancer, SkipTeamsEnhancer
+from bkgames.root_path import ROOT_PATH  # TODO: fix this in all places
 import os
-
 
 def run():
     print("Printing the least recently played teams at the bottom...")
+    exit(1)
 
     # TODO: experimental code, remove - this should be in __init__.py?
     import json
