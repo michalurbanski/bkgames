@@ -1,6 +1,6 @@
 # (info) With implicit packages it would work like this
 # from bkgames.configuration.config_file_reader import Config
-from bkgames.configuration import ConfigFileReader, Config
+from bkgames.configuration import ConfigFileReader, Config, Initializer
 from bkgames.readers import FileReader
 from bkgames.parsers import FileParser, TeamFrequencyParser
 from bkgames.validators import TeamsValidator
@@ -12,38 +12,10 @@ from bkgames.root_path import ROOT_PATH  # TODO: fix this in all places
 import os
 
 def run():
+    Initializer().initialize()
+
     print("Printing the least recently played teams at the bottom...")
-    exit(1)
-
-    # TODO: experimental code, remove - this should be in __init__.py?
-    import json
-    import pkg_resources
-    import shutil
-    config_source_path = pkg_resources.resource_filename(
-        'bkgames', "config.json")
-    if not config_source_path:
-        raise Exception("Cannot find configuration file in the package")
-
-    profile_path = os.path.expanduser("~")
-    profile_config_folder_path = os.path.join(profile_path, ".bkgames")
-    if not os.path.exists(profile_config_folder_path):
-        os.mkdir(profile_config_folder_path)
-        print(
-            f"Configuration folder created under {profile_config_folder_path}")
-
-    profile_config_path = os.path.join(
-        profile_config_folder_path, "config.json")
-
-    if not os.path.exists(profile_config_path):
-        shutil.copyfile(config_source_path, profile_config_path)
-        print("Configuration file initialized.")
-
-    # TODO: It seems that 'content' is a path that is valid both locally and when run from .egg
-    # Try to read it as json
-    # TODO: if successful implement initializer that will copy it to the user profile, .bkgames folder
-    # then remove config.json file that is in the root folder
-
-    # print(content)
+ 
     exit(1)
 
     config_file_path = os.path.join(ROOT_PATH, "config.json")
