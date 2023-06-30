@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "bkgames"
+version = "0.1.0"
+description = "Finding games to watch"
+authors = ["michal_urbanski <michal_urbanski@windowslive.com>"]
+readme = "README.md"
+packages = [{include = "bkgames"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
