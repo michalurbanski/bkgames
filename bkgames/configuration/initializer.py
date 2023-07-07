@@ -10,9 +10,14 @@ class Initializer:
     def __init__(self, config_file_name:str = "config.json", user_folder:str = ".bkgames"):
         self._config_file_name = config_file_name
         self._user_folder = user_folder
+        self._config_file_path = ""
 
-    def initialize(self) -> None:
+    def execute(self) -> None:
         self._copy_config()
+
+    @property
+    def config_file_path(self) -> str:
+        return self._config_file_path
 
     def _copy_config(self) -> None:
         config_source_path = pkg_resources.resource_filename("bkgames", self._config_file_name)
@@ -28,6 +33,7 @@ class Initializer:
 
         profile_config_path = os.path.join(
             profile_config_folder_path, self._config_file_name)
+        self._config_file_path = profile_config_path
 
         if not os.path.exists(profile_config_path):
             # Note: When the config file content changes, a new version does not

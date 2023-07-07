@@ -8,22 +8,20 @@ from bkgames.printers import TeamsToWatchPrinter, NotParsedLinesPrinter
 from bkgames.gameshistory import GamesHistory
 from bkgames.planners import PastOnlyPlanner
 from bkgames.dataenhancers import NotYetPlayedEnhancer, SkipTeamsEnhancer
-from bkgames.root_path import ROOT_PATH  # TODO: fix this in all places
-import os
 
 def run():
-    Initializer().initialize()
+    initializer = Initializer()
+    initializer.execute()
 
     print("Printing the least recently played teams at the bottom...")
- 
-    exit(1)
 
-    config_file_path = os.path.join(ROOT_PATH, "config.json")
     config = Config()
-    config_reader = ConfigFileReader(config_file_path)
+    config_reader = ConfigFileReader(initializer.config_file_path)
     config_reader.read(config)
 
     lines = FileReader().read()
+
+    exit(1)
 
     file_parser = FileParser(
         lines,
