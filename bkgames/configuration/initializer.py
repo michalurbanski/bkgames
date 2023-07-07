@@ -30,7 +30,7 @@ class Initializer:
             profile_config_folder_path, self._config_file_name)
 
         if not os.path.exists(profile_config_path):
-            # Note: When the config file contents changes, a new version does not
+            # Note: When the config file content changes, a new version does not
             #       overwrite copy that the users have in their profile.
             #       This is fine for now.
             shutil.copyfile(config_source_path, profile_config_path)
