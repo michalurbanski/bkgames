@@ -1,14 +1,16 @@
 from bkgames.readers.file_finder import FileFinder
 from bkgames.readers.autofinder import Autofinder
 from bkgames.readers.filename_finder import FilenameFinder
-from bkgames.root_path import ROOT_PATH
 import os
 
 
 class FileFinderFactory:
     @classmethod
     def create_file_finder(
-        cls, filename: str = None, autofind: bool = True
+        cls, 
+        data_folder_path: str = None,
+        filename: str = None,
+        autofind: bool = True
     ) -> FileFinder:
         """
         Parameters:
@@ -27,8 +29,12 @@ class FileFinderFactory:
 
         # Filename checked at first - if user provides filename explicitly
         # it means they decided not to use the autofinder.
+        # TODO: address this, clues inside the FilenameFinder class
         if filename:
             return FilenameFinder(filename)
 
         # TODO: consider if autofinder is actually needed.
+
+        # TODO: (new) call autofinder only if data folder path is not empty
+        return Autofinder()
         return Autofinder(os.path.join(ROOT_PATH, "data"))

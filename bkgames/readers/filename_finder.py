@@ -1,7 +1,8 @@
 from bkgames.readers.file_finder import FileFinder
 import os
 
-
+# TODO: consider if this class makes sense in the current shape.
+#       plus this class is flawed as once it treats file name as path, and once as a file name
 class FilenameFinder(FileFinder):
     def __init__(self, filename):
         self._filename = filename

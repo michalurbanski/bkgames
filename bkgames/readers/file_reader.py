@@ -9,14 +9,25 @@ class FileReader:
     Input files are expected to be placed in the 'data' folder.
     """
 
-    def __init__(self, file_finder: FileFinder = None):
+    def __init__(self, 
+                 file_finder: FileFinder = None, 
+                 data_folder_path: str = "",
+                 data_file_name: str = ""):
         """
         Parameters:
             file_finder (FileFinder): One of the finders that specify how
                 to search for an input file.
-                Note: Use FileFinderFactory to create this object.
+                Note: If not passed as an argument, use FileFinderFactory to create this object.
+            
+            data_folder_path (str): Path to the folder that has files with games played.
+
+            data_file_name (str): file name in the data_folder_path. If you want to use
+                a specific file.
         """
-        self._file_finder = file_finder or FileFinderFactory.create_file_finder()
+        self._file_finder = file_finder or FileFinderFactory.create_file_finder(
+            data_folder_path = data_folder_path,
+            filename = data_file_name
+        )
 
     def read(self) -> List[str]:
         """
