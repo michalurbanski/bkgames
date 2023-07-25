@@ -23,6 +23,7 @@ def run():
         application_folder_path=custom_paths.application_folder_path,
         config_file_name=custom_paths.config_file_name,
         config_file_path=custom_paths.config_path,
+        data_folder_path=custom_paths.data_folder_path,
     )
     initializer.execute()
 
