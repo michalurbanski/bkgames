@@ -3,8 +3,8 @@ import os
 
 class CustomPaths:
     """
-    Paths are not configurable because there's not need to.
-    They could be taken from .json file though.
+    Paths are not configurable because there's no need to.
+    They could be taken from .json file though, if ever needed.
     """
 
     def __init__(self):

@@ -1,6 +1,6 @@
 # (info) With implicit packages it would work like this
 # from bkgames.configuration.config_file_reader import Config
-from bkgames.configuration import ConfigFileReader, Config, Initializer, CustomPaths
+from bkgames.configuration import ConfigFileReader, Initializer, CustomPaths
 from bkgames.readers import FileReader
 from bkgames.parsers import FileParser, TeamFrequencyParser
 from bkgames.validators import TeamsValidator
@@ -27,11 +27,11 @@ def run():
     )
     initializer.execute()
 
-    print("Reading configuration file...")
+    # TODO: use logging library for such diagnostic messages.
+    print(f"Reading configuration file: {custom_paths.config_path} ...")
 
-    config = Config()
     config_reader = ConfigFileReader(custom_paths.config_path)
-    config_reader.read(config)
+    config = config_reader.read()
 
     exit(1)
 
