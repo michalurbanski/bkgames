@@ -17,6 +17,7 @@ class ConfigFileReader:
     @classmethod
     def _populate_config(cls, content: dict) -> Config:
         config = Config()
+        config.data_file_regexp = content.get("data_file_regexp", "")
         config.season_year = content.get("season_year", 0)
         config.allowed_teams = content.get("allowed_teams", [])
         config.season_start_month = content.get("season_start_month", 0)

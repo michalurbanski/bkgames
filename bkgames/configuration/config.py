@@ -6,6 +6,14 @@ class Config:
         pass
 
     @property
+    def data_file_regexp(self) -> str:
+        return self._data_file_regexp
+
+    @data_file_regexp.setter
+    def data_file_regexp(self, regexp: str) -> None:
+        self._data_file_regexp = regexp
+
+    @property
     def season_year(self) -> int:
         return self._season_year
 
