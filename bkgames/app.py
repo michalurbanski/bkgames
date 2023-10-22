@@ -1,7 +1,9 @@
 # (info) With implicit packages it would work like this
 # from bkgames.configuration.config_file_reader import Config
 from bkgames.configuration import ConfigFileReader, Initializer, CustomPaths, DataFinder
-from bkgames.readers import FileReader
+
+# from bkgames.readers import FileReader
+from bkgames.readers import SimpleFileReader
 from bkgames.parsers import FileParser, TeamFrequencyParser
 from bkgames.validators import TeamsValidator
 from bkgames.printers import TeamsToWatchPrinter, NotParsedLinesPrinter
@@ -35,17 +37,12 @@ def run():
 
     data_finder = DataFinder(config, custom_paths)
     data_file_path = data_finder.find_data_path()
-    print("Path to the file with data is")
-    print(data_file_path)
+    print(f"Path to the file with data is: {data_file_path}")
 
-    exit(1)
-
-    lines = FileReader().read()
-    print(lines)
+    reader = SimpleFileReader(data_file_path)
+    lines = reader.read()
 
     print("Printing the least recently played teams at the bottom...")
-
-    exit(1)
 
     file_parser = FileParser(
         lines,
