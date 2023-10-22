@@ -20,14 +20,7 @@ def run():
     #       config.json should have a regexp to search data files with a specific naming convention s2021.dat or similar
 
     custom_paths = CustomPaths()
-
-    initializer = Initializer(
-        application_folder_path=custom_paths.application_folder_path,
-        config_file_name=custom_paths.config_file_name,
-        config_file_path=custom_paths.config_path,
-        data_folder_path=custom_paths.data_folder_path,
-    )
-    initializer.execute()
+    Initializer(custom_paths).initialize()
 
     # TODO: use logging library for such diagnostic messages.
     print(f"Reading configuration file: {custom_paths.config_path} ...")

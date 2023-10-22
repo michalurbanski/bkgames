@@ -1,6 +1,7 @@
 import os
 import pkg_resources
 import shutil
+from .custom_paths import CustomPaths
 
 
 class Initializer:
@@ -12,19 +13,13 @@ class Initializer:
     - Creates folder for data.
     """
 
-    def __init__(
-        self,
-        application_folder_path: str,
-        config_file_name: str,
-        config_file_path: str,
-        data_folder_path: str,
-    ):
-        self._application_folder_path = application_folder_path
-        self._config_file_name = config_file_name
-        self._config_file_path = config_file_path
-        self._data_folder_path = data_folder_path
+    def __init__(self, custom_paths: CustomPaths):
+        self._application_folder_path = custom_paths.application_folder_path
+        self._config_file_name = custom_paths.config_file_name
+        self._config_file_path = custom_paths.config_path
+        self._data_folder_path = custom_paths.data_folder_path
 
-    def execute(self) -> None:
+    def initialize(self) -> None:
         self._copy_config()
         self._create_data_folder()
 
