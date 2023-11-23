@@ -1,4 +1,4 @@
-from bkgames.readers import TeamModel
+from bkgames.models import TeamModel
 from typing import List, Dict
 from datetime import datetime
 

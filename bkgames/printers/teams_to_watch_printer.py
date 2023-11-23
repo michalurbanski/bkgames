@@ -1,5 +1,5 @@
 from typing import List
-from bkgames.readers import TeamModel
+from bkgames.models import TeamModel
 
 
 class TeamsToWatchPrinter:

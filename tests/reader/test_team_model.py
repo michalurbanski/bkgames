@@ -1,10 +1,9 @@
 import unittest
-from bkgames.readers import TeamModel
+from bkgames.models import TeamModel
 import datetime
 
 
 class TestTeamModel(unittest.TestCase):
-
     def test_add_game_for_a_team_results_in_added_game(self):
         team_model = TeamModel("bos")
         date = datetime.datetime(2018, 3, 13)
