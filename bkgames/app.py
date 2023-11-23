@@ -1,4 +1,5 @@
-# (info) With implicit packages it would work like this
+# (info) With implicit packages it would work like this.
+#        So the specific file name would have to be provided.
 # from bkgames.configuration.config_file_reader import Config
 from bkgames.configuration import ConfigFileReader, Initializer, CustomPaths, DataFinder
 
@@ -52,6 +53,7 @@ def run():
     games_planner = PastOnlyPlanner()
     teams_to_watch = games_planner.get_teams_to_watch(teams_history)
 
+    # TODO: enhancers could be a chain of command
     not_yet_played_enhancer = NotYetPlayedEnhancer()
     teams_to_watch = not_yet_played_enhancer.enhance_data(teams_to_watch, config)
 

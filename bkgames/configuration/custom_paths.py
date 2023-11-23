@@ -5,6 +5,9 @@ class CustomPaths:
     """
     Paths are not configurable because there's no need to.
     They could be taken from .json file though, if ever needed.
+
+    Paths of interest, in this implementation, are stored in the application folder,
+    that's inside the user folder.
     """
 
     def __init__(self):
