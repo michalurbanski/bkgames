@@ -1,19 +1,21 @@
 import unittest
 from unittest.mock import MagicMock
-from bkgames.configuration import Config, ConfigFileReader
+from bkgames.configuration import ConfigFileReader
 
 
 class TestConfig(unittest.TestCase):
-
     def test_config_can_have_empty_properties(self):
-        config = Config()
-        json = {
-            "season_year": 2018
-        }
+        default_season_start_month = 9
+
+        # Mocked json that is normally read from file.
+        json = {"season_start_month": default_season_start_month}
         reader = ConfigFileReader("config.json")
         reader._read_file = MagicMock(return_value=json)
-        reader.read(config)
+        config = reader.read()
 
-        # has season_year property
-        # and if others are missing then object creation doesn't fail
-        self.assertEqual(2018, config.season_year)
+        # Has only season_year property filled in json,
+        # although other properties are available in the object.
+        #
+        # And if other properties' values are missing in the json,
+        # then object creation doesn't fail.
+        self.assertEqual(default_season_start_month, config.season_start_month)
