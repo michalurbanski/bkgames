@@ -39,11 +39,8 @@ def run():
 
     parsed_lines = file_parser.parsed_lines
 
-    games_history = GamesHistory()
-    teams_history = games_history.build_teams_history(parsed_lines)
-
-    games_planner = PastOnlyPlanner()
-    teams_to_watch = games_planner.get_teams_to_watch(teams_history)
+    teams_history = GamesHistory().build_teams_history(parsed_lines)
+    teams_to_watch = PastOnlyPlanner().get_teams_to_watch(teams_history)
 
     # Enhancers could use chain of responsibility pattern. But there's no need to
     # do it in this simple app.
