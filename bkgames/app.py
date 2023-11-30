@@ -9,21 +9,24 @@ from bkgames.printers import TeamsToWatchPrinter, NotParsedLinesPrinter
 from bkgames.gameshistory import GamesHistory
 from bkgames.planners import PastOnlyPlanner
 from bkgames.dataenhancers import NotYetPlayedEnhancer, SkipTeamsEnhancer
+import logging
+
+logging.basicConfig(level=logging.WARNING)  # should use config file
 
 
 def run():
     custom_paths = CustomPaths()
     Initializer(custom_paths).initialize()
 
-    # TODO: use logging library for such diagnostic messages.
-    print(f"Reading configuration file: {custom_paths.config_path} ...")
+    logging.info(f"Reading configuration file: {custom_paths.config_path} ...")
 
     config_reader = ConfigFileReader(custom_paths.config_path)
     config = config_reader.read()
 
     data_finder = DataFinder(config, custom_paths)
     data_file_path = data_finder.find_data_path()
-    print(f"Path to the file with data is: {data_file_path}")
+
+    logging.info(f"Path to the file with data is: {data_file_path}")
 
     reader = SimpleFileReader(data_file_path)
     lines = reader.read()
