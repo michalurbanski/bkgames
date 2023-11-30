@@ -3,8 +3,13 @@ from bkgames.models import TeamModel
 
 
 class TeamsToWatchPrinter:
-    def print_teams_to_watch(self, teams: List[TeamModel]):
-        for team in teams:
+    def __init__(self, teams: List[TeamModel]):
+        self._teams = teams
+
+    def print(self):
+        for team in self._teams:
+            # TODO: team should not have information whether it should be watched or not
+            #       it's not a feature of a team.
             if not team.skip_from_watching:
                 print(team.team_code, team.number_of_games_played)
             else:

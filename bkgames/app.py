@@ -53,10 +53,12 @@ def run():
     skip_teams_enhancer = SkipTeamsEnhancer()
     teams_to_watch = skip_teams_enhancer.enhance_data(teams_to_watch, config)
 
-    printer = TeamsToWatchPrinter()
-    printer.print_teams_to_watch(teams_to_watch)
+    printers = [
+        TeamsToWatchPrinter(teams_to_watch),
+        NotParsedLinesPrinter(file_parser.not_parsed_lines),
+    ]
 
-    not_parsed_lines_printer = NotParsedLinesPrinter(file_parser.not_parsed_lines)
-    not_parsed_lines_printer.print_not_parsed_lines()
+    for printer in printers:
+        printer.print()
 
     print("Program finished.")
