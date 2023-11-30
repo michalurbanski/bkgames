@@ -12,6 +12,7 @@ python = "^3.10"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
+coverage = "^7.3.2"
 
 [build-system]
 requires = ["poetry-core"]

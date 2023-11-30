@@ -1,18 +1,21 @@
 # bkgames
 
-Application identifies the least recently watched teams.
+The application lists teams from the most recently to the least recently watched.
+
+Based on the output it can be determined which teams to watch next.
+
+# Configuration file (in progress)
+TODO
 
 # How to use?
 
-To run the application, navigate to the ```'src'``` folder and execute:
+Go to the application folder and execute:
 
 ```
 python -m bkgames
 ```
 
-TODO: packages installation (requirements.txt)
-
-# How to install
+# How to install (in progress)
 
 __Note__: this functionality is in progress, which means that you can install app as a package, but it won't work correctly yet.
 
