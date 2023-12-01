@@ -1,7 +1,7 @@
 import os
-import pkg_resources
 import shutil
 from .custom_paths import CustomPaths
+import importlib.resources
 
 
 class Initializer:
@@ -25,10 +25,9 @@ class Initializer:
 
     # TODO: could be further split into smaller methods
     def _copy_config(self) -> None:
-        config_source_path = pkg_resources.resource_filename(
-            "bkgames",
-            self._config_file_name,
-        )
+        # Get a config.json file from the package.
+        config_source_path = importlib.resources.files("bkgames") / "config.json"
+
         if not config_source_path:
             raise Exception("Cannot find configuration file in the package")
 
