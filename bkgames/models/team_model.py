@@ -15,6 +15,7 @@ class TeamModel:
     def add_game(self, game_date: datetime):
         self._games_dates.append(game_date)
 
+    # TODO: name of this property is confusing, it should be indicate that this field is about dates of games, not games
     @property
     def games(self) -> List[datetime]:
         return self._games_dates
