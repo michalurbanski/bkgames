@@ -2,7 +2,7 @@
 
 The application lists teams from the most recently to the least recently watched.
 
-Based on the output it can be determined which teams to watch next.
+Based on the output it can be determined games of which teams to watch next.
 
 # Configuration file (in progress)
 TODO
@@ -27,12 +27,17 @@ pip install <package_name>
 
 # Unit tests
 
-To run unit tests, in the root folder, execute:
+To run unit tests, in the root folder of this repository, execute:
 
 ```
 python -m unittest
 ```
+or run:
+```
+pytest
+```
 
+# Code coverage
 To check code coverage:
 
 ```
