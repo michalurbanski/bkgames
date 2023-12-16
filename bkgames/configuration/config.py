@@ -14,14 +14,6 @@ class Config:
         self._data_file_regexp = regexp
 
     @property
-    def season_year(self) -> int:
-        return self._season_year
-
-    @season_year.setter
-    def season_year(self, year) -> None:
-        self._season_year = year
-
-    @property
     def allowed_teams(self) -> List[str]:
         return self._allowed_teams
 

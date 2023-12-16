@@ -30,12 +30,13 @@ pip install <package_name>
 To run unit tests, in the root folder of this repository, execute:
 
 ```
-python -m unittest
+pytest
 ```
 or run:
 ```
-pytest
+python -m unittest
 ```
+*Note*: gradually all unit tests will be 'migrated' to pytest.
 
 # Code coverage
 To check code coverage:

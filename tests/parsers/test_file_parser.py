@@ -1,47 +1,56 @@
-import unittest
-import datetime
+import pytest
 from bkgames.parsers import TeamFrequencyParser, FileParser
 from bkgames.validators import TeamsValidator
-from bkgames.gameshistory import GamesHistory
+
+SEASON_START_MONTH = 9
 
 
-class TestFileParser(unittest.TestCase):
+@pytest.fixture
+def team_frequency_parser():
+    return TeamFrequencyParser(SEASON_START_MONTH)
 
-    def setUp(self):
-        self.line_parser = TeamFrequencyParser(2018, 9)
-        # contains list of teams from examples used in this file
-        self.teams_validator = TeamsValidator(["hou", "lal", "nyk", "mil"])
 
-    def test_parsed_file_has_parsed_lines_collection(self):
+@pytest.fixture
+def teams_validator():
+    return TeamsValidator(["hou", "lal", "nyk", "mil"])
+
+
+class TestFileParser:
+    def test_parsed_file_has_parsed_lines_collection(
+        self, team_frequency_parser, teams_validator
+    ):
         lines = [
-            'DONE - Nba game 20.10 hou at lal -> hou',
-            'DONE - Nba game 22.10 nyk at mil -> mil'
+            "DONE - Nba game 20.10 hou at lal -> hou",
+            "DONE - Nba game 22.10 nyk at mil -> mil",
         ]
 
-        file_parser = FileParser(lines, self.line_parser, self.teams_validator)
+        file_parser = FileParser(lines, team_frequency_parser, teams_validator)
         file_parser.run()
-        self.assertEqual(len(file_parser.parsed_lines), 2)
+        assert len(file_parser.parsed_lines) == 2
 
-    def test_parsed_file_has_not_parsed_lines(self):
-        lines = ['1', '2']
+    def test_parsed_file_has_not_parsed_lines(
+        self, team_frequency_parser, teams_validator
+    ):
+        lines = ["1", "2"]
 
-        file_parser = FileParser(lines, self.line_parser, self.teams_validator)
+        file_parser = FileParser(lines, team_frequency_parser, teams_validator)
         file_parser.run()
-        self.assertEqual(len(file_parser.not_parsed_lines), 2)
+        assert len(file_parser.not_parsed_lines) == 2
 
-    def test_parsed_file_has_both_parsed_and_not_parsed_lines(self):
-        lines = [
-            'DONE - Nba game 20.10 hou at lal -> hou',
-            '1'
-        ]
+    def test_parsed_file_has_both_parsed_and_not_parsed_lines(
+        self, team_frequency_parser, teams_validator
+    ):
+        lines = ["DONE - Nba game 20.10 hou at lal -> hou", "1"]
 
-        file_parser = FileParser(lines, self.line_parser, self.teams_validator)
+        file_parser = FileParser(lines, team_frequency_parser, teams_validator)
         file_parser.run()
-        self.assertEqual(len(file_parser.parsed_lines), 1)
-        self.assertEqual(len(file_parser.not_parsed_lines), 1)
+        assert len(file_parser.parsed_lines) == 1
+        assert len(file_parser.not_parsed_lines) == 1
 
-    def test_line_correctly_parsed_but_with_invalid_team_is_treated_as_not_parsed(self):
-        lines = ['DONE - Nba game 20.10 hwu at lal -> hwu']
-        file_parser = FileParser(lines, self.line_parser, self.teams_validator)
+    def test_line_correctly_parsed_but_with_invalid_team_is_treated_as_not_parsed(
+        self, team_frequency_parser, teams_validator
+    ):
+        lines = ["DONE - Nba game 20.10 hwu at lal -> hwu"]
+        file_parser = FileParser(lines, team_frequency_parser, teams_validator)
         file_parser.run()
-        self.assertEqual(len(file_parser.not_parsed_lines), 1)
+        assert len(file_parser.not_parsed_lines) == 1

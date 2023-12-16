@@ -35,14 +35,12 @@ def run():
 
     file_parser = FileParser(
         lines,
-        TeamFrequencyParser(config.season_year, config.season_start_month),
+        TeamFrequencyParser(config.season_start_month),
         TeamsValidator(config.allowed_teams),
     )
     file_parser.run()
 
-    parsed_lines = file_parser.parsed_lines
-
-    teams_history = GamesHistory().build_teams_history(parsed_lines)
+    teams_history = GamesHistory().build_teams_history(file_parser.parsed_lines)
     teams_to_watch = PastOnlyPlanner().get_teams_to_watch(teams_history)
 
     # Enhancers could use chain of responsibility pattern. But there's no need to

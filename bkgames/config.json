@@ -1,6 +1,5 @@
 {
     "data_file_regexp": "^s\\d+\\.dat$",
-    "season_year": 2018,
     "season_start_month": 9,
     "allowed_teams": [
         "bos",

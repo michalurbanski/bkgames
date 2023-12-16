@@ -13,7 +13,7 @@ class TestConfig(unittest.TestCase):
         reader._read_file = MagicMock(return_value=json)
         config = reader.read()
 
-        # Has only season_year property filled in json,
+        # Has only season_start_month property filled in json,
         # although other properties are available in the object.
         #
         # And if other properties' values are missing in the json,
