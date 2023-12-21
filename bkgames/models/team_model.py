@@ -1,7 +1,10 @@
-from datetime import datetime
+from copy import deepcopy
 from typing import List
+from .game_date import GameDate
 
 
+# Note: one could argue that this class' responsibilities do not fit the name
+#       of this class. This class is defined in this way for simplicity.
 class TeamModel:
     """
     Represents team that have dates when it played
@@ -12,17 +15,17 @@ class TeamModel:
         self._games_dates = []
         self.skip_from_watching = False
 
-    def add_game(self, game_date: datetime):
+    def add_game(self, game_date: GameDate):
         self._games_dates.append(game_date)
 
-    # TODO: name of this property is confusing, it should be indicate that this field is about dates of games, not games
     @property
-    def games(self) -> List[datetime]:
-        return self._games_dates
+    def games_dates(self) -> List[GameDate]:
+        # Probably even if it wasn't a deepcopy nothing bad would happen.
+        return deepcopy(self._games_dates)
 
     @property
     def number_of_games_played(self) -> int:
-        return len(self.games)
+        return len(self.games_dates)
 
     @property
     def team_code(self) -> str:
@@ -41,5 +44,4 @@ class TeamModel:
         self._skip_from_watching = value
 
     def __repr__(self):
-        games = [date.strftime("%Y-%m-%d") for date in self._games_dates]
-        return f"Team: {self._team_code}, Games: {games}"
+        return f"Team: {self.team_code}, Games: {self.games_dates}"

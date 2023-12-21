@@ -26,7 +26,7 @@ class TeamFrequencyParser:
             found_date = date_search[0]  # first occurrence of a date
             (day, month) = found_date.split(".")
 
-            date = GameDate(
+            game_date = GameDate(
                 month=int(month),
                 day=int(day),
                 season_start_month=self._season_start_month,
@@ -47,7 +47,7 @@ class TeamFrequencyParser:
                 # remaining_list[1] is 'at' word that can be skipped
                 "home_team": remaining_list[0],
                 "away_team": remaining_list[2],
-                "date": date,
+                "game_date": game_date,
                 "line": line,
             },
         )

@@ -16,7 +16,7 @@ class ParsedResult:
     def __init__(self, result: dict):
         self._home_team = result.get("home_team")
         self._away_team = result.get("away_team")
-        self._date = result.get("date")
+        self._date = result.get("game_date")
         self._line = result.get("line")
         self._not_parsed = result.get("not_parsed")
         self._error = result.get("error")

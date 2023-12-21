@@ -66,3 +66,14 @@ class TestGameDate:
             GameDate(month=1, day=1, season_start_month=-1)
         with pytest.raises(ValueError):
             GameDate(month=1, day=1, season_start_month=0)
+
+    def test_sort(self):
+        a = list()
+        first = GameDate(month=2, day=1, season_start_month=9)
+        second = GameDate(month=1, day=1, season_start_month=9)
+
+        a.append(first)
+        a.append(second)
+
+        a.sort()
+        assert a[0] == second

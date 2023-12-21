@@ -1,6 +1,5 @@
-from bkgames.models import TeamModel
-from typing import List, Dict
-from datetime import datetime
+from bkgames.models import TeamModel, GameDate
+from typing import List
 
 
 class GamesHistory:
@@ -26,26 +25,28 @@ class GamesHistory:
     # that is not used by this method, but this key used in a different logic,
     # so it cannot be removed from the passed object.
 
+    # TODO: date is not a datetime, it's a GameDate
     def _add_game(
-        self, home_team: str, away_team: str, date: datetime, **kwargs
+        self, home_team: str, away_team: str, game_date: GameDate, **kwargs
     ):  # pylint: disable=unused-argument
         """Adds parsed game to TeamModel object.
 
         Args:
             home_team (str): home team code
             away_team (str): away team code
-            date (datetime): date of played game
+            game_date (GameDate): object that contains date of played game
         """
 
-        team = self._add_game_to_team(home_team, date)
-        team2 = self._add_game_to_team(away_team, date)
+        home = self._add_game_to_team(home_team, game_date)
+        away = self._add_game_to_team(away_team, game_date)
 
-        self._teams[team.team_code] = team
-        self._teams[team2.team_code] = team2
+        self._teams[home.team_code] = home
+        self._teams[away.team_code] = away
 
-    def _add_game_to_team(self, team_code, date):
+    def _add_game_to_team(self, team_code: str, game_date: GameDate):
         existing_team = self._teams.get(team_code, None)
         if existing_team is None:
             existing_team = TeamModel(team_code)
-        existing_team.add_game(date)
+
+        existing_team.add_game(game_date)
         return existing_team

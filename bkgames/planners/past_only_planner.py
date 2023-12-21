@@ -37,10 +37,10 @@ class PastOnlyPlanner:
         copied_teams = deepcopy(teams_history)
 
         for team in copied_teams:
-            team.games.sort()
+            team.games_dates.sort()
 
         return sorted(
             copied_teams,
-            key=lambda team: (team.number_of_games_played, team.games[0]),
+            key=lambda team: (team.number_of_games_played, team.games_dates[-1]),
             reverse=True,
         )

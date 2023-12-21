@@ -1,38 +1,10 @@
-import unittest
-from datetime import datetime
-from bkgames.gameshistory import GamesHistory
+import pytest
 from bkgames.planners.past_only_planner import PastOnlyPlanner
+from bkgames.gameshistory import GamesHistory
+from bkgames.models import GameDate
 
 
-class TestPastOnlyPlanner(unittest.TestCase):
-    def test_most_games_team_at_the_top_least_games_and_oldest_at_the_bottom(self):
-        """
-        input:
-        bos, atl, 2020-01-05
-        bos, phx, 2020-01-10
-
-        should give the following outcome:
-        bos -> at the top
-        atl -> at the bottom
-        """
-        bos = "bos"
-        atl = "atl"
-        phx = "phx"
-        first_game_date = datetime(2020, 1, 5)
-        second_game_date = datetime(2020, 1, 10)
-
-        games = list()
-        games.append(self._make_game(atl, bos, first_game_date))
-        games.append(self._make_game(phx, bos, second_game_date))
-
-        games_history = GamesHistory()
-        teams = games_history.build_teams_history(games)
-        games_planner = PastOnlyPlanner()
-        teams_to_watch = games_planner.get_teams_to_watch(teams)
-
-        self.assertEqual(teams_to_watch[0].team_code, bos)
-        self.assertEqual(teams_to_watch[-1].team_code, atl)
-
+class TestPastOnlyPlanner:
     def test_empty_list_of_games_throws_error(self):
         games = list()
         games_history = GamesHistory()
@@ -40,8 +12,92 @@ class TestPastOnlyPlanner(unittest.TestCase):
 
         games_planner = PastOnlyPlanner()
 
-        self.assertRaises(ValueError, games_planner.get_teams_to_watch, teams)
+        with pytest.raises(ValueError):
+            games_planner.get_teams_to_watch(teams)
+
+    def test_most_games_played_at_the_top(self):
+        """
+        input:
+        bos, atl, 23.10
+        bos, phx, 24.10
+
+        should give the following outcome:
+        bos -> at the top
+        atl, phx -> we don't care in this test
+        """
+
+        games = list()
+        games.append(self._make_game("bos", "atl", "23.10"))
+        games.append(self._make_game("bos", "phx", "24.10"))
+
+        games_history = GamesHistory()
+        teams = games_history.build_teams_history(games)
+        games_planner = PastOnlyPlanner()
+        teams_to_watch = games_planner.get_teams_to_watch(teams)
+
+        assert teams_to_watch[0].team_code == "bos"
+
+    def test_same_number_of_games_newest_game_at_the_top(self):
+        """
+        input:
+        bos, atl, 23.10
+        phx, nyk, 25.10
+
+        should give the following outcome:
+        phx or nyk -> at the top
+        bos or atl -> at the bottom
+        """
+
+        games = list()
+        games.append(self._make_game("bos", "atl", "23.10"))
+        games.append(self._make_game("phx", "nyk", "25.10"))
+
+        games_history = GamesHistory()
+        teams = games_history.build_teams_history(games)
+        games_planner = PastOnlyPlanner()
+        teams_to_watch = games_planner.get_teams_to_watch(teams)
+
+        most_recently_watched_team = teams_to_watch[0].team_code
+        least_recently_watched_team = teams_to_watch[-1].team_code
+
+        assert most_recently_watched_team in {"phx", "nyk"}, most_recently_watched_team
+        assert least_recently_watched_team in {
+            "bos",
+            "atl",
+        }, least_recently_watched_team
+
+    def test_two_games_played_correct_order(self):
+        """
+        input:
+        bos, atl, 23.10
+        nyk, hou, 24.10
+        nyk, mia, 25.10
+        bos, phx, 26.10
+
+        should give the following outcome
+        bos -> 1st
+        nyk -> 2nd
+        """
+
+        games = list()
+        games.append(self._make_game("bos", "atl", "23.10"))
+        games.append(self._make_game("nyk", "hou", "24.10"))
+        games.append(self._make_game("nyk", "mia", "25.10"))
+        games.append(self._make_game("bos", "phx", "26.10"))
+
+        games_history = GamesHistory()
+        teams = games_history.build_teams_history(games)
+        games_planner = PastOnlyPlanner()
+        teams_to_watch = games_planner.get_teams_to_watch(teams)
+
+        assert teams_to_watch[0].team_code == "bos"
+        assert teams_to_watch[1].team_code == "nyk"
 
     @staticmethod
-    def _make_game(home_team, away_team, date):
-        return {"home_team": home_team, "away_team": away_team, "date": date}
+    def _make_game(home_team: str, away_team: str, date: str):
+        split = date.split(".")
+        game_date = GameDate(
+            month=int(split[1]), day=int(split[0]), season_start_month=9
+        )
+
+        return {"home_team": home_team, "away_team": away_team, "game_date": game_date}
