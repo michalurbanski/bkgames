@@ -30,7 +30,7 @@ class PastOnlyPlanner:
         # To easier sort by the most recent games, it's convenient to sort those
         # games at first.
 
-        if teams_history is None or len(teams_history) == 0:
+        if not teams_history:
             raise ValueError("Empty collection of games")
 
         # Copy in order not to change input collection.
