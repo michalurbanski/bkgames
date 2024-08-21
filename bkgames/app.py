@@ -11,7 +11,7 @@ from bkgames.planners import PastOnlyPlanner
 from bkgames.dataenhancers import NotYetPlayedEnhancer, SkipTeamsEnhancer
 import logging
 
-logging.basicConfig(level=logging.WARNING)  # should use config file
+logging.basicConfig(level=logging.WARNING)  # should use config file, in which level will be defined
 
 
 def run():

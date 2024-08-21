@@ -35,6 +35,9 @@ class GamesHistory:
             home_team (str): home team code
             away_team (str): away team code
             game_date (GameDate): object that contains date of played game
+
+            kwargs is needed because object passed to this method is being unpacked
+            when the method is called.
         """
 
         home = self._add_game_to_team(home_team, game_date)
