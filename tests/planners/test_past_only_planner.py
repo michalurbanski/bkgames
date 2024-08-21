@@ -93,6 +93,43 @@ class TestPastOnlyPlanner:
         assert teams_to_watch[0].team_code == "bos"
         assert teams_to_watch[1].team_code == "nyk"
 
+    def test_two_games_played_correct_order_2(self):
+        games = list()
+
+        games.append(self._make_game("bos", "atl", "23.10"))
+        games.append(self._make_game("nyk", "hou", "24.10"))
+        games.append(self._make_game("bos", "phx", "25.10"))
+        games.append(self._make_game("nyk", "mia", "26.10"))
+
+        games_history = GamesHistory()
+        teams = games_history.build_teams_history(games)
+        games_planner = PastOnlyPlanner()
+        teams_to_watch = games_planner.get_teams_to_watch(teams)
+
+        assert teams_to_watch[0].team_code == "nyk"
+        assert teams_to_watch[1].team_code == "bos"
+
+    # TODO: this is failing, fix the logic for sorting.
+    def test_two_teams_played_with_each_other_correct_order(self):
+        games = list()
+
+        # bos and nyk have each 2 games. They both played recently, but the previous game of nyk
+        # was later than bos, so it was more recently watched.
+        # Because of that bos should have priority to be watched now.
+        games.append(self._make_game("bos", "atl", "23.10"))
+        games.append(self._make_game("nyk", "hou", "24.10"))
+        games.append(self._make_game("cle", "phx", "25.10"))
+        games.append(self._make_game("nyk", "bos", "26.10"))
+
+        games_history = GamesHistory()
+        teams = games_history.build_teams_history(games)
+        games_planner = PastOnlyPlanner()
+        teams_to_watch = games_planner.get_teams_to_watch(teams)
+
+        assert teams_to_watch[0].team_code == "nyk"
+        assert teams_to_watch[1].team_code == "bos"
+        
+
     @staticmethod
     def _make_game(home_team: str, away_team: str, date: str):
         split = date.split(".")
