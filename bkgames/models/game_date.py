@@ -51,4 +51,4 @@ class GameDate:
         return self._month == other._month and self._day == other._day
 
     def __repr__(self):
-        return f"{self._day},{self._month}"
+        return f"{self._day}.{self._month}"
