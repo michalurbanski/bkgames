@@ -2,6 +2,7 @@ from copy import deepcopy
 from typing import List
 from .game_date import GameDate
 from functools import total_ordering
+import bisect
 
 
 # Note: one could argue that this class' responsibilities do not fit the name
@@ -9,16 +10,17 @@ from functools import total_ordering
 @total_ordering
 class TeamModel:
     """
-    Represents team that have dates when it played
+    Represents team that have dates when it played.
     """
 
     def __init__(self, team_code: str):
-        self.team_code = team_code
-        self._games_dates = []
-        self.skip_from_watching = False
+        self.team_code: str = team_code
+        self._games_dates: List[GameDate] = []
+        self.skip_from_watching: bool = False
 
     def add_game(self, game_date: GameDate):
-        self._games_dates.append(game_date)
+        # Inserted games are always sorted
+        bisect.insort(self._games_dates, game_date)
 
     @property
     def games_dates(self) -> List[GameDate]:
@@ -57,16 +59,14 @@ class TeamModel:
             return False
         
         # The same number of games played. The one that played earlier is less.
-        self_games_dates = sorted(self.games_dates) # TODO: sort games already when adding them
-        length = len(self_games_dates)
-        obj_games_dates = sorted(obj.games_dates) # TODO: sort games already when adding them
+        length = len(self.games_dates)
 
         for i in range(length):
             minus_index = -(i+1)
-            if self_games_dates[minus_index] == obj_games_dates[minus_index]:
+            if self.games_dates[minus_index] == obj.games_dates[minus_index]:
                 continue
 
-            if self_games_dates[minus_index] < obj_games_dates[minus_index]:
+            if self.games_dates[minus_index] < obj.games_dates[minus_index]:
                 return True
             
             return False

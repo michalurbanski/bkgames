@@ -36,9 +36,5 @@ class PastOnlyPlanner:
         # Copy in order not to change input collection.
         copied_teams = deepcopy(teams_history)
 
-        for team in copied_teams:
-            team.games_dates.sort() # TODO: when games will be sorted when adding them, then this won't be nneded
-
-        # After the above sorting, teams are not in order, but dates of games they played are in order.
-
+        # Games may be not in order, but dates of games are in order before this sorting.
         return sorted(copied_teams, reverse=True)
