@@ -37,10 +37,8 @@ class PastOnlyPlanner:
         copied_teams = deepcopy(teams_history)
 
         for team in copied_teams:
-            team.games_dates.sort()
+            team.games_dates.sort() # TODO: when games will be sorted when adding them, then this won't be nneded
 
-        return sorted(
-            copied_teams,
-            key=lambda team: (team.number_of_games_played, team.games_dates[-1]),
-            reverse=True,
-        )
+        # After the above sorting, teams are not in order, but dates of games they played are in order.
+
+        return sorted(copied_teams, reverse=True)

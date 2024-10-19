@@ -57,9 +57,9 @@ class TeamModel:
             return False
         
         # The same number of games played. The one that played earlier is less.
-        self_games_dates = sorted(self.games_dates)
+        self_games_dates = sorted(self.games_dates) # TODO: sort games already when adding them
         length = len(self_games_dates)
-        obj_games_dates = sorted(obj.games_dates)
+        obj_games_dates = sorted(obj.games_dates) # TODO: sort games already when adding them
 
         for i in range(length):
             minus_index = -(i+1)
