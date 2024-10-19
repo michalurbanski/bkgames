@@ -56,6 +56,17 @@ class TestTeamModel:
 
         assert second_team_model < first_team_model
 
-    # TODO: one more test for equal number of games, first the same date, but second game dates different
+    def test_team_model_equal_games_number_then_earlier_played_is_less(self):
+        first_team = TeamModel("bos")
+        second_team = TeamModel("nyk")
+        game_date_1 = GameDate(month=3, day=15, season_start_month=9)
+        game_date_2 = GameDate(month=4, day=10, season_start_month=9)
+        game_date_3 = GameDate(month=4, day=11, season_start_month=9)
 
-        
+        first_team.add_game(game_date_1)
+        second_team.add_game(game_date_1)
+
+        first_team.add_game(game_date_2)
+        second_team.add_game(game_date_3)
+
+        assert first_team < second_team
