@@ -4,8 +4,19 @@ The application lists teams from the most recently to the least recently watched
 
 Based on the output it can be determined games of which teams to watch next.
 
-# Configuration file (in progress)
-TODO
+Teams to be watched (least watched so far) are displayed at the bottom of the list. The higher the team in the list, the more it has been watched.
+
+# Configuration file
+
+When the application starts, a config file is created in the `~/.bkgames` folder.
+
+Config file in this folder is called `config.json`. You can adjust it to your needs.
+
+Config entries:
+- data_file_regexp - regular expression that specifies how file with input data is discovered in the `~/.bkgames/data` folder 
+- season_start_month - month in which season starts (used for sorting games)
+- allowed_teams - all available teams taken into calculation
+- skipped_teams - allows skipping teams not interesting to watch
 
 # How to use?
 
@@ -39,19 +50,12 @@ python -m unittest
 *Note*: gradually all unit tests will be 'migrated' to pytest.
 
 # Code coverage
-To check code coverage:
-
-```
-coverage run -m unittest
-```
-
-and then:
 
 - To show report in command line:
   ```
   coverage report -m
   ```
-- To show report in html:
+- To generate html report:
   ```
   coverage html
   ```
