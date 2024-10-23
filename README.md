@@ -26,10 +26,20 @@ Go to the application folder and execute:
 python -m bkgames
 ```
 
-# How to install (in progress)
+# How to install
 
-__Note__: this functionality is in progress, which means that you can install app as a package, but it won't work correctly yet.
+In the bkgames folder run:
+```
+poetry build -f sdist
+```
 
+Package is created in the `dist` folder.
+To install it run:
+```
+pip install path_to_tar_gz_file
+```
+
+Legacy method (do not use; just for reference here):
 ```
 python setup.py sdist
 cd dist
