@@ -20,16 +20,12 @@ def run():
 
     logging.info(f"Reading configuration file: {custom_paths.config_path} ...")
 
-    config_reader = ConfigFileReader(custom_paths.config_path)
-    config = config_reader.read()
-
-    data_finder = DataFinder(config, custom_paths)
-    data_file_path = data_finder.find_data_path()
+    config = ConfigFileReader(custom_paths.config_path).read()
+    data_file_path = DataFinder(config, custom_paths).find_data_path()
 
     logging.info(f"Path to the file with data is: {data_file_path}")
 
-    reader = SimpleFileReader(data_file_path)
-    lines = reader.read()
+    lines = SimpleFileReader(data_file_path).read()
 
     print("Printing the least recently played teams at the bottom...")
 
