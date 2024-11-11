@@ -1,9 +1,14 @@
 from typing import List
 
-
 class Config:
-    def __init__(self):
-        pass
+    @classmethod
+    def from_dict(cls, dict: dict) -> 'Config':
+        config = Config()
+        config.data_file_regexp = dict.get("data_file_regexp", "")
+        config.allowed_teams = dict.get("allowed_teams", [])
+        config.season_start_month = dict.get("season_start_month", 0)
+        config.skipped_teams = dict.get("skipped_teams", [])
+        return config
 
     @property
     def data_file_regexp(self) -> str:
