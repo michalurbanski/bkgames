@@ -10,20 +10,26 @@ from bkgames.gameshistory import GamesHistory
 from bkgames.planners import PastOnlyPlanner
 from bkgames.dataenhancers import NotYetPlayedEnhancer, SkipTeamsEnhancer
 import logging
+import logging.config
+import os
 
-logging.basicConfig(level=logging.WARNING)  # should use config file, in which level will be defined
-
+# Location relative to the file. Ensures that the path to the config file
+# is correct even after the app installation.
+script_dir = os.path.dirname(__file__)
+logging_config_path = os.path.join(script_dir, "logging.ini")
+logging.config.fileConfig(logging_config_path)
+logger = logging.getLogger(__name__)
 
 def run():
     custom_paths = CustomPaths()
     Initializer(custom_paths).initialize()
 
-    logging.info(f"Reading configuration file: {custom_paths.config_path} ...")
+    logger.info(f"Reading configuration file: {custom_paths.config_path} ...")
 
     config = ConfigFileReader(custom_paths.config_path).read()
     data_file_path = DataFinder(config, custom_paths).find_data_path()
 
-    logging.info(f"Path to the file with data is: {data_file_path}")
+    logger.info(f"Path to the file with data is: {data_file_path}")
 
     lines = SimpleFileReader(data_file_path).read()
 
