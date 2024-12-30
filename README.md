@@ -16,7 +16,7 @@ Config entries:
 - data_file_regexp - regular expression that specifies how file with input data is discovered in the `~/.bkgames/data` folder 
 - season_start_month - month in which season starts (used for sorting games)
 - allowed_teams - all available teams taken into calculation
-- skipped_teams - allows skipping teams not interesting to watch *(when teams to watch are listed results in an additional annotation to skip this team from watching)*
+- skipped_teams - allows skipping teams not interesting to watch *(when teams to watch are listed, results in an additional annotation to skip this team from watching)*
 
 # Better way to install
 With poetry, run:
