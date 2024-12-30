@@ -25,7 +25,6 @@ class GamesHistory:
     # that is not used by this method, but this key used in a different logic,
     # so it cannot be removed from the passed object.
 
-    # TODO: date is not a datetime, it's a GameDate
     def _add_game(
         self, home_team: str, away_team: str, game_date: GameDate, **kwargs
     ):  # pylint: disable=unused-argument

@@ -16,6 +16,7 @@ class GameDate:
     """
 
     # TODO: in the client of this code, season_start_month should be provided based on the config.json file
+    # TODO: but do we need season_start_month at all?
     def __init__(self, month: int, day: int, season_start_month: int):
         if month < 1 or month > 12:
             raise ValueError("Month must be between 1 and 12")
