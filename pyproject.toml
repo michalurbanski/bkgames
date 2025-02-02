@@ -8,6 +8,7 @@ packages = [{include = "bkgames"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
+pydantic = "^2.10.5"
 
 
 [tool.poetry.group.dev.dependencies]

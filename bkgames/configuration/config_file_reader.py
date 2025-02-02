@@ -13,7 +13,7 @@ class ConfigFileReader:
 
     def read(self) -> Config:
         content = self._read_file()
-        return Config.from_dict(content)
+        return Config.model_validate(content) # model_validate accepts json
 
     def _read_file(self) -> dict:
         with open(self._file_path, "r") as f:
