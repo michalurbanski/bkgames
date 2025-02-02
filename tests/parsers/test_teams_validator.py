@@ -1,10 +1,9 @@
-import unittest
+import pytest
 import datetime
 from bkgames.validators import TeamsValidator
 
 
-class TestTeamsValidator(unittest.TestCase):
-
+class TestTeamsValidator:
     def test_valid_team_maintains_parsing_result(self):
         previous_parsing_result = {
             "home_team": "okc",
@@ -17,8 +16,8 @@ class TestTeamsValidator(unittest.TestCase):
         valid_team_parser = TeamsValidator(valid_teams)
         result, data = valid_team_parser.validate(previous_parsing_result)
 
-        self.assertTrue(result)
-        self.assertEqual(data, previous_parsing_result)
+        assert result == True
+        assert data == previous_parsing_result
 
     def test_invalid_team_marks_line_as_not_parsed_even_if_previously_successful(self):
         previous_parsing_result = {
@@ -31,8 +30,10 @@ class TestTeamsValidator(unittest.TestCase):
         valid_team_parser = TeamsValidator(valid_teams)
         result, data = valid_team_parser.validate(previous_parsing_result)
 
-        self.assertFalse(result)
-        self.assertIsNotNone(data["not_parsed"])
-        self.assertIsNotNone(data["error"])
-        # It's validation based on list, so no traceback expected
-        self.assertRaises(KeyError, lambda: data["traceback"])
+        assert result == False
+        assert data["not_parsed"] is not None
+        assert data["error"] is not None
+
+        # It's validation based on list, so no traceback expected.
+        with pytest.raises(KeyError):
+            data["traceback"]
