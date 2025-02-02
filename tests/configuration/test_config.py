@@ -1,21 +1,29 @@
-import unittest
+import pytest
 from unittest.mock import MagicMock
 from bkgames.configuration import ConfigFileReader
+from pydantic import ValidationError
 
 
-class TestConfig(unittest.TestCase):
-    def test_config_can_have_empty_properties(self):
-        default_season_start_month = 9
+class TestConfig:
+    def test_config_missing_input_property_throws_validation_exception(self):
+        # This is json with missing data.
+        json = {"season_start_month": 9}
 
-        # Mocked json that is normally read from file.
-        json = {"season_start_month": default_season_start_month}
         reader = ConfigFileReader("config.json")
         reader._read_file = MagicMock(return_value=json)
-        config = reader.read()
 
-        # Has only season_start_month property filled in json,
-        # although other properties are available in the object.
-        #
-        # And if other properties' values are missing in the json,
-        # then object creation doesn't fail.
-        self.assertEqual(default_season_start_month, config.season_start_month)
+        with pytest.raises(ValidationError):
+            _ = reader.read()
+
+    def test_config_with_all_properties_validated_success(self):
+        json = {
+                "season_start_month": 9,
+                "data_file_regexp": ".*",
+                "allowed_teams": [],
+                "skipped_teams": [],
+                }
+        
+        reader = ConfigFileReader("config.json")
+        reader._read_file = MagicMock(return_value=json)
+        _ = reader.read()
+    
