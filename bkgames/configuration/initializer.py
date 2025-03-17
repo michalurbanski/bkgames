@@ -1,21 +1,24 @@
 import os
 import shutil
 from .custom_paths import CustomPaths
+from . import constants
 import importlib.resources
 
 
 class Initializer:
-    """Initializes application configuration.
+    """Initializes application configuration, in the application folder,
+    inside the users's home folder.
 
-    - Copies config.json file from the package to user's profile.
+    - Copies config.json file from the package to the user's home folder.
     Users can then easily set their own configuration settings,
     by modifying config.json content,
     - Creates folder for data.
     """
 
     def __init__(self, custom_paths: CustomPaths):
+        # TODO: no need to store these values in separate fields. Looks strange.
         self._application_folder_path = custom_paths.application_folder_path
-        self._config_file_name = custom_paths.config_file_name
+        self._config_file_name = constants.CONFIG_FILE_NAME
         self._config_file_path = custom_paths.config_path
         self._data_folder_path = custom_paths.data_folder_path
 
@@ -26,6 +29,7 @@ class Initializer:
     # TODO: could be further split into smaller methods
     def _copy_config(self) -> None:
         # Get a config.json file from the package.
+        # TODO: replace hardcoded strings, now there's a constants.py file
         config_source_path = importlib.resources.files("bkgames") / "config.json"
 
         if not config_source_path:

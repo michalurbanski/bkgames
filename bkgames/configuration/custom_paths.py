@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from . import constants
 
 
 class CustomPaths:
@@ -16,31 +17,25 @@ class CustomPaths:
     """
 
     def __init__(self):
-        self._configuration_root_path = Path.home() # User's folder
         self._application_folder_path = os.path.join(
-            self._configuration_root_path,
-            ".bkgames",
+            Path.home(),
+            f".{constants.MODULE_NAME}",
         )
-        self._config_file_name = "config.json"
 
     @property
     def application_folder_path(self) -> str:
         return self._application_folder_path
 
     @property
-    def config_file_name(self) -> str:
-        return self._config_file_name
-
-    @property
     def config_path(self) -> str:
         return os.path.join(
             self._application_folder_path,
-            self._config_file_name,
+            constants.CONFIG_FILE_NAME,
         )
 
     @property
     def data_folder_path(self) -> str:
         return os.path.join(
             self._application_folder_path,
-            "data",
+            constants.DATA_FOLDER_NAME,
         )
