@@ -9,15 +9,10 @@ from bkgames.printers import TeamsToWatchPrinter, NotParsedLinesPrinter
 from bkgames.gameshistory import GamesHistory
 from bkgames.planners import PastOnlyPlanner
 from bkgames.dataenhancers import NotYetPlayedEnhancer, SkipTeamsEnhancer
+from bkgames.infrastructure.logging_config import setup_logging
 import logging
-import logging.config
-import os
 
-# Location relative to the file. Ensures that the path to the config file
-# is correct even after the app installation.
-script_dir = os.path.dirname(__file__)
-logging_config_path = os.path.join(script_dir, "logging.ini")
-logging.config.fileConfig(logging_config_path)
+setup_logging()
 logger = logging.getLogger(__name__)
 
 def run():
