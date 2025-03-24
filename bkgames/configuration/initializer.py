@@ -3,7 +3,11 @@ import shutil
 from .custom_paths import CustomPaths
 from . import constants
 import importlib.resources
+from bkgames.infrastructure.logging_config import setup_logging
+import logging
 
+setup_logging()
+logger = logging.getLogger(__name__)
 
 # TODO: improve class description
 class Initializer:
@@ -19,9 +23,10 @@ class Initializer:
     def __init__(self, custom_paths: CustomPaths):
         self._custom_paths = custom_paths
 
+    # TODO: should this be part of __init__?
     def initialize(self) -> None:
         self._copy_config()
-        self._create_data_folder()
+        Initializer._create_folder(self._custom_paths.data_folder_path)
 
     # TODO: could be further split into smaller method
     def _copy_config(self) -> None:
@@ -31,21 +36,20 @@ class Initializer:
         if not config_source_path:
             raise Exception("Cannot find configuration file in the package")
 
-        if not os.path.exists(self._custom_paths.application_folder_path):
-            os.mkdir(self._custom_paths.application_folder_path)
-            print(f"Configuration folder created at {self._custom_paths.application_folder_path}")
+        Initializer._create_folder(self._custom_paths.application_folder_path)
 
         if not os.path.exists(self._custom_paths.config_path):
             shutil.copyfile(config_source_path, self._custom_paths.config_path)
-            print(f"Configuration file initialized. Location: {self._custom_paths.config_path}")
+            logger.info(f"Configuration file initialized. Location: {self._custom_paths.config_path}")
         else:
-            print(
+            logger.info(
                 f"Configuration file already exists. Skipping creation. Location: {self._custom_paths.config_path}"
             )
 
-    def _create_data_folder(self) -> None:
-        if os.path.exists(self._custom_paths.data_folder_path):
-            print(f"Data folder exists at {self._custom_paths.data_folder_path}")
+    @classmethod
+    def _create_folder(cls, path: str) -> None:
+        if os.path.exists(path):
+            logger.info(f"Folder exists at {path}")
         else:
-            os.mkdir(self._custom_paths.data_folder_path)
-            print(f"Data folder created at {self._custom_paths.data_folder_path}")
+            os.makedirs(path) # Creates folders along the way if they do not exist.
+            logger.info(f"Folder created at {path}")
