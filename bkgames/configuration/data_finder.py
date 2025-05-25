@@ -1,10 +1,10 @@
 from .config import Config
-from .custom_paths import CustomPaths
+from .application_paths import ApplicationPaths
 import os, re
 
 
 class DataFinder:
-    def __init__(self, config: Config, paths: CustomPaths) -> None:
+    def __init__(self, config: Config, paths: ApplicationPaths) -> None:
         self._config = config
         self._paths = paths
         self._data_folder_path = self._paths.data_folder_path

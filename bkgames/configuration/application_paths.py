@@ -3,7 +3,7 @@ from pathlib import Path
 from . import constants
 
 
-class CustomPaths:
+class ApplicationPaths:
     """
     Paths are not configurable because there's no need to in this simple app.
     They could be taken from .json file, if ever needed.

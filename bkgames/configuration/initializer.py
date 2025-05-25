@@ -1,6 +1,6 @@
 import os
 import shutil
-from .custom_paths import CustomPaths
+from .application_paths import ApplicationPaths
 from . import constants
 import importlib.resources
 from bkgames.infrastructure import setup_logging
@@ -21,7 +21,7 @@ class Initializer:
     - Creates folder for data.
     """
 
-    def __init__(self, custom_paths: CustomPaths):
+    def __init__(self, custom_paths: ApplicationPaths):
         self._custom_paths = custom_paths
 
     # TODO: should this be part of __init__?

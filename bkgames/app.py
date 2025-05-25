@@ -1,7 +1,12 @@
 # (info) With implicit packages it would work like this.
 #        So the specific file name would have to be provided.
 # from bkgames.configuration.config_file_reader import Config
-from bkgames.configuration import ConfigFileReader, Initializer, CustomPaths, DataFinder
+from bkgames.configuration import (
+    ConfigFileReader,
+    Initializer,
+    ApplicationPaths,
+    DataFinder,
+)
 from bkgames.readers import SimpleFileReader
 from bkgames.parsers import FileParser, TeamFrequencyParser
 from bkgames.validators import TeamsValidator
@@ -17,13 +22,13 @@ logger = logging.getLogger(__name__)
 
 
 def run():
-    custom_paths = CustomPaths()
-    Initializer(custom_paths).initialize()
+    app_paths = ApplicationPaths()
+    Initializer(app_paths).initialize()
 
-    logger.info(f"Reading configuration file: {custom_paths.config_path} ...")
+    logger.info(f"Reading configuration file: {app_paths.config_path} ...")
 
-    config = ConfigFileReader(custom_paths.config_path).read()
-    data_file_path = DataFinder(config, custom_paths).find_data_path()
+    config = ConfigFileReader(app_paths.config_path).read()
+    data_file_path = DataFinder(config, app_paths).find_data_path()
 
     logger.info(f"Path to the file with data is: {data_file_path}")
 
