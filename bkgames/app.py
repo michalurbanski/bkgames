@@ -9,11 +9,12 @@ from bkgames.printers import TeamsToWatchPrinter, NotParsedLinesPrinter
 from bkgames.gameshistory import GamesHistory
 from bkgames.planners import PastOnlyPlanner
 from bkgames.dataenhancers import NotYetPlayedEnhancer, SkipTeamsEnhancer
-from bkgames.infrastructure.logging_config import setup_logging
+from bkgames.infrastructure import setup_logging
 import logging
 
 setup_logging()
 logger = logging.getLogger(__name__)
+
 
 def run():
     custom_paths = CustomPaths()
@@ -53,7 +54,6 @@ def run():
         NotParsedLinesPrinter(file_parser.not_parsed_lines),
     ]
 
-    for printer in printers:
-        printer.print()
+    [printer.print() for printer in printers]
 
     print("Program finished.")
