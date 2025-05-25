@@ -5,15 +5,18 @@ from . import constants
 
 class CustomPaths:
     """
-    Paths are not configurable because there's no need to.
-    They could be taken from .json file though, if ever needed.
+    Paths are not configurable because there's no need to in this simple app.
+    They could be taken from .json file, if ever needed.
 
-    Data for the application is / should be stored in the .bkgames/data folder inside
-    user's folder.
-    Inside the .bkgames folder, there should be config.json file.
+    Data for the application and configuration files are stored in the user's home folder,
+    in the .bkgames subfolder.
+    The structure in the .bkgames folder is:
+    - config.json
+    - data/
 
-    If there's no config.json file, then it's initialized with the default data
-    when the application runs for the first time.
+    This structure is created when the application runs for the first time.
+    - You can change values in config.json file.
+    - You should fill in the data in the data folder with your own data files.
     """
 
     def __init__(self):
