@@ -1,5 +1,5 @@
 import logging.config
-import importlib.resources
+from importlib.resources import files, as_file
 from bkgames.configuration import constants
 
 _logging_configured = False
@@ -10,9 +10,10 @@ def setup_logging():
     global _logging_configured
     if not _logging_configured:
         # Locate logging config file that is in the package root.
-        with importlib.resources.path(
-            constants.MODULE_NAME, constants.LOGGING_CONFIG_FILE_NAME
-        ) as logging_config_path:
-            logging.config.fileConfig(logging_config_path)
+        source = files(constants.MODULE_NAME).joinpath(
+            constants.LOGGING_CONFIG_FILE_NAME
+        )
+        with as_file(source) as logging_config_file:
+            logging.config.fileConfig(logging_config_file)
 
         _logging_configured = True
