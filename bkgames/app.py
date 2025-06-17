@@ -49,13 +49,14 @@ def run():
         TeamFrequencyParser(config.season_start_month),
         TeamsValidator(config.allowed_teams),
     )
+    # TODO: file_parser.run() could just return parsed lines - it would look nicer - both parsed and not parsed as an object of a class that does not exist yet.
     file_parser.run()
 
     teams_history = GamesHistory().build_teams_history(file_parser.parsed_lines)
     teams_to_watch = PastOnlyPlanner().get_teams_to_watch(teams_history)
 
-    # Enhancers could use chain of responsibility pattern. But there's no need to
-    # do it in this simple app.
+    # Enhancers could use chain of responsibility pattern.
+    # It would be an overkill to do it in this simple app.
     not_yet_played_enhancer = NotYetPlayedEnhancer()
     teams_to_watch = not_yet_played_enhancer.enhance_data(teams_to_watch, config)
 
