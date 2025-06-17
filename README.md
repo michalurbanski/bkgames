@@ -66,6 +66,10 @@ pytest
 
 # Code coverage
 
+- To generate code coverage report:
+  ```
+  coverage run -m pytest
+  ```
 - To show report in command line:
   ```
   coverage report -m
