@@ -24,7 +24,7 @@ class Initializer:
     def __init__(self, custom_paths: ApplicationPaths):
         self._custom_paths = custom_paths
 
-    # TODO: should this be part of __init__?
+    # TODO: should this be part of __init__? it would be easier than to remember to call this method.
     def initialize(self) -> None:
         self._copy_config()
         Initializer._create_folder(self._custom_paths.data_folder_path)

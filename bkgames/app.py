@@ -36,13 +36,12 @@ def load_data(
 def run():
     app_paths = ApplicationPaths()
     Initializer(app_paths).initialize()
+    config_file_path = app_paths.config_path
 
-    logger.info(f"Reading configuration file: {app_paths.config_path} ...")
+    logger.info(f"Reading configuration file: {config_file_path} ...")
 
-    config = ConfigFileReader(app_paths.config_path).read()
+    config = ConfigFileReader(config_file_path).read()
     lines = load_data(config, app_paths, logger)
-
-    print("Printing the least recently played teams at the bottom...")
 
     file_parser = FileParser(
         lines,
@@ -67,6 +66,8 @@ def run():
         TeamsToWatchPrinter(teams_to_watch),
         NotParsedLinesPrinter(file_parser.not_parsed_lines),
     ]
+
+    print("Printing the least recently played teams at the bottom...")
 
     [printer.print() for printer in printers]
 

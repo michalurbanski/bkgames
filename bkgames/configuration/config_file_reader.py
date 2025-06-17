@@ -6,6 +6,7 @@ class ConfigFileReader:
     """Reads and parses the configuration file.
 
     The configuration file is expected to be a JSON file.
+    See config.json file in this project for reference.
     """
 
     def __init__(self, file_path: str):
@@ -13,7 +14,7 @@ class ConfigFileReader:
 
     def read(self) -> Config:
         content = self._read_file()
-        return Config.model_validate(content) # model_validate accepts json
+        return Config.model_validate(content)  # model_validate accepts json
 
     def _read_file(self) -> dict:
         with open(self._file_path, "r") as f:
