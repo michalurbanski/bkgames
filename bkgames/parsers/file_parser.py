@@ -1,12 +1,25 @@
 from typing import List
+from dataclasses import dataclass
+from bkgames.parsers import LineParserBase
 
-# TODO: change name of this class
+
+# TODO: extract to a separate file
+@dataclass
+class FileParsingResult:
+    parsed_lines: List[dict]
+    not_parsed_lines: List[dict]
 
 
+# TODO: continue with changing this class below, lines should not be passed in the constructor.
+# TODO: instead they should be passed to the run method. and then both parsed and not parsed returned in an object of class defined above.
+
+
+# TODO: change name of this class (?)
 class FileParser:
     """Goes through each line of input file and performs operation on it"""
 
-    def __init__(self, lines: List[str], lines_parser, teams_validator):
+    # TODO: last parameter should also have a type
+    def __init__(self, lines: List[str], lines_parser: LineParserBase, teams_validator):
         self._lines = lines
         self._lines_parser = lines_parser
         self._teams_validator = teams_validator

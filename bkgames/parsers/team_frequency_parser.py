@@ -1,10 +1,11 @@
 from bkgames.models import GameDate
+from bkgames.parsers import LineParserBase
 import re
 import traceback
 from typing import Tuple
 
 
-class TeamFrequencyParser:
+class TeamFrequencyParser(LineParserBase):
     def __init__(self, season_start_month: int):
         self._season_start_month = season_start_month
 
