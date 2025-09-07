@@ -9,6 +9,7 @@ class TeamFrequencyParser(LineParserBase):
     def __init__(self, season_start_month: int):
         self._season_start_month = season_start_month
 
+    # TODO: instead of a dict, it should return strongly-typed models (?)
     def parse(self, line: str) -> Tuple[bool, dict]:
         """
         Expected format is day.month (without year); day and/or month can be 1 or 2 digits.

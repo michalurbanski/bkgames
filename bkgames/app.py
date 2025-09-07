@@ -41,17 +41,15 @@ def run():
     logger.info(f"Reading configuration file: {config_file_path} ...")
 
     config = ConfigFileReader(config_file_path).read()
-    lines = load_data(config, app_paths, logger)
+    input_lines = load_data(config, app_paths, logger)
 
     file_parser = FileParser(
-        lines,
         TeamFrequencyParser(config.season_start_month),
         TeamsValidator(config.allowed_teams),
     )
-    # TODO: file_parser.run() could just return parsed lines - it would look nicer - both parsed and not parsed as an object of a class that does not exist yet.
-    file_parser.run()
+    lines = file_parser.run(input_lines)
 
-    teams_history = GamesHistory().build_teams_history(file_parser.parsed_lines)
+    teams_history = GamesHistory().build_teams_history(lines.parsed_lines)
     teams_to_watch = PastOnlyPlanner().get_teams_to_watch(teams_history)
 
     # Enhancers could use chain of responsibility pattern.
@@ -64,7 +62,7 @@ def run():
 
     printers = [
         TeamsToWatchPrinter(teams_to_watch),
-        NotParsedLinesPrinter(file_parser.not_parsed_lines),
+        NotParsedLinesPrinter(lines.not_parsed_lines),
     ]
 
     print("Printing the least recently played teams at the bottom...")
