@@ -5,7 +5,8 @@ from bkgames.validators import TeamsValidator
 
 # TODO: change name of this class (?) -> it parses input lines, not file ?
 class FileParser:
-    """Goes through each line of input file and performs operation on it"""
+    """FileParser parses lines using a validator.
+    If validator check doesn't pass, then lines is added to not parsed lines."""
 
     def __init__(
         self,
@@ -16,8 +17,10 @@ class FileParser:
         self._teams_validator = teams_validator
 
     def run(self, lines: List[str]) -> FileParsingResult:
-        """Goes through each line and parses it according to specified rules,
-        or adds to not parsed lines.
+        """Goes through each line and parses it according to specified rules.
+
+        If successful, then adds to the parsed lines list.
+        If parsing failed, then adds to the not parsed lines list.
         """
 
         results = FileParsingResult()

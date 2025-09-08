@@ -24,6 +24,7 @@ def file_parser(
     return FileParser(team_frequency_parser, teams_validator)
 
 
+# Based on the https://docs.pytest.org/en/stable/example/parametrize.html#different-options-for-test-ids
 testdata = [
     pytest.param(
         [
