@@ -24,40 +24,43 @@ def file_parser(
     return FileParser(team_frequency_parser, teams_validator)
 
 
-# TODO: this could be now array tests
-class TestFileParser:
-    def test_parsed_file_has_parsed_lines_collection(self, file_parser: FileParser):
-        lines = [
+testdata = [
+    pytest.param(
+        [
             "DONE - Nba game 20.10 hou at lal -> hou",
             "DONE - Nba game 22.10 nyk at mil -> mil",
-        ]
+        ],
+        2,
+        0,
+        id="_validLines_parsedCorrectly",
+    ),
+    pytest.param(
+        ["1", "2"],
+        0,
+        2,
+        id="_invalidLines_notParsed",
+    ),
+    pytest.param(
+        ["DONE - Nba game 20.10 hou at lal -> hou", "1"],
+        1,
+        1,
+        id="_mixedLines_oneParsedOneNotParsed",
+    ),
+    pytest.param(
+        ["DONE - Nba game 20.10 hwu at lal -> hwu"],
+        0,
+        1,
+        id="_invalidTeam_isNotParsed",
+    ),
+]
 
-        results = file_parser.run(lines)
 
-        assert len(results.parsed_lines) == 2
-
-    def test_parsed_file_has_not_parsed_lines(self, file_parser: FileParser):
-        lines = ["1", "2"]
-
-        results = file_parser.run(lines)
-
-        assert len(results.not_parsed_lines) == 2
-
-    def test_parsed_file_has_both_parsed_and_not_parsed_lines(
-        self, file_parser: FileParser
+class TestFileParser:
+    @pytest.mark.parametrize("lines, parsed, not_parsed", testdata)
+    def test_parametrized(
+        self, file_parser: FileParser, lines: str, parsed: int, not_parsed: int
     ):
-        lines = ["DONE - Nba game 20.10 hou at lal -> hou", "1"]
-
         results = file_parser.run(lines)
 
-        assert len(results.parsed_lines) == 1
-        assert len(results.not_parsed_lines) == 1
-
-    def test_line_correctly_parsed_but_with_invalid_team_is_treated_as_not_parsed(
-        self, file_parser: FileParser
-    ):
-        lines = ["DONE - Nba game 20.10 hwu at lal -> hwu"]
-
-        results = file_parser.run(lines)
-
-        assert len(results.not_parsed_lines) == 1
+        assert len(results.parsed_lines) == parsed
+        assert len(results.not_parsed_lines) == not_parsed
