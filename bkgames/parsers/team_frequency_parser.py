@@ -6,7 +6,7 @@ from typing import Tuple
 
 
 class TeamFrequencyParser(LineParserBase):
-    def __init__(self, season_start_month: int):
+    def __init__(self, season_start_month: int = 9):
         self._season_start_month = season_start_month
 
     # TODO: instead of a dict, it should return strongly-typed models (?)

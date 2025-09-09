@@ -2,15 +2,13 @@ import pytest
 from bkgames.parsers import TeamFrequencyParser, FileParser
 from bkgames.validators import TeamsValidator
 
-SEASON_START_MONTH = 9
-
 
 @pytest.fixture
 def team_frequency_parser() -> TeamFrequencyParser:
-    return TeamFrequencyParser(SEASON_START_MONTH)
+    return TeamFrequencyParser()
 
 
-# TODO: shouldn't the class be now called TeamValidator (singular)?
+# TODO: shouldn't the class be now called TeamValidator (singular)? Actually it validates both teams, so might be ok.
 @pytest.fixture
 def teams_validator() -> TeamsValidator:
     return TeamsValidator(["hou", "lal", "nyk", "mil"])
