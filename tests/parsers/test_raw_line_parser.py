@@ -1,5 +1,5 @@
 import pytest
-from bkgames.parsers import TeamFrequencyParser, FileParser
+from bkgames.parsers import TeamFrequencyParser, RawLineParser
 from bkgames.validators import TeamsValidator
 
 
@@ -15,11 +15,11 @@ def teams_validator() -> TeamsValidator:
 
 
 @pytest.fixture
-def file_parser(
+def raw_line_parser(
     team_frequency_parser: TeamFrequencyParser,
     teams_validator: TeamsValidator,
-) -> FileParser:
-    return FileParser(team_frequency_parser, teams_validator)
+) -> RawLineParser:
+    return RawLineParser(team_frequency_parser, teams_validator)
 
 
 # Based on the https://docs.pytest.org/en/stable/example/parametrize.html#different-options-for-test-ids
@@ -54,12 +54,12 @@ testdata = [
 ]
 
 
-class TestFileParser:
+class TestRawLineParser:
     @pytest.mark.parametrize("lines, parsed, not_parsed", testdata)
     def test_parametrized(
-        self, file_parser: FileParser, lines: str, parsed: int, not_parsed: int
+        self, raw_line_parser: RawLineParser, lines: str, parsed: int, not_parsed: int
     ):
-        results = file_parser.run(lines)
+        results = raw_line_parser.run(lines)
 
         assert len(results.parsed_lines) == parsed
         assert len(results.not_parsed_lines) == not_parsed

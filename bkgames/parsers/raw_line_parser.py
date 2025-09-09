@@ -3,10 +3,9 @@ from bkgames.parsers import LineParserBase, FileParsingResult
 from bkgames.validators import TeamsValidator
 
 
-# TODO: change name of this class (?) -> it parses input lines, not file ?
-class FileParser:
-    """FileParser parses lines using a validator.
-    If validator check doesn't pass, then lines is added to not parsed lines."""
+class RawLineParser:
+    """RawLineParser parses lines using a validator.
+    If validator check doesn't pass, then line is added to not parsed lines."""
 
     def __init__(
         self,
@@ -38,16 +37,3 @@ class FileParser:
                 results.not_parsed_lines.append(data)
 
         return results
-
-    # @property
-    # def parsed_lines(self) -> List[dict]:
-    #     """Each dictionary entry has the following keys:
-
-    #     Returns:
-    #         List of the following dictionaries (home_team, away_team, data, line)
-    #     """
-    #     return self._parsed_lines
-
-    # @property
-    # def not_parsed_lines(self) -> List[dict]:
-    #     return self._not_parsed_lines

@@ -10,7 +10,7 @@ from bkgames.configuration import (
 )
 from bkgames.configuration.config import Config
 from bkgames.readers import SimpleFileReader
-from bkgames.parsers import FileParser, TeamFrequencyParser
+from bkgames.parsers import RawLineParser, TeamFrequencyParser
 from bkgames.validators import TeamsValidator
 from bkgames.printers import TeamsToWatchPrinter, NotParsedLinesPrinter
 from bkgames.gameshistory import GamesHistory
@@ -43,7 +43,7 @@ def run():
     config = ConfigFileReader(config_file_path).read()
     input_lines = load_data(config, app_paths, logger)
 
-    file_parser = FileParser(
+    file_parser = RawLineParser(
         TeamFrequencyParser(config.season_start_month),
         TeamsValidator(config.allowed_teams),
     )
