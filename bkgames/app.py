@@ -47,9 +47,9 @@ def run():
         TeamFrequencyParser(config.season_start_month),
         TeamsValidator(config.allowed_teams),
     )
-    lines = file_parser.run(input_lines)
+    parsing_result = file_parser.run(input_lines)
 
-    teams_history = GamesHistory().build_teams_history(lines.parsed_lines)
+    teams_history = GamesHistory().build_teams_history(parsing_result.parsed_lines)
     teams_to_watch = PastOnlyPlanner().get_teams_to_watch(teams_history)
 
     # Enhancers could use chain of responsibility pattern.
@@ -62,7 +62,7 @@ def run():
 
     printers = [
         TeamsToWatchPrinter(teams_to_watch),
-        NotParsedLinesPrinter(lines.not_parsed_lines),
+        NotParsedLinesPrinter(parsing_result.not_parsed_lines),
     ]
 
     print("Printing the least recently played teams at the bottom...")
