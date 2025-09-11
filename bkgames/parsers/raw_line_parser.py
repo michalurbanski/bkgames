@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 from bkgames.parsers import LineParserBase, FileParsingResult
 from bkgames.validators import TeamsValidator
 
@@ -25,15 +25,18 @@ class RawLineParser:
         results = FileParsingResult()
 
         for line in lines:
-            # TODO: data is passed twice below? + if/else could be simplified?
-            parsing_status, parsed_data = self._lines_parser.parse(line)
+            parsing_status, parsed_data = self._parse_line(line)
             if parsing_status:
-                validation_status, data = self._teams_validator.validate(parsed_data)
-                if validation_status:
-                    results.parsed_lines.append(data)
-                else:
-                    results.not_parsed_lines.append(data)
+                results.parsed_lines.append(parsed_data)
             else:
                 results.not_parsed_lines.append(parsed_data)
 
         return results
+
+    # TODO: here this return type could be also improved
+    def _parse_line(self, line: str) -> Tuple[bool, dict]:
+        parsing_status, parsed_data = self._lines_parser.parse(line)
+        if parsing_status:
+            return self._teams_validator.validate(parsed_data)
+
+        return parsing_status, parsed_data
