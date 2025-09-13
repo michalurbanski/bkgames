@@ -5,6 +5,8 @@ from bkgames.models import TeamModel
 
 
 class NotYetPlayedEnhancer:
+    # TODO: it would be easier to test if it received the list of allowed teams than getting config.allowed teams
+    # TODO: write unit tests for this method
     def enhance_data(self, input: List[TeamModel], config: Config) -> List[TeamModel]:
         """
         When team has not played yet, it's not in the results (input to this function).
@@ -26,8 +28,7 @@ class NotYetPlayedEnhancer:
 
     @staticmethod
     def _find_difference(first: List[str], second: List[str]) -> List[str]:
-        """First list has to be a superset of the second list to get any meaningful results.
-        """
+        """First list has to be a superset of the second list to get any meaningful results."""
 
         # Note: there's even better solution to find difference:
         # https://stackoverflow.com/a/3462202
