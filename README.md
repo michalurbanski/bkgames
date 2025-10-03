@@ -66,15 +66,13 @@ pytest
 
 # Code coverage
 
-- To generate code coverage report:
+- To run tests and generate a code coverage report in the terminal:
   ```
-  coverage run -m pytest
+  pytest --cov
   ```
-- To show report in command line:
-  ```
-  coverage report -m
-  ```
+  *(It works correctly because of the .coveragerc file in the root folder.)*
+
 - To generate html report:
   ```
-  coverage html
+  pytest --cov --cov-report html
   ```

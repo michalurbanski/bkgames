@@ -9,13 +9,13 @@ packages = [{include = "bkgames"}]
 [tool.poetry.dependencies]
 python = "^3.12"
 pydantic = "^2.10.5"
-pytest-cov = "^6.2.1"
 
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
 coverage = "^7.3.2"
 pytest = "^8.3.3"
+pytest-cov = "^6.2.1"
 
 [build-system]
 requires = ["poetry-core"]

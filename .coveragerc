@@ -1,4 +1,10 @@
 [run]
+source = bkgames
+
+[report]
+# Fail if coverage drops below 50%
+fail_under = 50
+
+show_missing = True
 omit =
-    # ingore all test cases in tests/
-    tests/*
+    */__init__.py
