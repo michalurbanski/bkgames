@@ -1,20 +1,18 @@
 import copy
 from typing import List
-from bkgames.configuration import Config
 from bkgames.models import TeamModel
 
 
 class NotYetPlayedEnhancer:
-    # TODO: it would be easier to test if it received the list of allowed teams than getting config.allowed teams
-    # TODO: write unit tests for this method
-    def enhance_data(self, input: List[TeamModel], config: Config) -> List[TeamModel]:
+    def enhance_data(
+        self, input: List[TeamModel], allowed_teams: List[str]
+    ) -> List[TeamModel]:
         """
         When team has not played yet, it's not in the results (input to this function).
         Enhance results by adding those teams that have 0 games played,
         so that they show up in the results.
         """
 
-        allowed_teams = config.allowed_teams
         results = copy.deepcopy(input)
 
         if len(allowed_teams) != len(input):

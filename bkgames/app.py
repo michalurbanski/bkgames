@@ -55,9 +55,12 @@ def run():
     # Enhancers could use chain of responsibility pattern.
     # It would be an overkill to do it in this simple app.
     not_yet_played_enhancer = NotYetPlayedEnhancer()
-    teams_to_watch = not_yet_played_enhancer.enhance_data(teams_to_watch, config)
+    teams_to_watch = not_yet_played_enhancer.enhance_data(
+        teams_to_watch, config.allowed_teams
+    )
 
     skip_teams_enhancer = SkipTeamsEnhancer()
+    # TODO: here also do not pass config, but pass property that's needed?
     teams_to_watch = skip_teams_enhancer.enhance_data(teams_to_watch, config)
 
     printers = [
