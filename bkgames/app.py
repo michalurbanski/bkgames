@@ -60,8 +60,9 @@ def run():
     )
 
     skip_teams_enhancer = SkipTeamsEnhancer()
-    # TODO: here also do not pass config, but pass property that's needed?
-    teams_to_watch = skip_teams_enhancer.enhance_data(teams_to_watch, config)
+    teams_to_watch = skip_teams_enhancer.enhance_data(
+        teams_to_watch, config.skipped_teams
+    )
 
     printers = [
         TeamsToWatchPrinter(teams_to_watch),
