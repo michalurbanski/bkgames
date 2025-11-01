@@ -8,9 +8,17 @@ class NotYetPlayedEnhancer:
         self, input: List[TeamModel], allowed_teams: List[str]
     ) -> List[TeamModel]:
         """
-        When team has not played yet, it's not in the results (input to this function).
+        When a team has not played yet, it's not in the results (input to this function).
         Enhance results by adding those teams that have 0 games played,
         so that they show up in the results.
+
+        Args:
+            input: List of TeamModel objects representing teams that have played games
+            allowed_teams: List of team codes (strings) that are allowed in the application
+
+        Returns:
+            List[TeamModel]: Enhanced list of teams including both teams that have played
+            and teams that haven't played yet (with 0 games)
         """
 
         results = copy.deepcopy(input)
