@@ -70,6 +70,7 @@ def run():
 
     print("Printing the least recently played teams at the bottom...")
 
-    [printer.print() for printer in printers]
+    for printer in printers:
+        printer.print()
 
     print("Program finished.")
