@@ -24,4 +24,20 @@ class TestNotYetPlayedEnhancer:
         assert results[0].team_code == "bos"
         assert results == played_teams
 
-    # TODO: add negative test cases - empty lists + allowed teams collection smaller than played
+    def test_enhance_data_empty_input_list_returns_all_teams(self):
+        played_teams = []
+        allowed_teams = ["bos"]
+
+        enhancer = NotYetPlayedEnhancer()
+        results = enhancer.enhance_data(played_teams, allowed_teams)
+
+        assert len(results) == len(allowed_teams)
+
+    def test_enhance_data_all_teams_already_in_results(self):
+        played_teams = [TeamModel("bos"), TeamModel("nyk")]
+        allowed_teams = ["bos"]  # this list is smaller than input list
+
+        enhancer = NotYetPlayedEnhancer()
+        results = enhancer.enhance_data(played_teams, allowed_teams)
+
+        assert len(results) == len(played_teams)
