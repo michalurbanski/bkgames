@@ -23,12 +23,15 @@ class NotYetPlayedEnhancer:
 
         results = copy.deepcopy(input)
 
-        if len(allowed_teams) != len(input):
-            teams_that_played = [team.team_code for team in input]
-            missing_teams = self._find_difference(allowed_teams, teams_that_played)
+        # No additional teams to be added, all are already in place.
+        if len(allowed_teams) == len(input):
+            return results
 
-            for team in missing_teams:
-                results.append(TeamModel(team))
+        teams_that_played = [team.team_code for team in input]
+        missing_teams = self._find_difference(allowed_teams, teams_that_played)
+
+        teams_to_add = [TeamModel(team) for team in missing_teams]
+        results.extend(teams_to_add)
 
         return results
 
