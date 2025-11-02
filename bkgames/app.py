@@ -52,8 +52,7 @@ def run():
     teams_history = GamesHistory().build_teams_history(parsing_result.parsed_lines)
     teams_to_watch = PastOnlyPlanner().get_teams_to_watch(teams_history)
 
-    # Enhancers could use chain of responsibility pattern.
-    # It would be an overkill to do it in this simple app.
+    # TODO: if enhancer got its variable argument in the initializer, it could be a list iteration
     not_yet_played_enhancer = NotYetPlayedEnhancer()
     teams_to_watch = not_yet_played_enhancer.enhance_data(
         teams_to_watch, config.allowed_teams
