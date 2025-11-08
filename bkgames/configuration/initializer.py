@@ -24,36 +24,40 @@ class Initializer:
     def __init__(self, custom_paths: ApplicationPaths):
         self._custom_paths = custom_paths
 
-    # TODO: should this be part of __init__? it would be easier than to remember to call this method.
     def initialize(self) -> None:
-        self._copy_config()
-        Initializer._create_folder(self._custom_paths.data_folder_path)
+        self._initialize_config()
+        Initializer.create_folder(self._custom_paths.data_folder_path, logger)
 
-    # TODO: could be further split into smaller method
-    def _copy_config(self) -> None:
+    def _initialize_config(self) -> None:
+        config_file_name = constants.CONFIG_FILE_NAME
+
         # Get a config.json file from the package.
         config_source_path = (
-            importlib.resources.files(constants.MODULE_NAME)
-            / constants.CONFIG_FILE_NAME
+            importlib.resources.files(constants.MODULE_NAME) / config_file_name
         )
 
         if not config_source_path:
-            raise Exception("Cannot find configuration file in the package")
-
-        Initializer._create_folder(self._custom_paths.application_folder_path)
-
-        if not os.path.exists(self._custom_paths.config_path):
-            shutil.copyfile(config_source_path, self._custom_paths.config_path)
-            logger.info(
-                f"Configuration file initialized. Location: {self._custom_paths.config_path}"
+            raise FileNotFoundError(
+                f"Cannot find the configuration file '{config_file_name}' in the package"
             )
+
+        Initializer.create_folder(self._custom_paths.application_folder_path, logger)
+        Initializer.copy_file(
+            config_source_path, self._custom_paths.config_path, logger
+        )
+
+    @staticmethod
+    def copy_file(source_path: str, target_path: str, logger) -> None:
+        if not os.path.exists(target_path):
+            shutil.copyfile(source_path, target_path)
+            logger.info(f"Configuration file initialized. Location: {target_path}")
         else:
             logger.info(
-                f"Configuration file already exists. Skipping creation. Location: {self._custom_paths.config_path}"
+                f"Configuration file already exists. Skipping creation. Location: {target_path}"
             )
 
-    @classmethod
-    def _create_folder(cls, path: str) -> None:
+    @staticmethod
+    def create_folder(path: str, logger) -> None:
         if os.path.exists(path):
             logger.info(f"Folder exists at {path}")
         else:
