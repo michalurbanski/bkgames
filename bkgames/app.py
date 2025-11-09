@@ -12,10 +12,15 @@ from bkgames.configuration.config import Config
 from bkgames.readers import SimpleFileReader
 from bkgames.parsers import RawLineParser, TeamFrequencyParser
 from bkgames.validators import TeamsValidator
+from bkgames.models import TeamModel
 from bkgames.printers import TeamsToWatchPrinter, NotParsedLinesPrinter
 from bkgames.gameshistory import GamesHistory
 from bkgames.planners import PastOnlyPlanner
-from bkgames.dataenhancers import NotYetPlayedEnhancer, SkipTeamsEnhancer
+from bkgames.dataenhancers import (
+    EnhancerProtocol,
+    NotYetPlayedEnhancer,
+    SkipTeamsEnhancer,
+)
 from bkgames.infrastructure import setup_logging
 import logging
 
@@ -23,7 +28,7 @@ setup_logging()
 logger = logging.getLogger(__name__)
 
 
-def load_data(
+def _load_data(
     config: Config, app_paths: ApplicationPaths, logger: logging.Logger
 ) -> List[str]:
     data_file_path = DataFinder(config, app_paths).find_data_path()
@@ -31,6 +36,20 @@ def load_data(
     logger.info(f"Path to the file with data is: {data_file_path}")
 
     return SimpleFileReader(data_file_path).read()
+
+
+def _enhance_teams_to_watch(
+    teams_to_watch: List[TeamModel], config: Config
+) -> List[TeamModel]:
+    enhancers: List[EnhancerProtocol] = [
+        NotYetPlayedEnhancer(config.allowed_teams),
+        SkipTeamsEnhancer(config.skipped_teams),
+    ]
+
+    for enhancer in enhancers:
+        teams_to_watch = enhancer.enhance_data(teams_to_watch)
+
+    return teams_to_watch
 
 
 def run():
@@ -41,7 +60,7 @@ def run():
     logger.info(f"Reading configuration file: {config_file_path} ...")
 
     config = ConfigFileReader(config_file_path).read()
-    input_lines = load_data(config, app_paths, logger)
+    input_lines = _load_data(config, app_paths, logger)
 
     file_parser = RawLineParser(
         TeamFrequencyParser(config.season_start_month),
@@ -51,17 +70,7 @@ def run():
 
     teams_history = GamesHistory().build_teams_history(parsing_result.parsed_lines)
     teams_to_watch = PastOnlyPlanner().get_teams_to_watch(teams_history)
-
-    # TODO: if enhancer got its variable argument in the initializer, it could be a list iteration
-    not_yet_played_enhancer = NotYetPlayedEnhancer()
-    teams_to_watch = not_yet_played_enhancer.enhance_data(
-        teams_to_watch, config.allowed_teams
-    )
-
-    skip_teams_enhancer = SkipTeamsEnhancer()
-    teams_to_watch = skip_teams_enhancer.enhance_data(
-        teams_to_watch, config.skipped_teams
-    )
+    teams_to_watch = _enhance_teams_to_watch(teams_to_watch, config)
 
     printers = [
         TeamsToWatchPrinter(teams_to_watch),

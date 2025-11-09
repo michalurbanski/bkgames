@@ -4,9 +4,10 @@ from bkgames.models import TeamModel
 
 
 class NotYetPlayedEnhancer:
-    def enhance_data(
-        self, input: List[TeamModel], allowed_teams: List[str]
-    ) -> List[TeamModel]:
+    def __init__(self, allowed_teams: List[str]):
+        self._allowed_teams = allowed_teams
+
+    def enhance_data(self, input: List[TeamModel]) -> List[TeamModel]:
         """
         When a team has not played yet, it's not in the results (input to this function).
         Enhance results by adding those teams that have 0 games played,
@@ -14,7 +15,6 @@ class NotYetPlayedEnhancer:
 
         Args:
             input: List of TeamModel objects representing teams that have played games
-            allowed_teams: List of team codes (strings) that are allowed in the application
 
         Returns:
             List[TeamModel]: Enhanced list of teams including both teams that have played
@@ -24,11 +24,11 @@ class NotYetPlayedEnhancer:
         results = copy.deepcopy(input)
 
         # No additional teams to be added, all are already in place.
-        if len(allowed_teams) == len(input):
+        if len(self._allowed_teams) == len(input):
             return results
 
         teams_that_played = [team.team_code for team in input]
-        missing_teams = self._find_difference(allowed_teams, teams_that_played)
+        missing_teams = self._find_difference(self._allowed_teams, teams_that_played)
 
         teams_to_add = [TeamModel(team) for team in missing_teams]
         results.extend(teams_to_add)

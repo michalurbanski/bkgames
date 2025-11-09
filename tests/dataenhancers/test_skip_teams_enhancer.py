@@ -7,8 +7,8 @@ class TestSkipTeamsEnhancer:
         played_teams = [TeamModel("bos")]
         skipped_teams = []
 
-        enhancer = SkipTeamsEnhancer()
-        results = enhancer.enhance_data(played_teams, skipped_teams)
+        enhancer = SkipTeamsEnhancer(skipped_teams)
+        results = enhancer.enhance_data(played_teams)
 
         assert len(results) == len(played_teams)
 
@@ -16,8 +16,8 @@ class TestSkipTeamsEnhancer:
         played_teams = [TeamModel("bos")]
         skipped_teams = ["bos"]
 
-        enhancer = SkipTeamsEnhancer()
-        results = enhancer.enhance_data(played_teams, skipped_teams)
+        enhancer = SkipTeamsEnhancer(skipped_teams)
+        results = enhancer.enhance_data(played_teams)
 
         assert len(results) == len(played_teams)
         assert all(team.skip_from_watching for team in results)

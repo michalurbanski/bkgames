@@ -1,2 +1,3 @@
+from .enhancer_protocol import EnhancerProtocol
 from .not_yet_played_enhancer import NotYetPlayedEnhancer
 from .skip_teams_enhancer import SkipTeamsEnhancer

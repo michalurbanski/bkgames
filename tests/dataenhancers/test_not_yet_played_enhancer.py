@@ -7,8 +7,8 @@ class TestNotYetPlayedEnhancer:
         played_teams = [TeamModel("bos")]
         allowed_teams = ["bos", "tor"]
 
-        enhancer = NotYetPlayedEnhancer()
-        results = enhancer.enhance_data(played_teams, allowed_teams)
+        enhancer = NotYetPlayedEnhancer(allowed_teams)
+        results = enhancer.enhance_data(played_teams)
 
         assert len(results) == len(allowed_teams)
         assert any(team.team_code == "tor" for team in results)
@@ -17,8 +17,8 @@ class TestNotYetPlayedEnhancer:
         played_teams = [TeamModel("bos")]
         allowed_teams = ["bos"]
 
-        enhancer = NotYetPlayedEnhancer()
-        results = enhancer.enhance_data(played_teams, allowed_teams)
+        enhancer = NotYetPlayedEnhancer(allowed_teams)
+        results = enhancer.enhance_data(played_teams)
 
         assert len(results) == len(allowed_teams)
         assert results[0].team_code == "bos"
@@ -28,8 +28,8 @@ class TestNotYetPlayedEnhancer:
         played_teams = []
         allowed_teams = ["bos"]
 
-        enhancer = NotYetPlayedEnhancer()
-        results = enhancer.enhance_data(played_teams, allowed_teams)
+        enhancer = NotYetPlayedEnhancer(allowed_teams)
+        results = enhancer.enhance_data(played_teams)
 
         assert len(results) == len(allowed_teams)
 
@@ -37,7 +37,7 @@ class TestNotYetPlayedEnhancer:
         played_teams = [TeamModel("bos"), TeamModel("nyk")]
         allowed_teams = ["bos"]  # this list is smaller than input list
 
-        enhancer = NotYetPlayedEnhancer()
-        results = enhancer.enhance_data(played_teams, allowed_teams)
+        enhancer = NotYetPlayedEnhancer(allowed_teams)
+        results = enhancer.enhance_data(played_teams)
 
         assert len(results) == len(played_teams)
