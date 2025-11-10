@@ -59,13 +59,19 @@ class TestGameDate:
         with pytest.raises(ValueError):
             GameDate(month=month, day=day, season_start_month=season_start_month)
 
-    def test_incorrect_start_month_raises_exception(self):
+    @pytest.mark.parametrize(
+        "month,day,season_start_month",
+        [
+            (1, 1, 13),
+            (1, 1, -1),
+            (1, 1, 0),
+        ],
+    )
+    def test_incorrect_start_month_raises_exception(
+        self, month, day, season_start_month
+    ):
         with pytest.raises(ValueError):
-            GameDate(month=1, day=1, season_start_month=13)
-        with pytest.raises(ValueError):
-            GameDate(month=1, day=1, season_start_month=-1)
-        with pytest.raises(ValueError):
-            GameDate(month=1, day=1, season_start_month=0)
+            GameDate(month=month, day=day, season_start_month=season_start_month)
 
     def test_sort(self):
         a = list()
