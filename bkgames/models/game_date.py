@@ -4,15 +4,14 @@ from functools import total_ordering
 @total_ordering
 class GameDate:
     """
-    This class is used to store information about date when game was played.
+    This class is used to store information about the date on which the game was played.
 
     In the input data, there's no information about year.
-    But in the application games have to be sorted in order in a way that
-    games played e.g. in month=10 are earlier than games played in month=2.
+    In the application games have to be sorted in order in a way that
+    games played e.g. in the month=10 are earlier than games played in the month=2.
 
-    Which exact year this is not exactly important, as it would be only for sorting purposes.
-    So, this missing piece of data can be just simulated with another piece of information
-    that could be used for sorting purposes. In this class it's called _sort_value.
+    To account for the fact that (usually) games played in month=2, are later than in month=10,
+    a new variable is introduced for sorting purposes - _sort_value.
     """
 
     # TODO: in the client of this code, season_start_month should be provided based on the config.json file
@@ -33,7 +32,7 @@ class GameDate:
         self._day = day
         self._sort_value: int = self.__determine_sort_value__(month, season_start_month)
         # a trick to reliably sort both month and day as ints
-        self._monthday = self._month * 100 + self._day  # e.g. dec 23 is 1223
+        self._monthday = self._month * 100 + self._day  # e.g. dec 23 becomes 1223
 
     def __determine_sort_value__(self, month: int, season_start_month: int) -> int:
         if month < season_start_month:

@@ -6,6 +6,7 @@ from typing import Tuple
 
 
 class TeamFrequencyParser(LineParserBase):
+    # TODO: season_start_month should come from config, instead of being hardcoded here?
     def __init__(self, season_start_month: int = 9):
         self._season_start_month = season_start_month
 
