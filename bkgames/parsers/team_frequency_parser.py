@@ -6,8 +6,10 @@ from typing import Tuple
 
 
 class TeamFrequencyParser(LineParserBase):
-    # TODO: season_start_month should come from config, instead of being hardcoded here?
-    def __init__(self, season_start_month: int = 9):
+    def __init__(self, season_start_month: int):
+        if season_start_month < 1 or season_start_month > 12:
+            raise ValueError(f"Incorrect season start month: {season_start_month}")
+
         self._season_start_month = season_start_month
 
     # TODO: instead of a dict, it should return strongly-typed models (?)

@@ -5,7 +5,8 @@ from bkgames.validators import TeamsValidator
 
 @pytest.fixture
 def team_frequency_parser() -> TeamFrequencyParser:
-    return TeamFrequencyParser()
+    season_start_month = 9
+    return TeamFrequencyParser(season_start_month)
 
 
 # TODO: shouldn't the class be now called TeamValidator (singular)? Actually it validates both teams, so might be ok.
