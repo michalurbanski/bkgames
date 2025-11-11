@@ -9,7 +9,6 @@ def team_frequency_parser() -> TeamFrequencyParser:
     return TeamFrequencyParser(season_start_month)
 
 
-# TODO: shouldn't the class be now called TeamValidator (singular)? Actually it validates both teams, so might be ok.
 @pytest.fixture
 def teams_validator() -> TeamsValidator:
     return TeamsValidator(["hou", "lal", "nyk", "mil"])

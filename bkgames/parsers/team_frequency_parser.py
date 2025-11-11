@@ -21,14 +21,12 @@ class TeamFrequencyParser(LineParserBase):
         Returns: (status, data) - bool, dict
         """
         try:
-            date_search = re.findall(r"\d{1,2}\.\d{1,2}", line, flags=re.I)
-            if (
-                not date_search
-            ):  # if list is empty, i.e. searched expression was not found
+            # date_search_result is expected to be "day.month", e.g. 12.01, 3.5
+            date_search_result = re.findall(r"\d{1,2}\.\d{1,2}", line, flags=re.I)
+            if not date_search_result:
                 raise ValueError("Line does not have correct data")
 
-            # date_search is expected to be 'day.month'
-            found_date = date_search[0]  # first occurrence of a date
+            found_date = date_search_result[0]  # first occurrence of a date
             (day, month) = found_date.split(".")
 
             game_date = GameDate(

@@ -14,7 +14,6 @@ class GameDate:
     a new variable is introduced for sorting purposes - _sort_value.
     """
 
-    # TODO: in the client of this code, season_start_month should be provided based on the config.json file
     # TODO: but do we need season_start_month at all?
     def __init__(self, month: int, day: int, season_start_month: int):
         if month < 1 or month > 12:
