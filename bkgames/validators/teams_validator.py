@@ -1,44 +1,38 @@
-from typing import List, Tuple
+from typing import List
+from .validation_result import ValidationResult, InvalidResult, ValidResult
 
 
 class TeamsValidator:
-    """Checks if team code is valid, based on configuration list"""
+    """Checks if team code is valid, based on passed configuration list."""
 
     def __init__(self, valid_team_codes: List[str]):
-        """valid_team_codes - List of valid team codes"""
+        """
+        Args:
+            valid_team_codes: List of valid team codes
+        """
         self._valid_team_codes = valid_team_codes
 
-    def validate(self, previous_parsing_result: dict) -> Tuple[bool, dict]:
-        """previous_parsing_result is a dictionary as follows
-
-        {
-            'home_team',
-            'away_team',
-            'date',
-            'line'
-
-        }
+    def validate(self, input: str, home_team: str, away_team: str) -> ValidationResult:
+        """Line that was parsed correctly may not pass validator check.
+        In that case it becomes a NotParsedLine.
         """
 
-        teams = [
-            previous_parsing_result["home_team"],
-            previous_parsing_result["away_team"],
-        ]
+        teams = [home_team, away_team]
 
-        invalid_teams = self._validate_teams(teams)
+        invalid_teams = self._get_invalid_teams(teams)
 
         if invalid_teams:
-            return (
-                False,
-                {
-                    "not_parsed": previous_parsing_result["line"],
-                    "error": "Incorrect team codes found: {}".format(invalid_teams),
-                },
+            return InvalidResult(
+                input=input,
+                message="Incorrect team codes found: {}".format(invalid_teams),
             )
-        else:
-            return (True, previous_parsing_result)
 
-    def _validate_teams(self, teams: list) -> list:
+        return ValidResult(
+            input=input,
+            message="",
+        )
+
+    def _get_invalid_teams(self, teams: list) -> list:
         invalid_teams = []
 
         for team in teams:
@@ -54,4 +48,7 @@ class TeamsValidator:
 
     @staticmethod
     def _is_team_codes_match(first: str, second: str) -> bool:
-        return first.upper() == second.upper()
+        if first is None or second is None:
+            return False
+
+        return first.strip().casefold() == second.strip().casefold()
