@@ -16,3 +16,4 @@ class InvalidResult(ValidationResult):
 @dataclass
 class ValidResult(ValidationResult):
     is_valid: bool = True
+    message: str = ""

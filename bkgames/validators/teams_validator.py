@@ -29,7 +29,6 @@ class TeamsValidator:
 
         return ValidResult(
             input=input,
-            message="",
         )
 
     def _get_invalid_teams(self, teams: list) -> list:
