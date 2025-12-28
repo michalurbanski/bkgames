@@ -2,9 +2,12 @@ from bkgames.models import GameDate
 from bkgames.parsers import LineParserBase
 import re
 import traceback
-from typing import Tuple
+from typing import Union
+from .parse_result import ParsedLine, NotParsedLine
 
 
+# TODO: name of this class is not clear. And it inherits from LineParserBase.
+# Its name doesn't say anything that it's a type of line parser.
 class TeamFrequencyParser(LineParserBase):
     def __init__(self, season_start_month: int):
         if season_start_month < 1 or season_start_month > 12:
@@ -12,8 +15,8 @@ class TeamFrequencyParser(LineParserBase):
 
         self._season_start_month = season_start_month
 
-    # TODO: instead of a dict, it should return strongly-typed models (?)
-    def parse(self, line: str) -> Tuple[bool, dict]:
+    # TODO: it might be a bad idea to return union. It's not easy to handle it later. Asserting by types is needed then.
+    def parse(self, line: str) -> Union[ParsedLine, NotParsedLine]:
         """
         Expected format is day.month (without year); day and/or month can be 1 or 2 digits.
         Example: DONE - Nba game 16.10 bos at phi -> bos?
@@ -42,15 +45,15 @@ class TeamFrequencyParser(LineParserBase):
             remaining_list = list(filter(None, split))  # Clean empty strings
         except Exception as e:
             tb = traceback.format_exc()
-            return (False, {"not_parsed": line, "error": e, "traceback": tb})
+            return NotParsedLine(
+                raw_line=line,
+                error=e,
+                traceback=tb,
+            )
 
-        return (
-            True,
-            {
-                # remaining_list[1] is 'at' word that can be skipped
-                "home_team": remaining_list[0],
-                "away_team": remaining_list[2],
-                "game_date": game_date,
-                "line": line,
-            },
+        return ParsedLine(
+            away_team=remaining_list[0],
+            home_team=remaining_list[2],
+            game_date=game_date,
+            raw_line=line,
         )

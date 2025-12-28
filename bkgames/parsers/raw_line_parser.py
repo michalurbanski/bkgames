@@ -1,6 +1,9 @@
-from typing import List, Tuple
-from bkgames.parsers import LineParserBase, FileParsingResult
+from typing import List, Union
+from bkgames.parsers import ParsedLine, NotParsedLine, LineParserBase, FileParsingResult
 from bkgames.validators import TeamsValidator
+
+# TODO: importing TeamsValidator causes import from from this file, which imports TeamValidator
+# pytest tests/parsers/test_team_validator.py
 
 
 class RawLineParser:
@@ -25,18 +28,32 @@ class RawLineParser:
         results = FileParsingResult()
 
         for line in lines:
-            parsing_status, parsed_data = self._parse_line(line)
-            if parsing_status:
-                results.parsed_lines.append(parsed_data)
+            parse_result = self._parse_line(line)
+            if isinstance(parse_result, ParsedLine):
+                results.parsed_lines.append(parse_result)
             else:
-                results.not_parsed_lines.append(parsed_data)
+                results.not_parsed_lines.append(parse_result)
 
         return results
 
-    # TODO: here this return type could be also improved
-    def _parse_line(self, line: str) -> Tuple[bool, dict]:
-        parsing_status, parsed_data = self._lines_parser.parse(line)
-        if parsing_status:
-            return self._teams_validator.validate(parsed_data)
+    def _parse_line(self, line: str) -> Union[ParsedLine, NotParsedLine]:
+        parse_result = self._lines_parser.parse(line)
 
-        return parsing_status, parsed_data
+        # If line was parsed correctly, it may still have wrong teams in it.
+        # Additional validation for team codes in the parsed line is required.
+        if isinstance(parse_result, ParsedLine):
+            validation_result = self._teams_validator.validate(
+                parse_result.raw_line,
+                parse_result.home_team,
+                parse_result.away_team,
+            )
+            if not validation_result.is_valid:
+                # TODO: this is messy - how this type is constructed does not fit usage here.
+                # Maybe it fits in the TeamFrequencyParser, but definitely not here.
+                return NotParsedLine(
+                    parse_result.raw_line,
+                    None,
+                    "error occurred during parsing",
+                )
+
+        return parse_result
